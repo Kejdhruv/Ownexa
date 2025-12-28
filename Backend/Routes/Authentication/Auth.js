@@ -4,10 +4,9 @@ import CreateUser from "../../Database/Users/CreateUser.js";
 import LoginUser from "../../Database/Users/LoginUser.js";
 import cookieParser from "cookie-parser";
 
-app.use(cookieParser());
 dotenv.config();
 const router = express.Router();
-
+router.use(cookieParser());
 router.post("/auth/signup", async (req, res) => {
   try {
     const { Email, Password, Username } = req.body;
