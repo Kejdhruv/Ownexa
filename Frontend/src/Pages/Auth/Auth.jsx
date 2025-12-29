@@ -114,7 +114,7 @@ const AuthPage = () => {
       <div className="right-side">
         <div className="right-overlay">
           <form className="form-box" onSubmit={handleSubmit}>
-            <h2>{isSignUp ? "Sign Up" : "Login"}</h2>
+            <h3>{isSignUp ? "Make your Step " : "Welcome Back"}</h3>
 
             {isSignUp && (
               <input
