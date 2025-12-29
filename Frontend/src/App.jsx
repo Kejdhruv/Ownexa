@@ -1,10 +1,11 @@
 import React from "react"
 import { Routes , Route} from "react-router"
+import AuthPage from "./Pages/Auth/Auth"
 function App() {
 
   return (
     <Routes>
-       <Route path="/" element={<h1>Hi Bitches </h1>} />
+       <Route path="/" element={<AuthPage/>} />
   </Routes>
   )
 }
