@@ -1,15 +1,17 @@
 import supabase from "../../SupabaseClient.js";
 
-const ValidateProperty = async (propertyId, data, adminUser) => {
+const ValidateProperty = async (data, adminUser) => {
   if (!data.transactionHash) {
     throw new Error("Minting not confirmed on blockchain");
   }
   if (!data.priceINR || !data.tokenQuantity) {
     throw new Error("Invalid token economics");
   }
+
   const pricePerTokenINR = Math.floor(
     data.priceINR / data.tokenQuantity
   );
+
   const { data: property, error } = await supabase
     .from("properties")
     .update({
@@ -29,12 +31,12 @@ const ValidateProperty = async (propertyId, data, adminUser) => {
       status: "validated",
       is_listed: true
     })
-    .eq("id", propertyId)
+    .eq("id", data.propertyId)
     .select()
     .single();
 
   if (error) throw error;
   return property;
-};
+}; 
 
-export default ValidateProperty;
+export default ValidateProperty; 
