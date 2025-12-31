@@ -14,7 +14,24 @@ contract PropertyToken is ERC1155, Ownable {
         bool active;
     }
 
+    struct Listing {
+        uint256 listingId;
+        uint256 propertyId;
+        uint256 amount;
+        uint256 pricepertoken;       
+        address seller;
+        bool active;
+    }
+
     Property[] public allProperty;
+
+
+    mapping(uint256 => uint256) public primaryRemaining;
+
+
+    uint256 public listingCounter;
+    mapping(uint256 => Listing) public listings;
+
 
     mapping(uint256 => address) public propertyLister;
 
@@ -22,7 +39,6 @@ contract PropertyToken is ERC1155, Ownable {
         ERC1155("")
         Ownable(msg.sender)
     {}
-
     function listProperty(
         uint256 _tokensupply,
         uint256 _pricepertoken,
@@ -44,27 +60,100 @@ contract PropertyToken is ERC1155, Ownable {
         );
 
         propertyLister[propertyId] = msg.sender;
-
         _mint(address(this), propertyId, _tokensupply, "");
+        primaryRemaining[propertyId] = _tokensupply;
+    }
+    function buyTokens(uint256 _propertyId, uint256 _amount) external payable {
+        require(_propertyId < allProperty.length, "Invalid property");
+        require(_amount > 0, "Invalid amount");
+
+        Property storage property = allProperty[_propertyId];
+        require(property.active, "Property not active");
+
+        require(primaryRemaining[_propertyId] >= _amount, "Not enough primary tokens");
+
+        uint256 basePrice = property.pricepertoken * _amount;
+        uint256 commission = (basePrice * 2) / 100;
+        uint256 totalPrice = basePrice + commission;
+
+        require(msg.value == totalPrice, "Incorrect ETH sent");
+        primaryRemaining[_propertyId] -= _amount;
+
+        safeTransferFrom(address(this), msg.sender, _propertyId, _amount, "");
     }
 
-    function buyTokens(uint256 _propertyId, uint256 _amount) external payable {
-    require(_propertyId < allProperty.length, "Invalid property");
-    require(_amount > 0, "Invalid amount");
+    function createListing(
+        uint256 _propertyId,
+        uint256 _amount,
+        uint256 _price
+    ) external {
+        require(_propertyId < allProperty.length, "Invalid property");
+        require(_amount > 0, "Invalid amount");
+        require(_price > 0, "Invalid price");
+        require(balanceOf(msg.sender, _propertyId) >= _amount, "Not enough tokens");
+        uint256 listingId = listingCounter++;
 
-    Property storage property = allProperty[_propertyId];
-    require(property.active, "Property not active");
+        safeTransferFrom(
+            msg.sender,
+            address(this),
+            _propertyId,
+            _amount,
+            ""
+        );
 
-    uint256 available = balanceOf(address(this), _propertyId);
-    require(available >= _amount, "Not enough tokens left");
+        listings[listingId] = Listing({
+            listingId: listingId,
+            propertyId: _propertyId,
+            amount: _amount,
+            pricepertoken: _price,
+            seller: msg.sender,
+            active: true
+        });
+    } 
 
-    uint256 basePrice = property.pricepertoken * _amount;
-    uint256 commission = (basePrice * 2) / 100;
 
-    uint256 totalPrice = basePrice + commission;
+    function cancelListing(uint256 _listingId) external {
+        require(_listingId < listingCounter, "Invalid listing");
 
-    require(msg.value == totalPrice, "Incorrect ETH sent");
+        Listing storage listing = listings[_listingId];
 
-    safeTransferFrom(address(this), msg.sender, _propertyId, _amount, "");
-}
+        require(listing.active, "Listing not active");
+        require(listing.seller == msg.sender, "Not listing owner");
+
+        listing.active = false;
+
+
+        safeTransferFrom(
+            address(this),
+            msg.sender,
+            listing.propertyId,
+            listing.amount,
+            ""
+        );
+    }
+
+    function buyListing(uint256 _listingId) external payable {
+        Listing storage listing = listings[_listingId];
+
+        require(listing.active, "Listing not active");
+
+        uint256 basePrice = listing.pricepertoken * listing.amount;
+        uint256 commission = (basePrice * 2) / 100;
+        uint256 totalPrice = basePrice + commission;
+
+        require(msg.value == totalPrice, "Incorrect ETH sent");
+
+        listing.active = false;
+         
+        uint256 pricetosend = basePrice - commission ; 
+        payable(listing.seller).transfer(pricetosend);
+
+        safeTransferFrom(
+            address(this),
+            msg.sender,
+            listing.propertyId,
+            listing.amount,
+            ""
+        );
+    }
 }
