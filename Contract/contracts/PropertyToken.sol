@@ -2,9 +2,10 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract PropertyToken is ERC1155, Ownable {
+contract PropertyToken is ERC1155, ERC1155Holder, Ownable {
 
     // =========================
     // STRUCTS
@@ -47,6 +48,7 @@ contract PropertyToken is ERC1155, Ownable {
     // =========================
     // EVENTS
     // =========================
+
     event PropertyListed(uint256 indexed propertyId, address indexed owner, uint256 tokenSupply, uint256 pricePerToken);
     event PrimaryTokensBought(uint256 indexed propertyId, address indexed buyer, uint256 amount, uint256 totalPrice);
     event ListingCreated(uint256 indexed listingId, uint256 indexed propertyId, address indexed seller, uint256 amount, uint256 pricePerToken);
@@ -89,6 +91,7 @@ contract PropertyToken is ERC1155, Ownable {
 
         _mint(address(this), propertyId, _tokensupply, "");
         primaryRemaining[propertyId] = _tokensupply;
+
         emit PropertyListed(propertyId, msg.sender, _tokensupply, _pricepertoken);
     }
 
@@ -110,21 +113,15 @@ contract PropertyToken is ERC1155, Ownable {
 
         require(msg.value == totalPrice, "Incorrect ETH sent");
 
-        // pay property owner the base price
-        payable(propertyLister[_propertyId]).transfer(basePrice);
-
+        (bool success1, ) = propertyLister[_propertyId].call{value: basePrice}("");
+        require(success1, "ETH transfer failed");
         accumulatedCommission += commission;
 
         primaryRemaining[_propertyId] -= _amount;
 
-        safeTransferFrom(
-            address(this),
-            msg.sender,
-            _propertyId,
-            _amount,
-            ""
-        );
-        emit PrimaryTokensBought(_propertyId, msg.sender, _amount, msg.value);
+        _safeTransferFrom(address(this), msg.sender, _propertyId, _amount, "");
+
+        emit PrimaryTokensBought(_propertyId, msg.sender, _amount, totalPrice);
     }
 
     // =========================
@@ -144,13 +141,7 @@ contract PropertyToken is ERC1155, Ownable {
 
         uint256 listingId = listingCounter++;
 
-        safeTransferFrom(
-            msg.sender,
-            address(this),
-            _propertyId,
-            _amount,
-            ""
-        );
+        _safeTransferFrom(msg.sender, address(this), _propertyId, _amount, "");
 
         listings[listingId] = Listing({
             listingId: listingId,
@@ -160,6 +151,7 @@ contract PropertyToken is ERC1155, Ownable {
             seller: msg.sender,
             active: true
         });
+
         emit ListingCreated(listingId, _propertyId, msg.sender, _amount, _price);
     }
 
@@ -175,15 +167,10 @@ contract PropertyToken is ERC1155, Ownable {
         require(listing.seller == msg.sender, "Not owner");
 
         listing.active = false;
-        emit ListingCancelled(_listingId, msg.sender);
 
-        safeTransferFrom(
-            address(this),
-            msg.sender,
-            listing.propertyId,
-            listing.amount,
-            ""
-        );
+        _safeTransferFrom(address(this), msg.sender, listing.propertyId, listing.amount, "");
+
+        emit ListingCancelled(_listingId, msg.sender);
     }
 
     // =========================
@@ -203,19 +190,14 @@ contract PropertyToken is ERC1155, Ownable {
         require(msg.value == totalPrice, "Incorrect ETH sent");
 
         accumulatedCommission += commission;
-
         listing.active = false;
-        emit ListingBought(_listingId, msg.sender, msg.value);
 
-        payable(listing.seller).transfer(basePrice);
+        (bool success2, ) = listing.seller.call{value: basePrice}("");
+        require(success2, "ETH transfer failed");
 
-        safeTransferFrom(
-            address(this),
-            msg.sender,
-            listing.propertyId,
-            listing.amount,
-            ""
-        );
+        _safeTransferFrom(address(this), msg.sender, listing.propertyId, listing.amount, "");
+
+        emit ListingBought(_listingId, msg.sender, totalPrice);
     }
 
     // =========================
@@ -224,14 +206,13 @@ contract PropertyToken is ERC1155, Ownable {
 
     function settleProperty(uint256 _propertyId) external payable onlyOwner {
         require(_propertyId < allProperty.length, "Invalid property");
-
-        Property storage property = allProperty[_propertyId];
-        require(property.active, "Already settled");
+        require(allProperty[_propertyId].active, "Already settled");
         require(msg.value > 0, "No ETH sent");
 
-        property.active = false;
+        allProperty[_propertyId].active = false;
         settlementPool[_propertyId] = msg.value;
         settled[_propertyId] = true;
+
         emit PropertySettled(_propertyId, msg.value);
     }
 
@@ -247,20 +228,42 @@ contract PropertyToken is ERC1155, Ownable {
         require(userBalance > 0, "No tokens");
 
         uint256 totalSupply = allProperty[_propertyId].tokensupply;
-        uint256 payout = (settlementPool[_propertyId] * userBalance) / totalSupply;
 
+        uint256 payout = (settlementPool[_propertyId] * userBalance) / totalSupply;
+        require(payout > 0, "Nothing to redeem");
+
+        // burn user tokens first
         _burn(msg.sender, _propertyId, userBalance);
-        payable(msg.sender).transfer(payout);
+
+        // reduce pool to prevent double spending
+        settlementPool[_propertyId] -= payout;
+
+        (bool success3, ) = msg.sender.call{value: payout}("");
+        require(success3, "ETH transfer failed");
+
         emit TokensRedeemed(_propertyId, msg.sender, userBalance, payout);
-    } 
+    }
+
+    // =========================
+    // WITHDRAW COMMISSION
+    // =========================
 
     function withdrawCommission() external onlyOwner {
-        require(accumulatedCommission > 0, "No commission to withdraw");
+        require(accumulatedCommission > 0, "No commission");
 
         uint256 amount = accumulatedCommission;
         accumulatedCommission = 0;
 
-        payable(owner()).transfer(amount);
+        (bool success4, ) = owner().call{value: amount}("");
+        require(success4, "ETH transfer failed");
     }
-    
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC1155, ERC1155Holder)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
 }
