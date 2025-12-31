@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract PropertyToken is ERC1155, Ownable {
-    
+
     struct Property {
         uint256 id;
         uint256 tokensupply;
@@ -49,18 +49,22 @@ contract PropertyToken is ERC1155, Ownable {
     }
 
     function buyTokens(uint256 _propertyId, uint256 _amount) external payable {
-        require(_propertyId < allProperty.length, "Invalid property");
-        require(_amount > 0, "Invalid amount");
+    require(_propertyId < allProperty.length, "Invalid property");
+    require(_amount > 0, "Invalid amount");
 
-        Property storage property = allProperty[_propertyId];
-        require(property.active, "Property not active");
+    Property storage property = allProperty[_propertyId];
+    require(property.active, "Property not active");
 
-        uint256 available = balanceOf(address(this), _propertyId);
-        require(available >= _amount, "Not enough tokens left");
+    uint256 available = balanceOf(address(this), _propertyId);
+    require(available >= _amount, "Not enough tokens left");
 
-        uint256 totalprice = property.pricepertoken * _amount;
-        require(msg.value == totalprice, "Incorrect ETH sent");
+    uint256 basePrice = property.pricepertoken * _amount;
+    uint256 commission = (basePrice * 2) / 100;
 
-        safeTransferFrom(address(this), msg.sender, _propertyId, _amount, "");
-    }
+    uint256 totalPrice = basePrice + commission;
+
+    require(msg.value == totalPrice, "Incorrect ETH sent");
+
+    safeTransferFrom(address(this), msg.sender, _propertyId, _amount, "");
+}
 }
