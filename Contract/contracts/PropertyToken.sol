@@ -42,6 +42,8 @@ contract PropertyToken is ERC1155, Ownable {
 
     mapping(uint256 => address) public propertyLister;
 
+    uint256 public accumulatedCommission;
+
     // =========================
     // EVENTS
     // =========================
@@ -107,6 +109,11 @@ contract PropertyToken is ERC1155, Ownable {
         uint256 totalPrice = basePrice + commission;
 
         require(msg.value == totalPrice, "Incorrect ETH sent");
+
+        // pay property owner the base price
+        payable(propertyLister[_propertyId]).transfer(basePrice);
+
+        accumulatedCommission += commission;
 
         primaryRemaining[_propertyId] -= _amount;
 
@@ -195,6 +202,8 @@ contract PropertyToken is ERC1155, Ownable {
 
         require(msg.value == totalPrice, "Incorrect ETH sent");
 
+        accumulatedCommission += commission;
+
         listing.active = false;
         emit ListingBought(_listingId, msg.sender, msg.value);
 
@@ -245,5 +254,14 @@ contract PropertyToken is ERC1155, Ownable {
         emit TokensRedeemed(_propertyId, msg.sender, userBalance, payout);
     } 
 
+    function withdrawCommission(address payable _to) external onlyOwner {
+        require(_to != address(0), "Invalid address");
+        require(accumulatedCommission > 0, "No commission to withdraw");
+
+        uint256 amount = accumulatedCommission;
+        accumulatedCommission = 0;
+
+        _to.transfer(amount);
+    }
     
 }
