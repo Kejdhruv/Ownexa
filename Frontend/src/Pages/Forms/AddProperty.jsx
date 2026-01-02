@@ -98,7 +98,7 @@ export default function AddProperty() {
         <form className="form-grid" onSubmit={handleSubmit}>
           <input
             className="full"
-            name="ownerName"
+            name="ownerName" 
             placeholder="Owner Name"
             onChange={handleChange}
             required
@@ -167,9 +167,10 @@ export default function AddProperty() {
     </div>
   )}
 
-  <button
+  <button 
     type="submit"
-    disabled={loading || !walletAddress}
+              disabled={loading || !walletAddress} 
+              className="SubmitBtn"
   >
     {loading ? "Submitting..." : "Submit for Validation"}
   </button>
@@ -186,19 +187,19 @@ export default function AddProperty() {
 
         <PreviewItem label="Title" value={form.title} />
         <PreviewItem label="BHK" value={form.bhk} />
-        <PreviewItem label="Property Type" value={form.property_type} />
-        <PreviewItem label="Built-up Area" value={form.built_up_area_sqft} />
+        <PreviewItem label="Property Type" value={form.propertyType} />
+        <PreviewItem label="Built-up Area" value={form.builtUpAreaSqFt} />
 
         <PreviewItem
           label="Address"
           value={`${form.address_line}, ${form.city}, ${form.state} - ${form.pincode}`}
         />
 
-        <PreviewItem label="Registry Name" value={form.registry_name} />
-        <PreviewItem label="Registry Number" value={form.registry_number} />
-        <PreviewItem label="Registration Date" value={form.registration_date} />
-        <PreviewItem label="Expected Price (INR)" value={form.expected_price_inr} />
-        <PreviewItem label="Token Name" value={form.token_name} />
+        <PreviewItem label="Registry Name" value={form.registryName} />
+        <PreviewItem label="Registry Number" value={form.registryNumber} />
+        <PreviewItem label="Registration Date" value={form.registrationDate} />
+        <PreviewItem label="Expected Price (INR)" value={form.expectedPriceInr} />
+        <PreviewItem label="Token Name" value={form.tokenName} />
 
         {propertyImages.length > 0 && (
           <div className="preview-card">
