@@ -24,6 +24,7 @@ const ValidateProperty = async (data, adminUser) => {
 
       is_tokenized: true,
       transaction_hash: data.transactionHash,
+      blochainchain_id : data.BlochainchainId , 
 
       validated_by: adminUser.id,
       validated_at: new Date(),

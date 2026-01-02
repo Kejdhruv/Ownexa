@@ -42,7 +42,8 @@ const AddProperty = async (data, user, files) => {
       property_images: propertyImageUrls || [],
       legal_documents: legalDocumentUrls || [],
 
-      status: "pending"
+      status: "pending",
+      blockchain_id : "Not Added Yet" 
     })
     .select()
     .single();
