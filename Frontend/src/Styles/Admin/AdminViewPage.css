@@ -1,0 +1,102 @@
+.admin-pending-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #121214;
+  color: #e5e7eb;
+  font-family: "Inter", system-ui;
+}
+
+.admin-pending-page h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+/* GRID */
+.admin-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.admin-property-card {
+  background: #1C1C1E;
+  border-radius: 18px;
+  padding: 20px;
+  border: 1px solid #2C2C2E;
+  cursor: pointer;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+}
+
+.admin-property-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  border-color: #3A3A3C;
+}
+
+/* HEADER */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.property-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f9fafb;
+  max-width: 70%;
+}
+
+/* STATUS */
+.status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+.status-badge.pending {
+  background: rgba(255, 159, 79, 0.15);
+  color: #FF9F4F;
+}
+
+/* BODY */
+.card-body p {
+  font-size: 13px;
+  color: #d1d5db;
+  margin-bottom: 6px;
+}
+
+.card-body span {
+  color: #9ca3af;
+}
+
+/* FOOTER */
+.card-footer {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.submitted-date {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.review-arrow {
+  font-size: 18px;
+  color: #9ca3af;
+}
+
+/* EMPTY + LOADING */
+.empty-text,
+.admin-loading {
+  color: #9ca3af;
+  font-size: 14px;
+}
