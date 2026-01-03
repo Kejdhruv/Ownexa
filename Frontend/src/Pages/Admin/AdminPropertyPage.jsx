@@ -16,7 +16,6 @@ export default function AdminPropertyPage() {
   const [loading, setLoading] = useState(true);
   const [minting, setMinting] = useState(false);
   const [error, setError] = useState("");
-
   // Admin mint form
   const [tokenName, setTokenName] = useState("");
   const [tokenQuantity, setTokenQuantity] = useState("");
