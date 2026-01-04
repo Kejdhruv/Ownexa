@@ -3,6 +3,7 @@ import { getAuthUser } from "../../Middleware/Middleware.js";
 import PrimaryTransaction from "../../Database/Transactions/Post/PrimaryTransaction.js";
 import FindTransactions from "../../Database/Transactions/Get/FindTransactions.js";
 import Holdings from "../../Database/Investments/Post/Holdings.js";
+import UpdateProperty from "../../Database/Property/Post/UpdateProperty.js";
 
 const router = express.Router();
 
@@ -18,6 +19,7 @@ router.post("/transaction", async (req, res) => {
     const transactionData = req.body;
     const transaction = await PrimaryTransaction( transactionData,  user  ); 
     const holding = await Holdings(transactionData, user); 
+    const property = await UpdateProperty(transactionData);
     return res.status(201).json({
       message: "Transaction successful",
       transaction

@@ -5,6 +5,7 @@ import AddProperty from "./Pages/Forms/AddProperty"
 import AdminViewPage from "./Pages/Admin/AdminViewPage"
 import AdminPropertyPage from "./Pages/Admin/AdminPropertyPage"
 import PrimaryMarket from "./Pages/Market/Primary"
+import PropertyCard from "./Pages/Market/PropertyCard"
 function App() {
 
   return (
@@ -13,7 +14,8 @@ function App() {
       <Route path="/Form" element={<AddProperty />} /> 
       <Route path="/AdminViewPage" element={<AdminViewPage/>} /> 
       <Route path="/AdminProperty/:id" element={<AdminPropertyPage />} /> 
-       <Route path="/PrimaryMarket" element={<PrimaryMarket/>} /> 
+      <Route path="/PrimaryMarket" element={<PrimaryMarket />} /> 
+      <Route path="/Property/:id" element={<PropertyCard/>} /> 
   </Routes>
   )
 }
