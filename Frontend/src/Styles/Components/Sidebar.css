@@ -66,3 +66,43 @@
 .sidebar button:active {
   transform: scale(0.96);
 }
+
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    transform: none;
+    height: 64px;
+    width: 100%;
+
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    padding: 0 16px;
+    border-radius: 0;
+
+    background: rgba(14, 15, 19, 0.85);
+    backdrop-filter: blur(16px);
+
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .dashboard-layout {
+    display: block;
+  }
+
+  .dashboard-content {
+    margin-left: 0 !important;
+    padding-top: 80px; /* space for top bar */
+    width: 100%;
+  }
+}

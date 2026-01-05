@@ -19,7 +19,16 @@ const avatars = [
   avatar6,
   avatar7,
 ];
+function formatTimeAgo(date) {
+  const diff = Date.now() - new Date(date).getTime();
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
 
+  if (minutes < 60) return `${minutes}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  return `${days}d ago`;
+}
 
 export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
@@ -224,37 +233,60 @@ const [recent, setRecent] = useState([]);
           </section>
 
           {/* CARD 4 */}
-         <section className="card full-width-card">
-  <h3>Recent Transactions</h3>
+         <section className="card full-width-card card-transactions">
+  <div className="card-header">
+    <h3>Recent Transactions</h3>
+    <span className="card-subtle">Recent actions</span>
+  </div>
 
-  {recent.length === 0 && (
-    <p className="empty-text">No recent activity</p>
+  {recent.length === 0 ? (
+    <p className="empty-text">No recent transactions</p>
+  ) : (
+    <div className="tx-list">
+      {recent.slice(0, 3).map((tx) => {
+        const total =
+          Number(tx.token_quantity) * Number(tx.price_per_token_inr);
+
+        return (
+          <div key={tx.transaction_hash} className="tx-row">
+            {/* LEFT */}
+            <div className="tx-left">
+              <div className="tx-title">
+                {tx.token_quantity} × {tx.token_name}
+              </div>
+              <div className="tx-price">
+                ₹{tx.price_per_token_inr} per token ·{" "}
+                <span className="tx-sub">{formatTimeAgo(tx.created_at)}</span>
+              </div>
+            </div>
+
+            {/* RIGHT */}
+            <div className="tx-right">
+              <div className="tx-amount">
+                ₹{total.toLocaleString("en-IN")}
+              </div>
+
+              <span className={`tx-status ${tx.status}`}>
+                {tx.status}
+              </span>
+
+              <a
+                href={`https://sepolia.etherscan.io/tx/${tx.transaction_hash}`}
+                target="_blank"
+                rel="noreferrer"
+                className="tx-link"
+                title="View on Etherscan"
+              >
+               View on Etherscan
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   )}
 
-  {recent.map((tx) => (
-    <div key={tx.transaction_hash} className="tx-row">
-      {/* LEFT */}
-      <div className="tx-left">
-        <div className="tx-title">
-          {tx.token_quantity} × {tx.token_name}
-        </div>
-        <div className="tx-sub">
-          ₹{tx.price_per_token_inr} / token
-        </div>
-      </div>
-
-      {/* RIGHT */}
-      <div className="tx-right">
-        <span className={`tx-status ${tx.status}`}>
-          {tx.status}
-        </span>
-        <span className="tx-hash">
-          {tx.transaction_hash.slice(0, 6)}…
-          {tx.transaction_hash.slice(-4)}
-        </span>
-      </div>
-    </div>
-  ))}
+  <span className="view-hint">View all transactions</span>
 </section>
         </div>
   );
