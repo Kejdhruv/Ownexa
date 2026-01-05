@@ -330,11 +330,6 @@ position: relative;
   transform: translateX(4px);
   opacity: 1;
 } 
-@keyframes frost-drift {
-  from { background-position: 0% 0%; }
-  to { background-position: 100% 100%; }
-}
-
 .card-holding::before {
   background-size: 200% 200%;
   animation: frost-drift 12s linear infinite;
@@ -343,6 +338,12 @@ position: relative;
 
 
 /* Card 3 */
+
+.card-property::before,
+.card-holding::before {
+  background-size: 200% 200%;
+  animation: frost-drift 18s ease-in-out infinite;
+} 
 
 .card-property::before {
   content: "";
@@ -559,5 +560,17 @@ position: relative;
   to {
     transform: translateY(32px) scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes frost-drift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
   }
 }
