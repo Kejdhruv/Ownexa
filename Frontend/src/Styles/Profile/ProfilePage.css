@@ -12,7 +12,6 @@
 /* =========================
    BASE CARD
 ========================= */
-
 .card {
   background: linear-gradient(180deg, #14161b, #101218);
   border-radius: 22px;
@@ -24,9 +23,8 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
-/* =========================
-   HERO CARD
-========================= */
+
+/* CARD1 */ 
 
 .hero-card {
   position: relative;
@@ -38,10 +36,6 @@
 
   overflow: visible;
 }
-
-/* =========================
-   HERO TEXT
-========================= */
 
 .hero-left {
   position: relative;
@@ -67,10 +61,6 @@
   margin-bottom: 6px;
 }
 
-/* =========================
-   PORTRAIT GLOW (GRADIENT)
-========================= */
-
 .hero-avatar::before {
   content: "";
   position: absolute;
@@ -84,18 +74,12 @@
   z-index: -1;
 }
 
-/* =========================
-   HERO AVATAR (PORTRAIT)
-========================= */
-
 .hero-avatar {
   position: absolute;
   right: 48px;
   bottom: 32px ;
- 
   z-index: 1;
   pointer-events: none;
-
   animation: avatar-rise 0.9s ease-out forwards;
 }
 
@@ -109,8 +93,6 @@
   animation: avatar-image 0.9s ease-out forwards;
   box-shadow:
     0 50px 120px rgba(0, 0, 0, 0.863);
-
-    /* 🔥 THIS IS THE FIX */
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
@@ -124,13 +106,6 @@
     black 100%
   );
 }
-
-
-
-/* =========================
-   METRICS STRIP (GLASS)
-========================= */
-
 .metrics-strip {
   position: relative;
   margin-top: 40px;
@@ -138,25 +113,17 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
-
-  max-width: 420px;        /* 🔥 keeps it in name column */
-  
+  max-width: 420px;        
   padding: 18px 20px;
-
   background: rgba(20, 22, 27, 0.65);
   backdrop-filter: blur(18px);
-
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.06);
-
   z-index: 3;
 }
-/* =========================
-   METRIC
-========================= */
 
 .metric {
-      transition: transform 0.2s ease, background 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease;
   border-radius: 12px;
   padding: 6px 0;
   text-align: center;
@@ -179,16 +146,201 @@
   text-transform: uppercase;
 }
 
+.join-timer-corner {
+  position: absolute;
+  left: 24px;
+  bottom: 20px;
+  z-index: 4;
+  font-size: 11px;
+  color: #9ca3af;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(20, 22, 27, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  pointer-events: none; 
+}
+
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(99, 102, 241, 0.08),
+    transparent 40%
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.hero-avatar img {
+  animation: avatar-scale-in 0.9s cubic-bezier(.22,.61,.36,1) forwards;
+} 
+
+
 /* =========================
-   CARD 2 / 3
+   CARD 2 
 ========================= */
 
-.card h3 {
-  font-size: 16px;
+.card-holding::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    135deg,
+    rgba(96, 165, 250, 0.08),
+    rgba(96, 165, 250, 0.02) 40%,
+    transparent 70%
+  );
+
+  border-radius: inherit;
+  pointer-events: none;
+} 
+.card-holding {
+  margin-top: 40px; 
+   background:
+    linear-gradient(180deg, rgba(20, 22, 27, 0.9), rgba(16, 18, 24, 0.9)),
+    rgba(96, 165, 250, 0.04);
+
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+   border: 1px solid rgba(96, 165, 250, 0.18);
+  padding: 22px;
+position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #24262d;
+ box-shadow:
+  0 18px 50px rgba(0, 0, 0, 0.5),
+  0 0 0 1px rgba(96, 165, 250, 0.06),
+  inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 15px;
   font-weight: 600;
   color: #f9fafb;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
+
+.card-subtle {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+.investment-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.investment-amount {
+  font-size: 28px; 
+  font-weight: 600;
+  color: #f9fafb;
+  margin: 8px 0 16px;
+  letter-spacing: -0.02em;
+}
+
+.preview-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
+}
+
+
+.preview-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 12px;
+  background: rgba(96, 165, 250, 0.06);
+  border-radius: 12px;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+.preview-list li:hover {
+  background: rgba(96, 165, 250, 0.1);
+  transform: translateY(-1px);
+}
+
+
+.item-meta {
+  font-size: 12px;
+  font-weight: 500;
+  color: #9ca3af;
+
+  padding: 4px 9px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.view-hint {
+  margin-top: auto;
+  align-self: flex-end;
+
+  font-size: 12px;
+  color: #93c5fd;
+  opacity: 0.9;
+
+  padding-top: 12px;
+  cursor: default;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  transition: color 0.2s ease;
+}
+
+.view-hint::after {
+  content: "→";
+  display: inline-block;
+
+  font-size: 13px;
+  opacity: 0.7;
+
+  transform: translateX(0);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.view-hint:hover {
+  text-decoration: underline;
+  color: #bfdbfe;
+}
+
+.view-hint:hover::after {
+  transform: translateX(4px);
+  opacity: 1;
+} 
+@keyframes frost-drift {
+  from { background-position: 0% 0%; }
+  to { background-position: 100% 100%; }
+}
+
+.card-holding::before {
+  background-size: 200% 200%;
+  animation: frost-drift 12s linear infinite;
+}
+
+
 
 .card p {
   font-size: 14px;
@@ -270,9 +422,7 @@
   color: #9ca3af;
 }
 
-/* =========================
-   ANIMATIONS
-========================= */
+/* Animations */
 
 @keyframes avatar-rise {
   from {
@@ -296,43 +446,6 @@
   }
 }
 
-.join-timer-corner {
-  position: absolute;
-  left: 24px;
-  bottom: 20px;
-
-  z-index: 4;
-
-  font-size: 11px;
-  color: #9ca3af;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-
-  padding: 6px 10px;
-  border-radius: 999px;
-
-  background: rgba(20, 22, 27, 0.6);
-  backdrop-filter: blur(10px);
-
-  border: 1px solid rgba(255, 255, 255, 0.06);
-
-  pointer-events: none; /* feels system-level */
-}
-
-.hero-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background: linear-gradient(
-    120deg,
-    rgba(99, 102, 241, 0.08),
-    transparent 40%
-  );
-
-  pointer-events: none;
-  border-radius: inherit;
-}
-
 @keyframes avatar-scale-in {
   from {
     transform: translateY(40px) scale(0.96);
@@ -342,8 +455,4 @@
     transform: translateY(32px) scale(1);
     opacity: 1;
   }
-}
-
-.hero-avatar img {
-  animation: avatar-scale-in 0.9s cubic-bezier(.22,.61,.36,1) forwards;
 }
