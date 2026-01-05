@@ -1,22 +1,5 @@
 /* =========================
-   PAGE WRAPPER
-========================= */
-
-.dashboard-wrapper {
-  min-height: 100vh;
-  background: #0e0f13;
-  display: flex;
-  font-family: "Inter", system-ui;
-}
-
-.dashboard-main {
-  margin-left: 120px; 
-  padding: 32px;
-  width: 100%;
-}
-
-/* =========================
-   GRID LAYOUT
+   PAGE / GRID
 ========================= */
 
 .content-grid {
@@ -25,6 +8,10 @@
   grid-template-rows: auto auto;
   gap: 24px;
 }
+
+/* =========================
+   BASE CARD
+========================= */
 
 .card {
   background: linear-gradient(180deg, #14161b, #101218);
@@ -37,77 +24,128 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
+/* =========================
+   HERO CARD
+========================= */
 
 .hero-card {
   position: relative;
   grid-row: span 2;
-  overflow: hidden;
 
-  padding-bottom: 96px; /* space for metrics strip */
-}
+  min-height: 520px;
+  padding-bottom: 180px;
+  margin-top: 40px;
 
-.hero-left h1 {
-  font-size: 26px;
-  font-weight: 600;
-  color: #f9fafb;
-  margin-bottom: 6px;
-}
-
-.hero-left p {
-  font-size: 13px;
-  color: #9ca3af;
-  margin-bottom: 4px;
+  overflow: visible;
 }
 
 /* =========================
-   HERO AVATAR (FLOATING)
+   HERO TEXT
+========================= */
+
+.hero-left {
+  position: relative;
+  z-index: 3;
+
+  padding-top: 48px;
+  padding-left: 48px;
+  max-width: 60%;
+}
+
+.hero-left h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #f9fafb;
+  margin-bottom: 10px;
+}
+
+.hero-left p {
+  font-size: 14px;
+  color: #9ca3af;
+  margin-bottom: 6px;
+}
+
+/* =========================
+   PORTRAIT GLOW (GRADIENT)
+========================= */
+
+.hero-avatar::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    circle at bottom,
+    rgba(99, 102, 241, 0.35),
+    transparent 70%
+  );
+  filter: blur(40px);
+  z-index: -1;
+}
+
+/* =========================
+   HERO AVATAR (PORTRAIT)
 ========================= */
 
 .hero-avatar {
   position: absolute;
-  right: 28px;
-  bottom: 64px;
+  right: 48px;
+  bottom: 32px ;
+
+  z-index: 1;
   pointer-events: none;
+
+  animation: avatar-rise 0.9s ease-out forwards;
 }
 
 .hero-avatar img {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
+  width: 330px;
+  height: auto;
+  border-radius: 24px 24px 10px 10px;
   object-fit: cover;
-
+  transform: translateY(32px);
+  opacity: 0;
+  animation: avatar-image 0.9s ease-out forwards;
   box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.75);
+    0 50px 120px rgba(0, 0, 0, 0.8);
 }
 
 /* =========================
-   METRICS STRIP (OVERLAY)
+   METRICS STRIP (GLASS)
 ========================= */
 
 .metrics-strip {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: 48px;
+  right: 48px;
+  bottom: 20px;
 
   display: flex;
-  justify-content: space-around;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 16px;
 
-  padding: 14px 20px;
+  padding: 18px 24px;
 
-  background: rgba(20, 22, 27, 0.88);
-  backdrop-filter: blur(12px);
+  background: rgba(20, 22, 27, 0.65);
+  backdrop-filter: blur(18px);
 
-  border-top: 1px solid #24262d;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  z-index: 2;
 }
+
+/* =========================
+   METRIC
+========================= */
 
 .metric {
   text-align: center;
+  flex: 1;
 }
 
 .metric h3 {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
   color: #f9fafb;
 }
@@ -115,11 +153,12 @@
 .metric span {
   font-size: 11px;
   color: #9ca3af;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 /* =========================
-   CARD 2 & CARD 3
+   CARD 2 / 3
 ========================= */
 
 .card h3 {
@@ -135,41 +174,16 @@
 }
 
 /* =========================
-   CARD 4 (FULL WIDTH)
+   FULL WIDTH CARD
 ========================= */
 
 .full-width-card {
   grid-column: span 2;
 }
 
-.full-width-card h3 {
-  margin-bottom: 12px;
-}
-
-.full-width-card div {
-  font-size: 13px;
-  color: #d1d5db;
-  padding: 8px 0;
-  border-bottom: 1px solid #1f2933;
-}
-
-.full-width-card div:last-child {
-  border-bottom: none;
-}
-
 /* =========================
-   LOADING STATE
+   TRANSACTIONS
 ========================= */
-
-.loading-screen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 14px;
-  color: #9ca3af;
-}
 
 .tx-row {
   display: flex;
@@ -181,11 +195,6 @@
 
 .tx-row:last-child {
   border-bottom: none;
-}
-
-.tx-left {
-  display: flex;
-  flex-direction: column;
 }
 
 .tx-title {
@@ -211,7 +220,7 @@
   font-family: monospace;
 }
 
-/* STATUS PILLS */
+/* STATUS */
 .tx-status {
   font-size: 11px;
   padding: 4px 8px;
@@ -239,11 +248,28 @@
   color: #9ca3af;
 }
 
-.hero-left {
-  position: relative;
-  z-index: 2;
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes avatar-rise {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.hero-avatar {
-  z-index: 1;
+@keyframes avatar-image {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(32px);
+  }
 }
