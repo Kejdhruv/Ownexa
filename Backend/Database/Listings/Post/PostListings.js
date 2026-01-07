@@ -15,7 +15,7 @@ const PostListing = async (data, user) => {
       listing_blockchain_id: data.blockchainId, 
       buyer_id: null, 
       transaction_hash : null , 
-      status: data.status , 
+      status: "ACTIVE" , 
     })
     .select()
     .single();
