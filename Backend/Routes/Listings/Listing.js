@@ -7,7 +7,6 @@ const router = express.Router();
 
 
 /* CREATE LISTING */
-
 router.post("/listing", async (req, res) => {
   try {
     const user = await getAuthUser(req);
