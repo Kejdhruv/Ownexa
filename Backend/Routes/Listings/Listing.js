@@ -1,6 +1,7 @@
 import express from "express";
 import { getAuthUser } from "../../Middleware/Middleware.js";
 import PostListing from "../../Database/Listings/Post/PostListings.js";
+import UpdateHolding from "../../Database/Investments/Post/UpdateHoldings.js";
 const router = express.Router();
 
 
