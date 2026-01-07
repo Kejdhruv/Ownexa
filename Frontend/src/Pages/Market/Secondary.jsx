@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../Styles/Market/Primary.css"
+import "../../Styles/Market/Secondary.css"
 
 const API = import.meta.env.VITE_API_BASE;
 
-export default function PrimaryMarket() {
-  const [properties, setProperties] = useState([]);
+export default function SecondaryMarket() {
+  const [listing, setlisting] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ export default function PrimaryMarket() {
         const sorted = data.sort(
           (a, b) => new Date(b.validated_at) - new Date(a.validated_at)  
         );
-        setProperties(sorted);
+        setlisting(sorted);
       } catch (err) {
         console.error(err.message);
       } finally {
@@ -41,58 +41,81 @@ export default function PrimaryMarket() {
     <div className="admin-pending-page">
       <h2>Listing Market</h2>
 
-      {properties.length === 0 ? (
+      {listing.length === 0 ? (
         <p className="empty-text">No Listings Available at the moment </p>
       ) : (
         <div className="admin-card-grid">
-          {properties.map((property) => (
-         <div
-  key={property.id}
-  className="admin-property-card"
-  onClick={() => navigate(`/Property/${property.id}`)}
->
-  <div className="card-horizontal">
+         {listing.map((item) => (
+  <div
+    key={item.id}
+    className="market-card"
+    onClick={() => navigate(`/Property/${item.properties.id}`)}
+  >
+    <div className="market-card-row">
 
-    {/* LEFT IMAGE */}
-    <div className="card-image-left">
-      <img
-        src={property.property_images?.[0] || "/placeholder-property.jpg"}
-        alt={property.title}
-      />
-    </div>
-
-    {/* RIGHT CONTENT (your existing design) */}
-    <div className="card-content-right">
-
-      {/* HEADER */}
-      <div className="card-header">
-        <h3 className="property-title">{property.title}</h3>
-        <span className="status-badge validated">Validated</span>
+      {/* LEFT: IMAGE STACK */}
+      <div className="market-card-images">
+        <img
+          src={
+            item.properties.property_images?.[0] ||
+            "/placeholder-property.jpg"
+          }
+          alt={item.properties.title}
+        />
+        {item.properties.property_images?.[1] && (
+          <img
+            src={item.properties.property_images[1]}
+            alt={item.properties.title}
+          />
+        )}
       </div>
 
-      {/* BODY */}
-      <div className="card-body">
-        <p>
-          <span>Token Name :</span> {property.token_name}
-        </p>
-        <p>
-          <span>Token Price :</span> ₹{property.price_per_token_inr}
-        </p>
-      </div>
+      {/* RIGHT: CONTENT */}
+      <div className="market-card-content">
 
-      {/* FOOTER */}
-      <div className="card-footer">
-        <span className="submitted-date">
-          Validated:{" "}
-          {new Date(property.validated_at).toLocaleDateString()}
-        </span>
-        <span className="review-arrow">→</span>
-      </div>
+        {/* HEADER */}
+        <div className="market-card-header">
+          <h3 className="market-card-title">
+            {item.properties.title}
+          </h3>
 
+          <span className="market-status-badge active">
+            ACTIVE
+          </span>
+        </div>
+
+        {/* BODY */}
+        <div className="market-card-body">
+          <p>
+            <span>Token Name:</span>{" "}
+            {item.properties.token_name}
+          </p>
+
+          <p>
+            <span>Token Price:</span>{" "}
+            ₹{item.price_per_token_inr}
+          </p>
+
+          <p>
+            <span>Quantity:</span>{" "}
+            {item.token_quantity}
+          </p>
+        </div>
+
+        {/* FOOTER */}
+        <div className="market-card-footer">
+          <span className="market-card-date">
+            Listed on{" "}
+            {new Date(item.created_at).toLocaleDateString()}
+          </span>
+
+          <span className="market-card-arrow">→</span>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
-          ))}
+))}
         </div>
       )}
     </div>

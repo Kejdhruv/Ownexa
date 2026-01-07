@@ -22,7 +22,24 @@ const FindListings = async (status) => {
   }
   const { data, error } = await supabase
     .from("listings")
-    .select("*")
+    .select(`
+      id ,
+      token_quantity ,
+      price_per_token_inr , 
+      status , 
+      seller_id , 
+      created_at , 
+      properties (
+        id,
+        title,
+        city,
+        state,
+        token_name,
+        blockchain_id,
+        property_images,
+        status,
+        is_listed
+      )`)
     .eq("status", status) 
 
   if (error) throw error;

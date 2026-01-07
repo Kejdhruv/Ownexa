@@ -12,6 +12,7 @@ import DashboardLayout from "./Layouts/Dashboard";
 import ProfilePage from "./Pages/Profile/ProfilePage";
 import TransactionsPage from "./Pages/Profile/Transaction";
 import HoldingsPage from "./Pages/Profile/Holdings";
+import SecondaryMarket from "./Pages/Market/Secondary";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/AdminViewPage" element={<AdminViewPage />} />
       <Route path="/AdminProperty/:id" element={<AdminPropertyPage />} />
       <Route path="/PrimaryMarket" element={<PrimaryMarket />} />
+      <Route path="/SecondaryMarket" element={<SecondaryMarket />} />
       <Route path="/Property/:id" element={<PropertyCard />} />
 
       <Route path="/Dashboard" element={<DashboardLayout />}>
