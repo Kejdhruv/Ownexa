@@ -13,22 +13,24 @@ router.post("/listing", async (req, res) => {
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-      const ListingData = req.body;
-      await UpdateHolding(ListingData, user); 
-      await PostListing(ListingData, user);
+
+    const listingData = req.body;
+    console.log(listingData);
+    const listing = await PostListing(listingData, user);
+    await UpdateHolding(listingData, user);
+
     return res.status(201).json({
       message: "Listing successful",
-      ListingData,
+      listing,
     });
 
   } catch (err) {
-    console.error("Listing Failed:", err);
+    console.error("Listing Failed:", err.message);
     return res.status(400).json({
       error: err.message || "Listing failed",
     });
   }
-});  
-
+});
 
 router.get("/listing", async (req, res) => {
   try {
