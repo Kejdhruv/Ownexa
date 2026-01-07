@@ -10,17 +10,17 @@ export default function PrimaryMarket() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchValidated = async () => {
+    const fetchListing = async () => {
       try {
         const res = await fetch(
-          `${API}/properties?status=validated&listed=true`,
+          `${API}/propertylisting?status=ACTIVE`,
           { credentials: "include" }
         );
-        if (!res.ok) throw new Error("Failed to fetch properties");
+        if (!res.ok) throw new Error("Failed to fetch listed");
         const data = await res.json();
-        // earliest first
+        // latest first
         const sorted = data.sort(
-          (a, b) => new Date(a.validated_at) - new Date(b.validated_at)
+          (a, b) => new Date(b.validated_at) - new Date(a.validated_at)  
         );
         setProperties(sorted);
       } catch (err) {
@@ -30,19 +30,19 @@ export default function PrimaryMarket() {
       }
     };
 
-    fetchValidated();
+    fetchListing();
   }, []);
 
   if (loading) {
-    return <div className="admin-loading">Loading Primary Market</div>;
+    return <div className="admin-loading">Loading Secondary Market</div>;
   }
 
   return (
     <div className="admin-pending-page">
-      <h2>Primary Market</h2>
+      <h2>Listing Market</h2>
 
       {properties.length === 0 ? (
-        <p className="empty-text">No Validated Properties Available at the moment </p>
+        <p className="empty-text">No Listings Available at the moment </p>
       ) : (
         <div className="admin-card-grid">
           {properties.map((property) => (
