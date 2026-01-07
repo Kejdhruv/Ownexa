@@ -11,6 +11,7 @@ import PropertyCard from "./Pages/Market/PropertyCard";
 import DashboardLayout from "./Layouts/Dashboard";
 import ProfilePage from "./Pages/Profile/ProfilePage";
 import TransactionsPage from "./Pages/Profile/Transaction";
+import HoldingsPage from "./Pages/Profile/Holdings";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
       <Route path="/Dashboard" element={<DashboardLayout />}>
         <Route index element={<ProfilePage />} />
         <Route path="transactions" element={<TransactionsPage/>} />
-        <Route path="holdings" element={<h1>Hi this is holdings</h1>} />
+        <Route path="holdings" element={<HoldingsPage/>} />
         <Route path="properties" element={<h1>Hi this is properties</h1>} />
       </Route>
     </Routes>
