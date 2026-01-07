@@ -296,3 +296,56 @@ html,
     max-width: 360px;
   }
 }
+
+/* =========================
+   GENDER SELECT (IMPROVED)
+========================= */
+
+.gender-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+/* hide default radio */
+.gender-group input[type="radio"] {
+  display: none;
+}
+
+.gender-group label {
+  flex: 1;
+  text-align: center;
+
+  padding: 10px 0;
+  border-radius: 10px;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  color: #d1d5db;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* hover */
+.gender-group label:hover {
+  background: rgba(96, 165, 250, 0.18);
+  border-color: rgba(96, 165, 250, 0.35);
+  color: #ffffff;
+}
+
+/* selected state */
+.gender-group input[type="radio"]:checked + span,
+.gender-group input[type="radio"]:checked {
+  /* fallback safety */
+}
+
+.gender-group label:has(input[type="radio"]:checked) {
+  background: rgba(96, 165, 250, 0.35);
+  border-color: #60a5fa;
+  color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.35);
+}

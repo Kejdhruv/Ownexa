@@ -16,17 +16,18 @@ router.use(cookieParser());
 
 router.post("/auth/signup", async (req, res) => {
   try {
-    const { Email, Password, Username } = req.body;
-    if (!Email || !Password || !Username) {
+    const { Email, Password, Username , Avatar} = req.body;
+    if (!Email || !Password || !Username || !Avatar) {
       return res.status(400).json({ message: "All fields are required" });
     }
     const newUser = {
       Email,
       Password,
       Username,
+      Avatar, 
       Role: "User"
     };
-    const user = await CreateUser(newUser);
+    const user = await CreateUser(newUser); 
     return res.status(201).json({
       message: "User created successfully",
       user

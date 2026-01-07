@@ -1,6 +1,6 @@
 import supabase from "../SupabaseClient.js";
 
-const CreateUser = async ({ Email, Password, Username, Role }) => {
+const CreateUser = async ({ Email, Password, Username, Role , Avatar}) => {
   const { data, error } = await supabase.auth.signUp({
     email: Email,
     password: Password
@@ -12,6 +12,7 @@ const CreateUser = async ({ Email, Password, Username, Role }) => {
       id: data.user.id,
       email: Email,
       username: Username,
+      avatar : Avatar , 
       role: Role || "User"
     })
     .select()

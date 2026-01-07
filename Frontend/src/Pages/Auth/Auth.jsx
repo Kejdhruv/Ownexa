@@ -5,7 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const API = import.meta.env.VITE_API_BASE;
-
+const MALE_AVATARS = JSON.parse(import.meta.env.VITE_MALE_AVATARS || "[]");
+const FEMALE_AVATARS = JSON.parse(import.meta.env.VITE_FEMALE_AVATARS || "[]");
 const AuthPage = () => {
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
@@ -13,6 +14,7 @@ const AuthPage = () => {
     Username: "",
     Email: "",
     Password: "",
+    Gender:""
   });
   const [loading, setLoading] = useState(false);
 
@@ -44,9 +46,18 @@ const AuthPage = () => {
       return false;
     }
 
+    if (isSignUp && !formData.Gender) {
+  toast.error("Please select a gender");
+  return false;
+} 
+
     return true;
   };
 
+  const getRandomAvatar = (gender) => {
+  const pool = gender === "male" ? MALE_AVATARS : FEMALE_AVATARS;
+  return pool[Math.floor(Math.random() * pool.length)];
+}; 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -61,6 +72,7 @@ const AuthPage = () => {
           Username: formData.Username,
           Email: formData.Email,
           Password: formData.Password,
+          Avatar: getRandomAvatar(formData.Gender)
         }
         : {
           Email: formData.Email,
@@ -141,6 +153,32 @@ const AuthPage = () => {
               value={formData.Password}
               onChange={handleChange}
             />
+
+            {isSignUp && (
+  <div className="gender-group">
+    <label>
+      <input
+        type="radio"
+        name="Gender"
+        value="male"
+        checked={formData.Gender === "male"}
+        onChange={handleChange}
+      />
+      Male
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="Gender"
+        value="female"
+        checked={formData.Gender === "female"}
+        onChange={handleChange}
+      />
+      Female
+    </label>
+  </div>
+)}
 
             <button
               type="submit"
