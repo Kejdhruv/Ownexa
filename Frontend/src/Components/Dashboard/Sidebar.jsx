@@ -1,15 +1,33 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   User,
   Wallet,
   Building2,
   FileText,
-  Store
+  Store,
+  PowerOff
 } from "lucide-react";
 
 import "../../Styles/Components/Sidebar.css";
 
+const API = import.meta.env.VITE_API_BASE;
+
 export default function Sidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await fetch(`${API}/auth/logout`, {
+        method: "GET",
+        credentials: "include",
+      });
+    } catch (err) {
+      console.error("Logout failed", err);
+    } finally {
+      navigate("/");
+    }
+  };
+
   return (
     <aside className="sidebar">
       <NavLink to="/Dashboard" end>
@@ -51,6 +69,22 @@ export default function Sidebar() {
           </button>
         )}
       </NavLink>
+
+      {/* LOGOUT */}
+      <button
+        className="logout-btn"
+        aria-label="Logout"
+        style={{ color: "#f87171" }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(220, 38, 38, 0.25)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "transparent";
+        }}
+        onClick={handleLogout}
+      >
+        <PowerOff size={16} />
+      </button>
     </aside>
   );
 }
