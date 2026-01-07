@@ -2,7 +2,7 @@ import express from "express";
 import { getAuthUser } from "../../Middleware/Middleware.js";
 import PostListing from "../../Database/Listings/Post/PostListings.js";
 import UpdateHolding from "../../Database/Investments/Post/UpdateHoldings.js";
-import { FindingBuyerListing, FindingSellerListing, FindPropertyListing } from "../../Database/Listings/Get/FetchLisiting.js";
+import { FindingBuyerListing, FindingSellerListing, FindListings, FindPropertyListing } from "../../Database/Listings/Get/FetchLisiting.js";
 const router = express.Router();
 
 
@@ -57,22 +57,40 @@ router.get("/listing", async (req, res) => {
       error: err.message,
     });
   }
-}); 
+});
 
 
 router.get("/propertylisting/:id", async (req, res) => {
-    try {
-        const { id: propertyId } = req.params;
-        const propertylisting = await FindPropertyListing(
-            "ACTIVE",
-            propertyId,
-        );
-        return res.status(200).json(propertylisting);
-    }
-    catch (err) {
-        console.error("Error Fetching Property Listing :", err.message);
+  try {
+    const { id: propertyId } = req.params;
+    const propertylisting = await FindPropertyListing(
+      "ACTIVE",
+      propertyId,
+    );
+    return res.status(200).json(propertylisting);
+  }
+  catch (err) {
+    console.error("Error Fetching Property Listing :", err.message);
     return res.status(400).json({ error: err.message });
-    }
+  }
+
+})
+
+
+
+router.get("/propertylisting", async (req, res) => {
+
+  try {
+    const { status } = req.query;
+    const propertylisting = await FindListings(
+      status
+    );
+    return res.status(200).json(propertylisting);
+  }
+  catch (err) {
+    console.error("Error Fetching Properties Listed :", err.message);
+    return res.status(400).json({ error: err.message });
+  }
 
 })
 

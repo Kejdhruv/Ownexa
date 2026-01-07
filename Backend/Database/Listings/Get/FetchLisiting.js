@@ -15,6 +15,20 @@ const FindPropertyListing = async (status, propertyId) => {
   return data;
 }; 
 
+// All Listings 
+const FindListings = async (status) => {
+  if (status === undefined ) {
+    throw new Error("Status is not defined");
+  }
+  const { data, error } = await supabase
+    .from("listings")
+    .select("*")
+    .eq("status", status) 
+
+  if (error) throw error;
+  return data;
+}; 
+
 // For Seller 
 const FindingSellerListing = async (userId , status ) => {
   const { data, error } = await supabase
@@ -38,4 +52,4 @@ const FindingBuyerListing = async (userId , status ) => {
 }; 
  
 
-export { FindPropertyListing, FindingBuyerListing  , FindingSellerListing};
+export { FindPropertyListing, FindingBuyerListing  , FindingSellerListing , FindListings};
