@@ -25,7 +25,8 @@ export default function PropertyCard() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [buying, setBuying] = useState(false);
+  const [primaryBuying, setPrimaryBuying] = useState(false);
+  const [secondaryBuying, setSecondaryBuying] = useState(false);
   const [quantity, setQuantity] = useState("");
   const [listings, setListings] = useState(null);
 
@@ -65,7 +66,7 @@ export default function PropertyCard() {
         throw new Error("Enter a valid quantity");
       }
 
-      setBuying(true);
+      setPrimaryBuying(true);
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const buyerAddress = await signer.getAddress();
@@ -117,12 +118,9 @@ export default function PropertyCard() {
       console.error(err);
       alert(err.message || "Primary buy failed");
     } finally {
-      setBuying(false);
+      setPrimaryBuying(false);
     }
   };
-
-
-
 
   const handleSecondaryBuy = async (listing) => {
     try {
@@ -130,7 +128,7 @@ export default function PropertyCard() {
         throw new Error("MetaMask not found");
       }
 
-      setBuying(true);
+      setSecondaryBuying(true);
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
@@ -162,7 +160,6 @@ export default function PropertyCard() {
 
       const receipt = await tx.wait();
 
-      // sync backend
       const res = await fetch(`${API}/transaction?type=secondary`, {
         method: "POST",
         credentials: "include",
@@ -191,7 +188,7 @@ export default function PropertyCard() {
       console.error(err);
       alert(err.message || "Secondary buy failed");
     } finally {
-      setBuying(false);
+      setSecondaryBuying(false);
     }
   };
 
@@ -246,7 +243,7 @@ export default function PropertyCard() {
 
                 <div className="detail-item">
                   <IndianRupee size={16} />
-                  <span>₹{property.price_per_token_inr} / token</span>
+                  <span>{property.price_per_token_inr}</span>
                 </div>
 
                 <div className="detail-item">
@@ -274,17 +271,17 @@ export default function PropertyCard() {
                 placeholder="Qty"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
-                disabled={buying}
+                disabled={primaryBuying}
                 min="1"
               />
 
               <button
                 className="buy-btn compact"
                 onClick={handlePrimaryBuy}
-                disabled={buying || !quantity || Number(quantity) <= 0}
+                disabled={primaryBuying || !quantity || Number(quantity) <= 0}
               >
-                {buying
-                  ? "Buying..."
+                {primaryBuying
+                  ? "Fetching Your Tokens"
                   : ` ₹${quantity
                     ? (Number(quantity) * property.price_per_token_inr).toLocaleString()
                     : 0}`}
@@ -320,17 +317,17 @@ export default function PropertyCard() {
 
                     <button
                       className="sec-buy-btn"
-                      disabled={buying}
+                      disabled={secondaryBuying}
                       onClick={() => handleSecondaryBuy(listing)}
                     >
-                      {buying ? "Buying..." : "Buy"}
+                      {secondaryBuying ? "Negotiating" : "Buy"}
                     </button>
 
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="empty-secondary">No secondary listings yet</div>
+              <div className="empty-secondary">No Secondary Listings Yet</div>
             )}
           </div>
 
