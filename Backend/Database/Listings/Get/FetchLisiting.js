@@ -7,7 +7,20 @@ const FindPropertyListing = async (status, propertyId) => {
   }
   const { data, error } = await supabase
     .from("listings")
-    .select("*")
+    .select(`
+      id ,
+      token_quantity ,
+      price_per_token_inr , 
+      status , 
+      seller_id , 
+      listing_blockchain_id ,
+      created_at , 
+      properties (
+        id,
+        blockchain_id,
+        status,
+        is_listed
+      )`)
     .eq("status", status)
     .eq("property_id", propertyId)
 

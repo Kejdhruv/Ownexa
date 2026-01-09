@@ -27,15 +27,25 @@ export default function PropertyCard() {
   const [loading, setLoading] = useState(true);
   const [buying, setBuying] = useState(false);
   const [quantity, setQuantity] = useState("");
+  const [listings, setListings] = useState(null);
 
   useEffect(() => {
-    const fetchProperty = async () => {
+    const fetchApi = async () => {
       try {
-        const res = await fetch(`${API}/properties/${id}?status=validated&listed=true`, {
-          credentials: "include"
-        });
-        const data = await res.json();
-        setProperty(data);
+        const [propertyRes, listingRes] = await Promise.all([
+          fetch(`${API}/properties/${id}?status=validated&listed=true`, {
+            credentials: "include",
+          }),
+          fetch(`${API}/propertylisting/${id}`, {
+            credentials: "include",
+          }),
+        ]);
+
+        const propertyData = await propertyRes.json();
+        const listingData = await listingRes.json();
+
+        setListings(listingData);
+        setProperty(propertyData);
       } catch (err) {
         console.error(err);
       } finally {
@@ -43,7 +53,7 @@ export default function PropertyCard() {
       }
     };
 
-    fetchProperty();
+    fetchApi();
   }, [id]);
   const handlePrimaryBuy = async () => {
     try {
@@ -110,6 +120,91 @@ export default function PropertyCard() {
       setBuying(false);
     }
   };
+
+
+
+
+  const handleSecondaryBuy = async (listing) => {
+  try {
+    if (!window.ethereum) {
+      throw new Error("MetaMask not found");
+    }
+
+    setBuying(true);
+
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    const buyerAddress = await signer.getAddress();
+
+    // price per token → ETH
+    const pricePerTokenWei = ethers.parseEther(
+      (Number(listing.price_per_token_inr) / ETH_INR).toFixed(18)
+    );
+
+    // total = price * listing quantity
+    const basePriceWei =
+      pricePerTokenWei * BigInt(listing.token_quantity);
+
+    // 2% commission
+    const commissionWei = (basePriceWei * 2n) / 100n;
+    const totalPriceWei = basePriceWei + commissionWei;
+
+    const contract = new ethers.Contract(
+      CONTRACT_ADDRESS,
+      PropertyTokenABI,
+      signer
+    );
+
+    const tx = await contract.buyListing(
+      listing.listing_blockchain_id,
+      { value: totalPriceWei }
+    );
+
+    const receipt = await tx.wait();
+
+    // sync backend
+    const res = await fetch(`${API}/transaction?type=secondary`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        propertyId: property.id,
+        blockchainId: property.blockchain_id,
+        tokenName: property.token_name,
+        tokenQuantity: listing.token_quantity,
+        pricePerTokenInr: listing.price_per_token_inr, 
+        listingId : listing.id , 
+        accountaddress: buyerAddress,
+        transactionhash: receipt.hash,
+        status: "SUCCESS",
+      }),
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Transaction sync failed");
+    }
+
+    alert("Secondary tokens bought successfully!");
+
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Secondary buy failed");
+  } finally {
+    setBuying(false);
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
 
   if (loading) return <div className="page-loading">Loading property...</div>;
   if (!property) return null;
@@ -202,9 +297,39 @@ export default function PropertyCard() {
           </div>
           <div className="market-card secondary-market">
             <h3>Secondary Market</h3>
-            <div className="empty-secondary">
-              No secondary listings available yet
-            </div>
+
+            {listings && listings.length > 0 ? (
+              <div className="secondary-list">
+                {listings.map((listing) => (
+                  <div className="secondary-row" key={listing.id}>
+
+                    <div className="sec-price">
+                      ₹{listing.price_per_token_inr}
+                      <span>/token</span>
+                    </div>
+
+                    <div className="sec-qty">
+                      {listing.token_quantity} tokens
+                    </div>
+
+                    <div className="sec-date">
+                      {new Date(listing.created_at).toLocaleDateString()}
+                    </div>
+
+                    <button
+  className="sec-buy-btn"
+  disabled={buying}
+  onClick={() => handleSecondaryBuy(listing)}
+>
+  {buying ? "Buying..." : "Buy"}
+</button>
+
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-secondary">No secondary listings yet</div>
+            )}
           </div>
 
         </div>

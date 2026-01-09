@@ -26,7 +26,7 @@ router.post("/transaction", async (req, res) => {
       await UpdateProperty(transactionData);
     }
     if (type === "secondary") {
-      await UpdateListing(transactionData, user, "Sold");
+      await UpdateListing(transactionData, user, "SOLD");
     }
     return res.status(201).json({
       message: "Transaction successful",
