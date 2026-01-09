@@ -5,7 +5,7 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
-  margin-bottom: 4px ;
+  margin-bottom: 8px ;
   pointer-events: none; /* important */
 }
 
