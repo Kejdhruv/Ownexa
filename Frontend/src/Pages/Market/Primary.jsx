@@ -37,19 +37,7 @@ export default function PrimaryMarket() {
 
   return (
     <div className="primary-page">
-      <div className="primary-header-row">
-  <h2 className="primary-heading">Primary Market</h2>
-
-  <SortBar
-    options={[
-      { key: "token_quantity", label: "Token" },
-      { key: "created_at", label: "Date" },
-      { key: "price_per_token_inr", label: "Avg Price" },
-    ]}
-    data={properties}
-    onChange={setProperties}
-  />
-</div>
+      
 
       {properties.length === 0 ? (
         <p className="primary-empty">No validated properties available</p>
