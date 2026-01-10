@@ -6,9 +6,8 @@ import jwt from "jsonwebtoken";
 import CreateUser from "../../Database/Users/CreateUser.js";
 import LoginUser from "../../Database/Users/LoginUser.js";
 import supabase from "../../Database/SupabaseClient.js";
-import { FindUser, FindAllUser } from "../../Database/Users/FindUser.js";
+import { FindUser  } from "../../Database/Users/FindUser.js";
 import { getAuthUser, FindRole } from "../../Middleware/Middleware.js";
-import UpdateUser from "../../Database/Users/UpdateUser.js";
 
 dotenv.config();
 const router = express.Router();
@@ -100,84 +99,23 @@ router.get("/auth/logout", async (req, res) => {
 /* User Fetch */
 router.get("/auth/me", async (req, res) => {
   try {
-    const token = req.cookies?.Ownexa_Token;
-    if (!token) {
-      return res.status(401).json({
-        loggedIn: false,
-        message: "Not authenticated"
-      });
-    }
-    const decoded = jwt.decode(token);
-    if (!decoded?.sub) {
-      return res.status(401).json({
-        loggedIn: false,
-        message: "Invalid token"
-      });
-    }
-    const user = await FindUser(decoded.sub);
+    const authUser = await getAuthUser(req);
+    const user = await FindUser(authUser.id); 
     return res.status(200).json({
       loggedIn: true,
       user
     });
   } catch (err) {
-    console.error("Error Faced : ", err.message);
-    return res.status(500).json({
-      loggedIn: false,
-      error: "Something went wrong"
-    });
-  }
-});
-
-/* All User Fetch */
-router.get("/users", async (req, res) => {
-  try {
-    const user = await getAuthUser(req);
-    const role = await FindRole(user.id);
-    if (role !== "Admin") {
-      return res.status(403).json({
-        error: "Forbidden"
+    console.error("Error Faced:", err.message);
+    if (err.message === "Unauthorized" || err.message === "Invalid token") {
+      return res.status(401).json({
+        loggedIn: false,
+        error: "Unauthorized"
       });
     }
-    const users = await FindAllUser();
-    return res.status(200).json({
-      loggedIn: true,
-      users
-    });
-  } catch (err) {
-    console.error("Error Faced:", err.message);
 
     return res.status(500).json({
       loggedIn: false,
-      error: "Something went wrong"
-    });
-  }
-});
-
-router.put("/users", async (req, res) => {
-  try {
-    const user = await getAuthUser(req);
-    const role = await FindRole(user.id);
-    if (role !== "Admin") {
-      return res.status(403).json({
-        error: "Forbidden"
-      });
-    }
-    const { email, userrole } = req.body;
-    if (!email || !userrole) {
-      return res.status(400).json({
-        error: "Email and role are required"
-      });
-    }
-    await UpdateUser(email, userrole);
-    return res.status(200).json({
-      success: true,
-      message: "User updated successfully"
-    });
-  } catch (err) {
-    console.error("Error Faced:", err.message);
-
-    return res.status(500).json({
-      success: false,
       error: "Something went wrong"
     });
   }

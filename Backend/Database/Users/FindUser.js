@@ -10,12 +10,3 @@ export const FindUser = async (userId) => {
   if (error) throw error;
   return data;
 };
-
-export const FindAllUser = async () => {
-  const { data, error } = await supabase
-    .from("users")
-    .select("email, username, created_at, role");
-
-  if (error) throw error;
-  return data;
-};
