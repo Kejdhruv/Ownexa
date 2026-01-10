@@ -1,18 +1,23 @@
 import supabase from "../SupabaseClient.js";
 
-const UpdateUser = async (email, Role) => {
-    const { data, error } = await supabase
-        .from("users")
-        .update({ role: Role })
-        .eq("email", email)
-        .select()
-        .single();
+const UpdateUser = async (email, role) => {
 
-    if (error) throw error;
+  const allowedRoles = ["Admin", "User"];
 
-    return data;
+  if (!allowedRoles.includes(role)) {
+    throw new Error("Invalid role");
+  }
+
+  const { data, error } = await supabase
+    .from("users")
+    .update({ role })
+    .eq("email", email)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
 };
-
-
 
 export default UpdateUser;
