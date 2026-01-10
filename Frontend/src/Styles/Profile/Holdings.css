@@ -70,6 +70,12 @@
   color: #22c55e;
 }
 
+.holding-status.PENDING {
+  background: rgba(197, 162, 34, 0.18);
+  color: #c5b822;
+}
+
+
 .holding-status.INACTIVE,
 .holding-status.REJECTED {
   background: rgba(239, 68, 68, 0.18);

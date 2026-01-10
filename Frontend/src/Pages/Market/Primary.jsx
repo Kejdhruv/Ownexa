@@ -15,7 +15,7 @@ export default function PrimaryMarket() {
     const fetchValidated = async () => {
       try {
         const res = await fetch(
-          `${API}/properties?status=validated&listed=true`,
+          `${API}/properties?status=Validated&listed=true`,
           { credentials: "include" }
         );
         if (!res.ok) throw new Error("Failed to fetch properties");

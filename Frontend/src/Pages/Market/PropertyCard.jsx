@@ -34,7 +34,7 @@ export default function PropertyCard() {
     const fetchApi = async () => {
       try {
         const [propertyRes, listingRes] = await Promise.all([
-          fetch(`${API}/properties/${id}?status=validated&listed=true`, {
+          fetch(`${API}/properties/${id}?status=Validated&listed=true`, {
             credentials: "include",
           }),
           fetch(`${API}/propertylisting/${id}`, {
