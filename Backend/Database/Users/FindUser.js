@@ -12,4 +12,16 @@ const FindUser = async (userId) => {
   return data;
 };
 
-export default FindUser;
+
+const FindAllUser = async () => {
+  const { data, error } = await supabase
+    .from("users")
+    .select(" email, username , created_at , role "); 
+
+  if (error) throw error;
+
+  return data;
+};
+
+
+export default {FindAllUser , FindUser} 
