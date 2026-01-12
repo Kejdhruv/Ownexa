@@ -164,56 +164,56 @@ export default function Home() {
 
 
 
-       <section className="Lifecycle">
-      {/* LEFT — SYSTEM FLOW */}
-      <div className="Lifecycle-left">
-        {/* Subtle Principle */}
-        <div className="Lifecycle-principle">
-          <span>VALUE IN</span>
-          <span>MOTION</span>
+      <section className="Lifecycle">
+        {/* LEFT — SYSTEM FLOW */}
+        <div className="Lifecycle-left">
+          {/* Subtle Principle */}
+          <div className="Lifecycle-principle">
+            <span className="span1">VALUE IN</span>
+            <span className="span2">MOTION</span>
+          </div>
+
+          {/* Curve */}
+          <svg
+            className="Lifecycle-curve"
+            viewBox="0 0 300 800"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="
+               M5 600
+               Q 300 400,
+               300 20
+                "
+              fill="none"
+              stroke="rgba(59,130,246,0.35)"
+              strokeWidth="2"
+            />
+          </svg>
+
+          {/* Floating States */}
+          <div className="Lifecycle-states">
+            <div className="Lifecycle-state" data-step="1">LISTED</div>
+            <div className="Lifecycle-state" data-step="2">VERIFIED</div>
+            <div className="Lifecycle-state" data-step="3">TRADE</div>
+            <div className="Lifecycle-state" data-step="4">SETTLE</div>
+          </div>
+
+          {/* Flow Glow */}
+          <div className="Lifecycle-flowGlow" />
         </div>
 
-        {/* Curve */}
-    <svg
-  className="Lifecycle-curve"
-  viewBox="0 0 300 800"
-  preserveAspectRatio="none"
->
-  <path
-    d="
-      M5 600
-      Q 300 400,
-        300 20
-    "
-    fill="none"
-    stroke="rgba(59,130,246,0.35)"
-    strokeWidth="2"
-  />
-</svg>
+        {/* RIGHT — PHILOSOPHY */}
+        <div className="Lifecycle-right">
+          <p>REAL ASSETS ARE ILLIQUID.</p>
+          <p>CRYPTO IS VOLATILE.</p>
+          <p>TRADITIONAL SYSTEMS ARE CLOSED.</p>
 
-        {/* Floating States */}
-        <div className="Lifecycle-states">
-          <div className="Lifecycle-state" data-step="1">LISTED</div>
-          <div className="Lifecycle-state" data-step="2">VERIFIED</div>
-          <div className="Lifecycle-state" data-step="3">TRADE</div>
-          <div className="Lifecycle-state" data-step="4">SETTLE</div>
+          <br />
+
+          <p className="Lifecycle-emphasis">OWNEXA CONNECTS THEM.</p>
         </div>
-
-        {/* Flow Glow */}
-        <div className="Lifecycle-flowGlow" />
-      </div>
-
-      {/* RIGHT — PHILOSOPHY */}
-      <div className="Lifecycle-right">
-        <p>REAL ASSETS ARE ILLIQUID.</p>
-        <p>CRYPTO IS VOLATILE.</p>
-        <p>TRADITIONAL SYSTEMS ARE CLOSED.</p>
-
-        <br />
-
-        <p className="Lifecycle-emphasis">OWNEXA CONNECTS THEM.</p>
-      </div>
-    </section>
+      </section>
     </>
   );
 }
