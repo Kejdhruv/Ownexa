@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { User,  Building2, FileText, PowerOff, Home } from "lucide-react";
+import { User, Building2, FileText, PowerOff, Home, UserCheck } from "lucide-react";
 
 import "../../Styles/Components/Sidebar.css";
 
@@ -23,13 +23,15 @@ export default function AdminSidebar() {
 
   return (
     <aside className="sidebar">
-      <NavLink to="/Dashboard" end>
+      <NavLink to="/AdminDashboard" end>
         {({ isActive }) => (
           <button className={isActive ? "active" : ""} aria-label="Profile">
             <User size={16} />
           </button>
         )}
       </NavLink>
+
+
 
       <NavLink to="/AdminDashboard/Pending">
         {({ isActive }) => (
@@ -47,18 +49,27 @@ export default function AdminSidebar() {
         )}
       </NavLink>
 
+      <NavLink to="/Dashboard" end>
+        {({ isActive }) => (
+          <button className={isActive ? "active" : ""} aria-label="Profile">
+            <UserCheck size={16} />
+          </button>
+        )}
+      </NavLink>
+
       <NavLink to="/">
         {({ isActive }) => (
           <button className={isActive ? "active" : ""} aria-label="Transactions" style={{ color: "#1673c4ff" }}
-           onMouseEnter={(e) => {
-          e.currentTarget.style.background = "rgba(28, 119, 223, 0.25)";  
-        }}  onMouseLeave={(e) => {
-          e.currentTarget.style.background = "transparent";
-        }}>
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(28, 119, 223, 0.25)";
+            }} onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+            }}>
             <Home size={16} />
           </button>
         )}
       </NavLink>
+
 
       {/* LOGOUT */}
       <button

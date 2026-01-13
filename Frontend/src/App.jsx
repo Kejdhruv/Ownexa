@@ -39,7 +39,8 @@ function App() {
         <Route path="properties" element={<PropertiesPage/>} />
       </Route> 
 
-      <Route path="/AdminDashboard" element={<AdminDashboardLayout/>}>
+      <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
+         <Route index element={<h1>Hello this is Admin Dashboard</h1>} />
         <Route path="Pending" element={<AdminViewPage />} />
         <Route path="Pending/Property/:id" element={<AdminPropertyPage />} />
         <Route path="Documents" element={<><h1>Hello this is Document</h1></>} />
