@@ -140,7 +140,7 @@ export default function ProfilePage() {
     <div className="admin-entry">
       <button
         className="admin-panel-btn"
-        onClick={() => navigate("/admin")}
+        onClick={() => navigate("/AdminDashboard")}
       >
         View Admin 
       </button>

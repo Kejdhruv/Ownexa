@@ -16,14 +16,12 @@ import ListingsPage from "./Pages/Profile/Listings";
 import MarketLayout from "./Layouts/Market";
 import PropertiesPage from "./Pages/Profile/Properties";
 import Home from "./Components/Home";
+import AdminDashboardLayout from "./Layouts/AdminDashboard";
 
 function App() {
   return (
     <Routes>
       <Route path="/Auth" element={<AuthPage />} />
-      <Route path="/Form" element={<AddProperty />} />
-      <Route path="/admin" element={<AdminViewPage />} />
-      <Route path="/AdminProperty/:id" element={<AdminPropertyPage />} />
 
       <Route path="/" element={<MarketLayout />}>
             <Route index element={<Home/>} />
@@ -37,7 +35,14 @@ function App() {
         <Route path="transactions" element={<TransactionsPage />} />
         <Route path="holdings" element={<HoldingsPage />} />
         <Route path="listings" element={<ListingsPage />} />
+          <Route path="Form" element={<AddProperty />} />
         <Route path="properties" element={<PropertiesPage/>} />
+      </Route> 
+
+      <Route path="/AdminDashboard" element={<AdminDashboardLayout/>}>
+        <Route path="Pending" element={<AdminViewPage />} />
+        <Route path="Pending/Property/:id" element={<AdminPropertyPage />} />
+        <Route path="Documents" element={<><h1>Hello this is Document</h1></>} />
       </Route>
     </Routes>
   );

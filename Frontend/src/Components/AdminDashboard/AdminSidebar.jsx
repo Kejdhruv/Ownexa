@@ -1,11 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { User, Wallet, Building2, FileText, Store, PowerOff, Home, Pen } from "lucide-react";
+import { User,  Building2, FileText, PowerOff, Home } from "lucide-react";
 
 import "../../Styles/Components/Sidebar.css";
 
 const API = import.meta.env.VITE_API_BASE;
 
-export default function Sidebar() {
+export default function AdminSidebar() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -31,23 +31,7 @@ export default function Sidebar() {
         )}
       </NavLink>
 
-      <NavLink to="/Dashboard/holdings">
-        {({ isActive }) => (
-          <button className={isActive ? "active" : ""} aria-label="Holdings">
-            <Wallet size={16} />
-          </button>
-        )}
-      </NavLink>
-
-      <NavLink to="/Dashboard/listings">
-        {({ isActive }) => (
-          <button className={isActive ? "active" : ""} aria-label="Listings">
-            <Store size={16} />
-          </button>
-        )}
-      </NavLink>
-
-      <NavLink to="/Dashboard/properties">
+      <NavLink to="/AdminDashboard/Pending">
         {({ isActive }) => (
           <button className={isActive ? "active" : ""} aria-label="Properties">
             <Building2 size={16} />
@@ -55,7 +39,7 @@ export default function Sidebar() {
         )}
       </NavLink>
 
-      <NavLink to="/Dashboard/transactions">
+      <NavLink to="/AdminDashboard/Documents">
         {({ isActive }) => (
           <button className={isActive ? "active" : ""} aria-label="Transactions">
             <FileText size={16} />
@@ -63,7 +47,7 @@ export default function Sidebar() {
         )}
       </NavLink>
 
-      <NavLink to="/PrimaryMarket">
+      <NavLink to="/">
         {({ isActive }) => (
           <button className={isActive ? "active" : ""} aria-label="Transactions" style={{ color: "#1673c4ff" }}
            onMouseEnter={(e) => {
@@ -72,19 +56,6 @@ export default function Sidebar() {
           e.currentTarget.style.background = "transparent";
         }}>
             <Home size={16} />
-          </button>
-        )}
-      </NavLink>
-
-      <NavLink to="/Dashboard/Form">
-        {({ isActive }) => (
-          <button className={isActive ? "active" : ""} aria-label="Transactions" style={{ color: "#2d9613ff" }}
-            onMouseEnter={(e) => {
-          e.currentTarget.style.background = "rgba(38, 220, 141, 0.25)";  
-        }}  onMouseLeave={(e) => {
-          e.currentTarget.style.background = "transparent";
-        }} >
-            <Pen size={16} />
           </button>
         )}
       </NavLink>

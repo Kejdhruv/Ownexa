@@ -48,7 +48,7 @@ export default function AdminViewPage() {
             <div
               key={property.id}
               className="admin-property-card"
-              onClick={() => navigate(`/AdminProperty/${property.id}`)}
+              onClick={() => navigate(`/AdminDashboard/Pending/Property/${property.id}`)}
             >
               <div className="card-header">
                 <h3 className="property-title">{property.title}</h3>
