@@ -64,8 +64,6 @@ export default function TxLoader({
             <span className="txm-hashVal">{txHash}</span>
           </div>
         ) : null}
-
-        <div className="txm-hint">Keep MetaMask open while confirming.</div>
       </div>
     </div>
   );
