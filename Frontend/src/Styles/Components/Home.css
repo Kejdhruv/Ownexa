@@ -798,3 +798,56 @@
     margin-right: auto;
   }
 }
+
+/* =========================
+   SCROLL REVEAL (IntersectionObserver)
+========================= */
+
+/* base hidden state */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  will-change: opacity, transform;
+}
+
+/* visible state */
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* special: big bg text rises from below */
+.Home-bgText[data-reveal] {
+  transform: translateY(110px);
+  opacity: 0;
+  transition: opacity 1.15s ease, transform 1.15s ease;
+  will-change: opacity, transform;
+}
+
+.Home-bgText.is-visible {
+  transform: translateY(0);
+  opacity: 0.67; /* keep it subtle */
+}
+
+/* optional: smoother feel on smaller screens */
+@media (max-width: 600px) {
+  [data-reveal] {
+    transform: translateY(18px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+
+  .Home-bgText[data-reveal] {
+    transform: translateY(70px);
+  }
+}
+
+/* accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .Home-bgText[data-reveal] {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

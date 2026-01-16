@@ -17,6 +17,24 @@ export default function Home() {
     fetchStats();
   }, []);
 
+    useEffect(() => {
+    const els = document.querySelectorAll("[data-reveal]");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+
   const formatVolume = (num) => {
     if (!num) return "₹ 0000 0000 0000";
     const digits = num.toString().slice(0, 12);
@@ -27,13 +45,13 @@ export default function Home() {
     <>
       <section className="Home">
         {/* Background Text */}
-        <div className="Home-bgText">
+        <div className="Home-bgText" data-reveal="bg">
           <span>REAL VALUE</span>
           <span>ON CHAIN</span>
         </div>
 
         {/* Floating Glass Panels */}
-        <div className="Home-panels">
+        <div className="Home-panels" data-reveal>
           {/* LEFT PANEL */}
           <div className="Home-panel Home-panelLeft">
             <div className="Home-brand">OWNEXA</div>
@@ -74,12 +92,12 @@ export default function Home() {
           VALUE FLOW SECTION
       ========================= */}
       <section className="Flow">
-        <div className="Flow-title">Make Your Assets Work</div>
+        <div className="Flow-title" data-reveal>Make Your Assets Work</div>
 
         {/* Continuous Flow Glow */}
         <div className="Flow-glow" />
 
-        <div className="Flow-cards">
+        <div className="Flow-cards" data-reveal>
           {/* MONEY IN */}
           <div className="Flow-card Flow-cardMoney" data-flow="1">
             <div className="Flow-cardTop">
@@ -166,9 +184,9 @@ export default function Home() {
 
       <section className="Lifecycle">
         {/* LEFT — SYSTEM FLOW */}
-        <div className="Lifecycle-left">
+        <div className="Lifecycle-left" data-reveal>
           {/* Subtle Principle */}
-          <div className="Lifecycle-principle">
+          <div className="Lifecycle-principle" data-reveal>
             <span className="span1">VALUE IN</span>
             <span className="span2">MOTION</span>
           </div>
@@ -192,7 +210,7 @@ export default function Home() {
           </svg>
 
           {/* Floating States */}
-          <div className="Lifecycle-states">
+          <div className="Lifecycle-states" data-reveal>
             <div className="Lifecycle-state" data-step="1">LISTED</div>
             <div className="Lifecycle-state" data-step="2">VERIFIED</div>
             <div className="Lifecycle-state" data-step="3">TRADE</div>
@@ -204,14 +222,14 @@ export default function Home() {
         </div>
 
         {/* RIGHT — PHILOSOPHY */}
-        <div className="Lifecycle-right">
+        <div className="Lifecycle-right" >
           <p className="line1">REAL ASSETS ARE ILLIQUID.</p>
           <p className="line1">CRYPTO IS VOLATILE.</p>
           <p className="line1">TRADITIONAL SYSTEMS ARE CLOSED.</p>
 
           <br />
 
-          <p className="Lifecycle-emphasis">OWNEXA CONNECTS THEM.</p>
+          <p className="Lifecycle-emphasis" data-reveal>OWNEXA CONNECTS THEM.</p>
         </div>
       </section>
     </>
