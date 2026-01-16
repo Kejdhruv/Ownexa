@@ -31,9 +31,7 @@ router.get("/admin/stats", async (req, res) => {
       });
     }
     const stats = await AdminAnalytics(); 
-    return res.status(200).json({
-      stats 
-    });
+    return res.status(200).json(stats);
 
   } catch (err) {
     return res.status(500).json({
