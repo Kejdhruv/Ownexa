@@ -1,5 +1,6 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+
 import AuthPage from "./Pages/Auth/Auth";
 import AddProperty from "./Pages/Forms/AddProperty";
 import AdminViewPage from "./Pages/Admin/AdminViewPage";
@@ -19,34 +20,57 @@ import Home from "./Components/Home";
 import AdminDashboardLayout from "./Layouts/AdminDashboard";
 import Review from "./Pages/Admin/Review";
 
+/** Forces scroll to top on refresh + route changes */
+function ScrollManager() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // Disable browser restoring scroll position on refresh/back/forward
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    // Hard reset scroll (now + after layout/fonts settle)
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+    setTimeout(() => window.scrollTo(0, 0), 50);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
-    <Routes>
-      <Route path="/Auth" element={<AuthPage />} />
+    <>
+      <ScrollManager />
 
-      <Route path="/" element={<MarketLayout />}>
-            <Route index element={<Home/>} />
-        <Route path="/PrimaryMarket" element={<PrimaryMarket />} />
-        <Route path="/SecondaryMarket" element={<SecondaryMarket />} />
-        <Route path="/Property/:id" element={<PropertyCard />} />
-      </Route>
+      <Routes>
+        <Route path="/Auth" element={<AuthPage />} />
 
-      <Route path="/Dashboard" element={<DashboardLayout />}>
-        <Route index element={<ProfilePage />} />
-        <Route path="transactions" element={<TransactionsPage />} />
-        <Route path="holdings" element={<HoldingsPage />} />
-        <Route path="listings" element={<ListingsPage />} />
+        <Route path="/" element={<MarketLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/PrimaryMarket" element={<PrimaryMarket />} />
+          <Route path="/SecondaryMarket" element={<SecondaryMarket />} />
+          <Route path="/Property/:id" element={<PropertyCard />} />
+        </Route>
+
+        <Route path="/Dashboard" element={<DashboardLayout />}>
+          <Route index element={<ProfilePage />} />
+          <Route path="transactions" element={<TransactionsPage />} />
+          <Route path="holdings" element={<HoldingsPage />} />
+          <Route path="listings" element={<ListingsPage />} />
           <Route path="Form" element={<AddProperty />} />
-        <Route path="properties" element={<PropertiesPage/>} />
-      </Route> 
+          <Route path="properties" element={<PropertiesPage />} />
+        </Route>
 
-      <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
-         <Route index element={<h1>Hello this is Admin Dashboard</h1>} />
-        <Route path="Pending" element={<AdminViewPage />} />
-        <Route path="Pending/Property/:id" element={<AdminPropertyPage />} />
-        <Route path="Documents" element={<Review/>} />
-      </Route>
-    </Routes>
+        <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
+          <Route index element={<h1>Hello this is Admin Dashboard</h1>} />
+          <Route path="Pending" element={<AdminViewPage />} />
+          <Route path="Pending/Property/:id" element={<AdminPropertyPage />} />
+          <Route path="Documents" element={<Review />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

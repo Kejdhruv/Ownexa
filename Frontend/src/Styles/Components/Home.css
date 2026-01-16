@@ -15,17 +15,18 @@
 .Home-bgText {
   position: absolute;
   inset: 0;
+  top: 30px;
+  bottom: auto;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
   justify-content: flex-start;
   align-items: center;
   font-family: "Satoshi", sans-serif;
   font-weight: 900;
   font-size: clamp(4.5rem, 10vw, 10rem);
   line-height: 0.95;
-  opacity: 0.90; /* IMPORTANT: not 0.9 */
+  opacity: 0.12; /* keep it background-like */
   pointer-events: none;
   user-select: none;
 }
@@ -59,19 +60,15 @@
   height: 260px;     /* shorter */
   padding: 22px 26px;
   border-radius: 26px;
-
   backdrop-filter: blur(16px);
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.14);
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   box-shadow:
     0 0 80px rgba(59, 130, 246, 0.12),
     inset 0 0 24px rgba(255, 255, 255, 0.03);
-
   transition: transform 0.6s ease;
 }
 
@@ -214,22 +211,15 @@
   height: 140px;
   padding: 20px;
   border-radius: 22px;
-  /* Softer glass */
   backdrop-filter: blur(30px) saturate(110%);
   background: rgba(255, 255, 255, 0.025);
-  
-  /* Lighter border */
   border: 1px solid rgba(255, 255, 255, 0.10);
-
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  /* Very subtle depth */
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.25),
     inset 0 1px 1px rgba(255, 255, 255, 0.05);
-
   transition:
     box-shadow 0.4s ease,
     border-color 0.4s ease,
@@ -237,40 +227,27 @@
    animation: Flow-react 12s linear infinite ; 
 }
 
-/* =========================
-   MONEY FLOW CARD — MORE PREMIUM
-========================= */
 .Flow-cardMoney {
   position: relative;
   width: 260px;
   height: 160px;
   padding: 18px 20px;
   border-radius: 22px;
-
-  /* Cleaner, clearer glass */
   backdrop-filter: blur(20px) saturate(115%);
   background: rgba(255, 255, 255, 0.03);
-
   border: 1px solid rgba(255, 255, 255, 0.12);
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  /* Reduced glow, more realism */
   box-shadow:
     0 25px 55px rgba(0, 0, 0, 0.35),
     inset 0 1px 1px rgba(255, 255, 255, 0.06);
-
   transition:
     box-shadow 0.4s ease,
     border-color 0.4s ease,
     background 0.4s ease;
 }
 
-/* =========================
-   TOP ROW (0X | ETH)
-========================= */
 .Flow-cardTop {
     color: aqua;
   display: flex;
@@ -284,9 +261,7 @@
   letter-spacing: 0.25em;
   opacity: 0.75;
 }
-/* =========================
-   MASKED NUMBER
-========================= */
+
 .Flow-cardNumber {
   margin-top: 8px;
   font-family: "Satoshi", "Inter", -apple-system, BlinkMacSystemFont,
@@ -296,19 +271,13 @@
   opacity: 0.9;
 }
 
-/* =========================
-   STATUS (LIQUID)
-========================= */
-.Flow-cardStatus {
 
+.Flow-cardStatus {
   font-size: 0.6rem;
   letter-spacing: 0.22em;
   opacity: 0.7;
 }
 
-/* =========================
-   BOTTOM META (IN FLOW)
-========================= */
 .Flow-cardMeta {
     color: aqua;
   align-self: flex-end;
@@ -317,45 +286,33 @@
   opacity: 0.65;
 }
 
-/* =========================
-   FLOW REACTION (WHEN ACTIVE)
-========================= */
 .Flow-cardMoney {
   animation: Flow-react 10s linear infinite ; 
 }
 
-/* Sync with flow timing */
 .Flow-cardMoney[data-flow="1"] {
   animation-delay: 0s;
 }
 
-
-/* =========================
-   CONTINUOUS FLOW GLOW
-========================= */
 .Flow-glow {
   position: absolute;
   top: 50%;
   left: -45%;
   width: 190%;
   height: 80px;
-
   background: linear-gradient(
     90deg,
     transparent,
     rgba(15, 54, 117, 0.376),
     transparent
   );
-
   filter: blur(55px);
   transform: translateY(-50%);
   animation: Flow-move 10s cubic-bezier(0.22, 0.36, 0.36, 1) infinite; 
   pointer-events: none;
 }
 
-/* =========================
-   FLOW GLOW MOTION
-========================= */
+
 @keyframes Flow-move {
   0% {
     transform: translateX(-40%) translateY(-55%);
@@ -403,40 +360,21 @@
     box-shadow: none;
     border-color: rgba(255, 255, 255, 0.14);
   }
-
-  /* FLOW TOUCHES CARD */
   15% {
     box-shadow:
       0 18px 40px rgba(0, 0, 0, 0.35),
       0 0 22px rgba(0, 255, 255, 0.35);
-    border-color: rgba(0, 255, 255, 0.9); /* AQUA BORDER */
+    border-color: rgba(0, 255, 255, 0.9); 
   }
-
-  /* SETTLE BACK */
   30% {
     box-shadow: none;
     border-color: rgba(255, 255, 255, 0.14);
   }
-
   100% {
     box-shadow: none;
     border-color: rgba(255, 255, 255, 0.14);
   }
 }
-
-/* =========================
-   MONEY FLOW CARD (CREDIT CARD)
-========================= */
-/* =========================
-   PULSE EFFECT
-
-
-
-
-
-/* =========================
-   LIFECYCLE SECTION BASE
-========================= */
 .Lifecycle {
   position: relative;
   min-height: 100vh;
@@ -555,9 +493,6 @@
 }
 
 
-/* =========================
-   RIGHT SIDE — PHILOSOPHY
-========================= */
 .Lifecycle-right {
   margin-left: 100px ;
   max-width: 460px;
@@ -569,18 +504,16 @@
   transform: translateY(-120px);
 }
 
-/* Base lines */
 .Lifecycle-right p {
   margin: 0;
   opacity: 0.75;
 }
 
-/* Visual breathing space */
 .Lifecycle-right p + p {
   margin-top: 18px;
 }
 
-/* Emphasis line */
+
 .Lifecycle-emphasis {
   margin-top: 28px;
   font-weight: 600;
@@ -592,7 +525,6 @@
   color: rgba(255, 255, 255, 1);
 }
 
-/* Subtle accent underline */
 .Lifecycle-emphasis::after {
   content: "";
   display: block;
@@ -649,8 +581,6 @@
     opacity: 0.5;
   }
 }
-
-
 
 
 
@@ -799,11 +729,6 @@
   }
 }
 
-/* =========================
-   SCROLL REVEAL (IntersectionObserver)
-========================= */
-
-/* base hidden state */
 [data-reveal] {
   opacity: 0;
   transform: translateY(28px);
@@ -811,13 +736,11 @@
   will-change: opacity, transform;
 }
 
-/* visible state */
 [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* special: big bg text rises from below */
 .Home-bgText[data-reveal] {
   transform: translateY(110px);
   opacity: 0;
@@ -827,10 +750,9 @@
 
 .Home-bgText.is-visible {
   transform: translateY(0);
-  opacity: 0.67; /* keep it subtle */
+  opacity: 0.67; 
 }
 
-/* optional: smoother feel on smaller screens */
 @media (max-width: 600px) {
   [data-reveal] {
     transform: translateY(18px);
@@ -842,7 +764,6 @@
   }
 }
 
-/* accessibility: reduce motion */
 @media (prefers-reduced-motion: reduce) {
   [data-reveal],
   .Home-bgText[data-reveal] {

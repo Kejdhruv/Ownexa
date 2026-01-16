@@ -155,14 +155,10 @@
 .action-row button {
   width: 100%;
   height: 48px;
-  /* 🔒 same height */
   padding: 0;
-  /* 🔒 remove padding differences */
   display: flex;
   align-items: center;
-  /* 🔒 vertical center */
   justify-content: center;
-  /* 🔒 horizontal center */
   border-radius: 14px;
   font-weight: 600;
 }
@@ -237,22 +233,17 @@
   display: flex;
   gap: 12px;
   align-items: stretch;
-  /* 🔥 forces same vertical level */
 }
 
 .action-row button {
   flex: 1;
-  /* same width */
   height: 48px;
-  /* same height */
   padding: 0;
   box-sizing: border-box;
-  /* 🔥 border included in height */
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
-  /* 🔥 removes baseline shift */
 }
 
 /* ================================

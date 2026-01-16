@@ -29,7 +29,6 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   cursor: pointer;
   overflow: hidden;
-
   transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
 }
 
@@ -104,7 +103,6 @@
   margin-top: 16px;
   padding-top: 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-
   display: flex;
   justify-content: space-between;
   align-items: center;
