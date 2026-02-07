@@ -10,20 +10,31 @@ const FEMALE_AVATARS = JSON.parse(import.meta.env.VITE_FEMALE_AVATARS || "[]");
 const AuthPage = () => {
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
+  const [signUpStep, setSignUpStep] = useState(1);
   const [formData, setFormData] = useState({
     Username: "",
     Email: "",
     Password: "",
-    Gender: ""
+    Gender: "",
+    age: "",
+    investment_amount: "",
+    investment_duration: "",
+    annual_income: ""
   });
   const [loading, setLoading] = useState(false);
 
   const toggleMode = () => {
     setIsSignUp((prev) => !prev);
+    setSignUpStep(1);
     setFormData({
       Username: "",
       Email: "",
       Password: "",
+      Gender: "",
+      age: "",
+      investment_amount: "",
+      investment_duration: "",
+      annual_income: ""
     });
   };
 
@@ -41,14 +52,26 @@ const AuthPage = () => {
       return false;
     }
 
-    if (isSignUp && !formData.Username) {
-      toast.error("Username is required for signup");
-      return false;
+    if (isSignUp && signUpStep === 1) {
+      if (!formData.Username) {
+        toast.error("Username is required");
+        return false;
+      }
+
+      if (!formData.Gender) {
+        toast.error("Please select a gender");
+        return false;
+      }
     }
 
-    if (isSignUp && !formData.Gender) {
-      toast.error("Please select a gender");
-      return false;
+    if (isSignUp && signUpStep === 2) {
+      if (!formData.age ||
+          !formData.investment_amount ||
+          !formData.investment_duration ||
+          !formData.annual_income) {
+        toast.error("Please fill all investment details");
+        return false;
+      }
     }
 
     return true;
@@ -60,6 +83,13 @@ const AuthPage = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (isSignUp && signUpStep === 1) {
+      if (!validateForm()) return;
+      setSignUpStep(2);
+      return;
+    }
+
     if (!validateForm()) return;
 
     try {
@@ -72,7 +102,11 @@ const AuthPage = () => {
           Username: formData.Username,
           Email: formData.Email,
           Password: formData.Password,
-          Avatar: getRandomAvatar(formData.Gender)
+          Avatar: getRandomAvatar(formData.Gender),
+          age: Number(formData.age),
+          investment_amount: Number(formData.investment_amount),
+          investment_duration: Number(formData.investment_duration),
+          annual_income: Number(formData.annual_income)
         }
         : {
           Email: formData.Email,
@@ -127,7 +161,7 @@ const AuthPage = () => {
           <form className="form-box" onSubmit={handleSubmit}>
             <h3>{isSignUp ? "Make your Step " : "Welcome Back"}</h3>
 
-            {isSignUp && (
+            {isSignUp && signUpStep === 1 && (
               <input
                 type="text"
                 name="Username"
@@ -137,23 +171,27 @@ const AuthPage = () => {
               />
             )}
 
-            <input
-              type="email"
-              name="Email"
-              placeholder="Email"
-              value={formData.Email}
-              onChange={handleChange}
-            />
+            {(!isSignUp || signUpStep === 1) && (
+              <input
+                type="email"
+                name="Email"
+                placeholder="Email"
+                value={formData.Email}
+                onChange={handleChange}
+              />
+            )}
 
-            <input
-              type="password"
-              name="Password"
-              placeholder="Password"
-              value={formData.Password}
-              onChange={handleChange}
-            />
+            {(!isSignUp || signUpStep === 1) && (
+              <input
+                type="password"
+                name="Password"
+                placeholder="Password"
+                value={formData.Password}
+                onChange={handleChange}
+              />
+            )}
 
-            {isSignUp && (
+            {isSignUp && signUpStep === 1 && (
               <div className="gender-group">
                 <label>
                   <input
@@ -179,18 +217,54 @@ const AuthPage = () => {
               </div>
             )}
 
+            {isSignUp && signUpStep === 2 && (
+              <>
+                <input
+                  type="number"
+                  name="age"
+                  placeholder="Age"
+                  value={formData.age}
+                  onChange={handleChange}
+                />
+
+                <input
+                  type="number"
+                  name="annual_income"
+                  placeholder="Annual Income (INR)"
+                  value={formData.annual_income}
+                  onChange={handleChange}
+                />
+
+                <input
+                  type="number"
+                  name="investment_amount"
+                  placeholder="Investment Amount (INR)"
+                  value={formData.investment_amount}
+                  onChange={handleChange}
+                />
+
+                <input
+                  type="number"
+                  name="investment_duration"
+                  placeholder="Investment Duration (Months)"
+                  value={formData.investment_duration}
+                  onChange={handleChange}
+                />
+              </>
+            )}
+
             <button
               type="submit"
               className="Login-btn"
               disabled={loading}
             >
               {loading
-                ? isSignUp
-                  ? "Creating account..."
-                  : "Logging in..."
-                : isSignUp
-                  ? "Create Account"
-                  : "Login"}
+                ? "Processing..."
+                : isSignUp && signUpStep === 1
+                  ? "Next"
+                  : isSignUp && signUpStep === 2
+                    ? "Create Account"
+                    : "Login"}
             </button>
 
             <button

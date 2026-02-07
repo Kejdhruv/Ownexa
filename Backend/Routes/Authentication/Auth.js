@@ -14,7 +14,7 @@ router.use(cookieParser());
 /* User SignUp - Does NOT set cookies or log in */
 router.post("/auth/signup", async (req, res) => {
   try {
-    const { Email, Password, Username, Avatar } = req.body;
+    const { Email, Password, Username, Avatar , age ,  investment_amount, investment_duration ,annual_income   } = req.body;
     if (!Email || !Password || !Username || !Avatar) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -24,7 +24,11 @@ router.post("/auth/signup", async (req, res) => {
       Password,
       Username,
       Avatar,
-      Role: "User"
+      Role: "User",
+      Age : age,
+      AnnualIncome : annual_income, 
+      InvestmentAmount : investment_amount,
+      Duration : investment_duration
     });
     
     return res.status(201).json({
