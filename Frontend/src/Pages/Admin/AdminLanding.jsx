@@ -223,9 +223,9 @@ export default function AdminLanding() {
                   color: "#f3f4f6",
                 }}
                 itemStyle={{ color: "#e5e7eb" }}
-                formatter={(value, name) =>
-                  name === "volume_inr"
-                    ? [`₹${value.toLocaleString()}`, "Volume"]
+                formatter={(value, name, props) =>
+                  (props?.dataKey === "volume_inr" || String(name).toLowerCase().includes("volume"))
+                    ? [`₹${Number(value).toLocaleString("en-IN")}`, "Volume (₹)"]
                     : [value, "Transactions"]
                 }
                 labelFormatter={(label) => new Date(label).toDateString()}
