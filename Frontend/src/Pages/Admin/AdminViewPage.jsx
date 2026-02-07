@@ -42,52 +42,52 @@ export default function AdminViewPage() {
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} />
-    <div className="admin-pending-page">
-      <div className="admin-freeze-header"> <h2>Pending Property Requests</h2>
-        <SortBar
-          options={[
-            { key: "created_at", label: "Date" },
-          ]}
-          data={properties}
-          onChange={setProperties}
-        />
-      </div>
-
-      {properties.length === 0 ? (
-        <p className="empty-text">No pending requests</p>
-      ) : (
-        <div className="admin-card-grid">
-          {properties.map((property) => (
-            <div
-              key={property.id}
-              className="admin-property-card"
-              onClick={() => navigate(`/AdminDashboard/Pending/Property/${property.id}`)}
-            >
-              <div className="card-header">
-                <h3 className="property-title">{property.title}</h3>
-                <span className="status-badge pending">PENDING</span>
-              </div>
-
-              <div className="card-body">
-                <p>
-                  <span>Owner:</span> {property.owner_name}
-                </p>
-                <p>
-                  <span>Location:</span> {property.city}, {property.state}
-                </p>
-              </div>
-              <div className="card-footer">
-                <span className="submitted-date">
-                  Submitted:{" "}
-                  {new Date(property.created_at).toLocaleDateString()}
-                </span>
-                <span className="review-arrow">→</span>
-              </div>
-            </div>
-          ))}
+      <div className="admin-pending-page">
+        <div className="admin-freeze-header"> <h2>Pending Property Requests</h2>
+          <SortBar
+            options={[
+              { key: "created_at", label: "Date" },
+            ]}
+            data={properties}
+            onChange={setProperties}
+          />
         </div>
-      )}
-    </div>
+
+        {properties.length === 0 ? (
+          <p className="empty-text">No pending requests</p>
+        ) : (
+          <div className="admin-card-grid">
+            {properties.map((property) => (
+              <div
+                key={property.id}
+                className="admin-property-card"
+                onClick={() => navigate(`/AdminDashboard/Pending/Property/${property.id}`)}
+              >
+                <div className="card-header">
+                  <h3 className="property-title">{property.title}</h3>
+                  <span className="status-badge pending">PENDING</span>
+                </div>
+
+                <div className="card-body">
+                  <p>
+                    <span>Owner:</span> {property.owner_name}
+                  </p>
+                  <p>
+                    <span>Location:</span> {property.city}, {property.state}
+                  </p>
+                </div>
+                <div className="card-footer">
+                  <span className="submitted-date">
+                    Submitted:{" "}
+                    {new Date(property.created_at).toLocaleDateString()}
+                  </span>
+                  <span className="review-arrow">→</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </>
   );
 }

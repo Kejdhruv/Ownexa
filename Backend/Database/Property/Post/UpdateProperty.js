@@ -45,6 +45,6 @@ const UpdateProperty = async (data) => {
   }
 
   return updatedRows[0];
-}; 
+};
 
 export default UpdateProperty;

@@ -144,10 +144,12 @@
   font-size: 22px;
   font-weight: 600;
   color: #f9fafb;
-  margin: 0; /* important to align vertically */
+  margin: 0;
+  /* important to align vertically */
 }
+
 /* overlay loader */
-.pm-loaderOverlay{
+.pm-loaderOverlay {
   position: absolute;
   inset: 0;
   display: grid;
@@ -155,50 +157,60 @@
   z-index: 50;
 }
 
-.primary-page{
-  position: relative; /* REQUIRED for overlay */
+.primary-page {
+  position: relative;
+  /* REQUIRED for overlay */
 }
 
 /* loader card */
-.pm-loaderCard{
+.pm-loaderCard {
   padding: 14px 16px;
   border-radius: 18px;
-  background: rgba(0,0,0,0.26);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(14px) saturate(120%);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
-  box-shadow: 0 22px 70px rgba(0,0,0,0.48);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.48);
   display: grid;
   gap: 10px;
   place-items: center;
 }
 
-.pm-iconRow{
+.pm-iconRow {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: rgba(229,231,235,0.9);
+  color: rgba(229, 231, 235, 0.9);
 }
 
-.pm-arrow{
+.pm-arrow {
   opacity: 0.35;
   animation: pm-arrowMove 0.9s ease-in-out infinite;
 }
 
-@keyframes pm-arrowMove{
-  0%,100%{ transform: translateX(0); opacity: .25; }
-  50%{ transform: translateX(6px); opacity: .70; }
+@keyframes pm-arrowMove {
+
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: .25;
+  }
+
+  50% {
+    transform: translateX(6px);
+    opacity: .70;
+  }
 }
 
-.pm-loaderText{
+.pm-loaderText {
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(229,231,235,0.82);
+  color: rgba(229, 231, 235, 0.82);
 }
 
 /* optional: blur cards slightly while loading */
-.pm-blurWhileLoading{
+.pm-blurWhileLoading {
   filter: blur(2px);
   opacity: 0.65;
   pointer-events: none;

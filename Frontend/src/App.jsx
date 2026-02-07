@@ -78,7 +78,7 @@ function App() {
           <Route path="Documents" element={<Review />} />
         </Route>
 
-        <Route path="*" element={<NotFound/>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

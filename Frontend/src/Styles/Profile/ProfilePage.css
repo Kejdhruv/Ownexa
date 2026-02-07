@@ -22,7 +22,7 @@
   position: relative;
   grid-row: span 2;
   min-height: 480px;
-  max-height:480px ;
+  max-height: 480px;
   padding-bottom: 180px;
   margin-top: 40px;
   overflow: visible;
@@ -235,7 +235,8 @@
   backdrop-filter: blur(6px);
 
   line-height: 1;
-  flex-shrink: 0; /* Prevents card stretch */
+  flex-shrink: 0;
+  /* Prevents card stretch */
 }
 
 /* Risk Colors */
@@ -723,8 +724,9 @@
 .admin-entry {
   margin-top: 20px;
   display: flex;
-  margin-left: 42px ;
-  justify-content: flex-start; /* ← shift left */
+  margin-left: 42px;
+  justify-content: flex-start;
+  /* ← shift left */
 }
 
 .admin-panel-btn {
@@ -752,8 +754,8 @@
    (paste at END)
 ========================= */
 
-:root{
-  --ease-out: cubic-bezier(.22,.61,.36,1);
+:root {
+  --ease-out: cubic-bezier(.22, .61, .36, 1);
 }
 
 /* smoothness */
@@ -762,51 +764,92 @@
 .property-preview-list li,
 .tx-row,
 .admin-panel-btn,
-.metric{
+.metric {
   will-change: transform, opacity;
 }
 
 /* ---------- GRID RESPONSIVE (clean breakpoints) ---------- */
-@media (max-width: 1024px){
-  .content-grid{ gap: 18px; }
+@media (max-width: 1024px) {
+  .content-grid {
+    gap: 18px;
+  }
 }
-@media (max-width: 900px){
-  .content-grid{
+
+@media (max-width: 900px) {
+  .content-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     gap: 16px;
     padding: 0 14px;
   }
-  .hero-card{ grid-row: auto; max-height: none; }
-  .full-width-card{ grid-column: span 1; }
-}
-@media (max-width: 600px){
-  .card{ padding: 16px; border-radius: 18px; }
-  .hero-left{ padding: 22px 16px 0; }
-  .hero-left h1{ font-size: 26px; }
-  .hero-left p{ font-size: 13px; }
 
-  .metrics-strip{
+  .hero-card {
+    grid-row: auto;
+    max-height: none;
+  }
+
+  .full-width-card {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .hero-left {
+    padding: 22px 16px 0;
+  }
+
+  .hero-left h1 {
+    font-size: 26px;
+  }
+
+  .hero-left p {
+    font-size: 13px;
+  }
+
+  .metrics-strip {
     margin: 18px 0 0;
     padding: 14px;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     max-width: 100%;
   }
-  .metric{ padding: 8px 0; }
-  .metric h3{ font-size: 16px; }
-  .metric span{ font-size: 10px; }
 
-  .tx-row{
+  .metric {
+    padding: 8px 0;
+  }
+
+  .metric h3 {
+    font-size: 16px;
+  }
+
+  .metric span {
+    font-size: 10px;
+  }
+
+  .tx-row {
     padding: 12px 12px;
     gap: 12px;
     flex-wrap: wrap;
   }
-  .tx-right{ gap: 10px; }
-  .tx-amount{ min-width: auto; }
-  .tx-title{ font-size: 14px; }
 
-  .admin-entry{
+  .tx-right {
+    gap: 10px;
+  }
+
+  .tx-amount {
+    min-width: auto;
+  }
+
+  .tx-title {
+    font-size: 14px;
+  }
+
+  .admin-entry {
     margin-left: 0;
     margin-top: 14px;
     justify-content: center;
@@ -814,148 +857,203 @@
 }
 
 /* ---------- PAGE ENTRY ANIMATIONS ---------- */
-.card{
+.card {
   opacity: 0;
   transform: translateY(16px);
   animation: cardIn 700ms var(--ease-out) forwards;
 }
 
 /* stagger cards by grid position */
-.hero-card{ animation-delay: 0ms; }
-.card-holding{ animation-delay: 80ms; }
-.card-property{ animation-delay: 140ms; }
-.card-transactions{ animation-delay: 200ms; }
+.hero-card {
+  animation-delay: 0ms;
+}
 
-@keyframes cardIn{
-  to{ opacity: 1; transform: translateY(0); }
+.card-holding {
+  animation-delay: 80ms;
+}
+
+.card-property {
+  animation-delay: 140ms;
+}
+
+.card-transactions {
+  animation-delay: 200ms;
+}
+
+@keyframes cardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* hero text smooth */
 .hero-left h1,
-.hero-left p{
+.hero-left p {
   opacity: 0;
   transform: translateY(10px);
   animation: fadeUp 650ms var(--ease-out) forwards;
 }
-.hero-left p{ animation-delay: 120ms; }
-.hero-left h1{ animation-delay: 40ms; }
 
-@keyframes fadeUp{
-  to{ opacity: 1; transform: translateY(0); }
+.hero-left p {
+  animation-delay: 120ms;
+}
+
+.hero-left h1 {
+  animation-delay: 40ms;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ---------- PREMIUM HOVER (cards lift + glow) ---------- */
-.card{
+.card {
   transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out), border-color 220ms var(--ease-out);
 }
-.card:hover{
+
+.card:hover {
   transform: translateY(-4px);
-  border-color: rgba(99,102,241,0.22);
+  border-color: rgba(99, 102, 241, 0.22);
   box-shadow:
-    0 26px 80px rgba(0,0,0,0.62),
-    0 0 0 1px rgba(96,165,250,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.04);
+    0 26px 80px rgba(0, 0, 0, 0.62),
+    0 0 0 1px rgba(96, 165, 250, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 /* keep hero stable on mobile (no hover lift) */
-@media (hover: none) and (pointer: coarse){
-  .card:hover{ transform: none; }
+@media (hover: none) and (pointer: coarse) {
+  .card:hover {
+    transform: none;
+  }
 }
 
 /* ---------- SHIMMER EDGE ON IMPORTANT CARDS ---------- */
 .hero-card::before,
 .card-holding::after,
-.card-property::after{
-  content:"";
-  position:absolute;
-  inset:-2px;
+.card-property::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
   border-radius: inherit;
-  pointer-events:none;
+  pointer-events: none;
 
   opacity: 0;
   transform: translateX(-30%);
   transition: opacity 250ms var(--ease-out);
 }
+
 .hero-card:hover::before,
 .card-holding:hover::after,
-.card-property:hover::after{
+.card-property:hover::after {
   opacity: 1;
   animation: shimmerSweep 1.2s linear infinite;
 }
-@keyframes shimmerSweep{
-  from{ transform: translateX(-35%); }
-  to{ transform: translateX(35%); }
+
+@keyframes shimmerSweep {
+  from {
+    transform: translateX(-35%);
+  }
+
+  to {
+    transform: translateX(35%);
+  }
 }
 
 /* ---------- LIST ROW MICRO-INTERACTIONS ---------- */
 .preview-list li,
 .property-preview-list li,
-.tx-row{
+.tx-row {
 
   transition: transform 180ms var(--ease-out), background 180ms var(--ease-out);
 }
+
 .preview-list li:hover,
 .property-preview-list li:hover,
-.tx-row:hover{
+.tx-row:hover {
   transform: translateY(-2px);
 }
 
 /* ---------- METRICS “PULSE” ---------- */
-.metric{
+.metric {
   position: relative;
   overflow: hidden;
 }
-.metric::after{
-  content:"";
-  position:absolute;
-  inset:-40%;
-  background: radial-gradient(circle, rgba(147,197,253,0.18), transparent 55%);
+
+.metric::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.18), transparent 55%);
   opacity: 0;
   transform: scale(0.9);
   transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
 }
-.metric:hover::after{
+
+.metric:hover::after {
   opacity: 1;
   transform: scale(1.05);
 }
 
 /* ---------- BUTTON FEEL ---------- */
-.admin-panel-btn{
+.admin-panel-btn {
   transition: transform 180ms var(--ease-out), background 180ms var(--ease-out), border-color 180ms var(--ease-out);
 }
-.admin-panel-btn:hover{
+
+.admin-panel-btn:hover {
   transform: translateY(-2px);
 }
-.admin-panel-btn:active{
+
+.admin-panel-btn:active {
   transform: translateY(0px) scale(0.98);
 }
 
 /* ---------- TRANSACTION STATUS POP ---------- */
-.tx-status{
+.tx-status {
   transform: translateZ(0);
   animation: statusPop 600ms var(--ease-out) both;
 }
-@keyframes statusPop{
-  0%{ transform: scale(0.92); opacity: 0.6; }
-  100%{ transform: scale(1); opacity: 1; }
+
+@keyframes statusPop {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* ---------- HERO AVATAR: smooth idle float (after initial) ---------- */
-.hero-avatar{
+.hero-avatar {
   animation: avatar-rise 0.9s var(--ease-out) forwards, avatar-float 3.8s ease-in-out 1.1s infinite;
 }
-@keyframes avatar-float{
-  0%,100%{ transform: translateY(0); }
-  50%{ transform: translateY(-6px); }
+
+@keyframes avatar-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 /* ---------- ACCESSIBILITY: reduced motion ---------- */
-@media (prefers-reduced-motion: reduce){
+@media (prefers-reduced-motion: reduce) {
+
   .card,
   .hero-left h1,
   .hero-left p,
   .hero-avatar,
-  .tx-status{
+  .tx-status {
     animation: none !important;
     transition: none !important;
     transform: none !important;
@@ -964,10 +1062,10 @@
 }
 
 @media (max-width: 600px) {
+
   .preview-list li,
   .property-preview-list li,
   .tx-row {
     display: none !important;
   }
 }
-

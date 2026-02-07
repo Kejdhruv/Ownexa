@@ -56,4 +56,4 @@ const FindValidatedStaleProperties = async (days = 2) => {
   if (error) throw error;
   return data;
 };
-export { FindProperty, FindOneProperty, FindingProperties  , FindValidatedStaleProperties };
+export { FindProperty, FindOneProperty, FindingProperties, FindValidatedStaleProperties };

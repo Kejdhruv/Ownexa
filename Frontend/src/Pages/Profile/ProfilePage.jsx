@@ -18,7 +18,7 @@ function formatTimeAgo(date) {
 }
 
 export default function ProfilePage() {
-     const navigate = useNavigate();
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [timeSinceJoined, setTimeSinceJoined] = useState("");
     const [user, setUser] = useState(null);
@@ -127,174 +127,174 @@ export default function ProfilePage() {
         <>
             <ToastContainer position="top-right" autoClose={3000} />
 
-        <div className="content-grid">
-            <section className="card hero-card">
-                <div className="hero-left">
-                    <h1>{user?.username}</h1>
-                    <p>{user?.email}</p>
-                </div>
-
-                <div className="hero-avatar">
-                    <img src={user.avatar} alt="avatar" />
-                </div>
-
-                <div className="metrics-strip">
-                    <Metric label="Transactions" value={transactions.length} />
-                    <Metric label="Holdings" value={holdings.length} />
-                    <Metric label="Properties" value={listedProperties.length} />
-                </div>
-
-
-                 {user?.role === "Admin" && (
-    <div className="admin-entry">
-      <button
-        className="admin-panel-btn"
-        onClick={() => navigate("/AdminDashboard")}
-      >
-        View Admin 
-      </button>
-    </div>
-  )}
-
-
-                {timeSinceJoined && (
-                    <div className="join-timer-corner">
-                        Member for {timeSinceJoined}
+            <div className="content-grid">
+                <section className="card hero-card">
+                    <div className="hero-left">
+                        <h1>{user?.username}</h1>
+                        <p>{user?.email}</p>
                     </div>
-                )}
-            </section>
 
-            <section className="card-holding">
-                <div className="card-header holding-header">
-                    <h3>Total Investment</h3>
-
-                    {/* Risk Level Indicator */}
-                    <div className={`risk-badge ${getRiskClass(user?.risk_label)}`}>
-                        {getRiskLabel(user?.risk_label)} Risk
+                    <div className="hero-avatar">
+                        <img src={user.avatar} alt="avatar" />
                     </div>
-                </div>
 
-                <div className="investment-amount">
-                    ₹ {totalInvestment.toLocaleString()}
-                </div>
+                    <div className="metrics-strip">
+                        <Metric label="Transactions" value={transactions.length} />
+                        <Metric label="Holdings" value={holdings.length} />
+                        <Metric label="Properties" value={listedProperties.length} />
+                    </div>
 
-                {holdings.length === 0 ? (
-                    <p className="empty-text">No investments yet</p>
-                ) : (
-                    <ul className="preview-list">
-                        {holdings.slice(0, 2).map((h, i) => (
-                            <li key={i}>
-                                <span className="item-meta">{h.properties.token_name}</span>
-                                <span className="item-meta">x{h.token_quantity}</span>
-                                <span className="item-meta">{h.avg_price_inr}</span>
-                            </li>
-                        ))}
-                    </ul>
-                )}
 
-                <span
-                  className="view-hint clickable"
-                  onClick={() => navigate("/dashboard/holdings")}
-                >
-                  View all holdings
-                </span>
-            </section>
-            <section className="card-property">
-                <div className="card-header">
-                    <h3>Listed Properties</h3>
-                    <span className="card-subtle">
-                        {listedProperties.length} active
+                    {user?.role === "Admin" && (
+                        <div className="admin-entry">
+                            <button
+                                className="admin-panel-btn"
+                                onClick={() => navigate("/AdminDashboard")}
+                            >
+                                View Admin
+                            </button>
+                        </div>
+                    )}
+
+
+                    {timeSinceJoined && (
+                        <div className="join-timer-corner">
+                            Member for {timeSinceJoined}
+                        </div>
+                    )}
+                </section>
+
+                <section className="card-holding">
+                    <div className="card-header holding-header">
+                        <h3>Total Investment</h3>
+
+                        {/* Risk Level Indicator */}
+                        <div className={`risk-badge ${getRiskClass(user?.risk_label)}`}>
+                            {getRiskLabel(user?.risk_label)} Risk
+                        </div>
+                    </div>
+
+                    <div className="investment-amount">
+                        ₹ {totalInvestment.toLocaleString()}
+                    </div>
+
+                    {holdings.length === 0 ? (
+                        <p className="empty-text">No investments yet</p>
+                    ) : (
+                        <ul className="preview-list">
+                            {holdings.slice(0, 2).map((h, i) => (
+                                <li key={i}>
+                                    <span className="item-meta">{h.properties.token_name}</span>
+                                    <span className="item-meta">x{h.token_quantity}</span>
+                                    <span className="item-meta">{h.avg_price_inr}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
+                    <span
+                        className="view-hint clickable"
+                        onClick={() => navigate("/dashboard/holdings")}
+                    >
+                        View all holdings
                     </span>
-                </div>
-
-                {listedProperties.length === 0 ? (
-                    <p className="empty-text">No properties listed yet</p>
-                ) : (
-                    <ul className="property-preview-list">
-                        {listedProperties.slice(0, 1).map((p) => (
-                            <li key={p.id}>
-                                <div className="property-left">
-                                    <span className="property-title">{p.title}</span>
-                                    <span className="property-location">
-                                        {p.city}, {p.state}
-                                    </span>
-                                </div>
-
-                                <span className="property-status listed">
-                                    LISTED
-                                </span>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-
-                <span
-                  className="view-hint clickable"
-                  onClick={() => navigate("/dashboard/properties")}
-                >
-                  View all properties
-                </span>
-            </section>
-
-            <section className="card full-width-card card-transactions">
-                <div className="card-header">
-                    <h3>Recent Transactions</h3>
-                    <span className="card-subtle">Recent actions</span>
-                </div>
-
-                {recent.length === 0 ? (
-                    <p className="empty-text">No recent transactions</p>
-                ) : (
-                    <div className="tx-list">
-                        {recent.slice(0, 3).map((tx) => {
-                            const total =
-                                Number(tx.token_quantity) * Number(tx.price_per_token_inr);
-
-                            return (
-                                <div key={tx.transaction_hash} className="tx-row">
-                                    <div className="tx-left">
-                                        <div className="tx-title">
-                                            {tx.token_quantity} × {tx.token_name}
-                                        </div>
-                                        <div className="tx-price">
-                                            ₹{tx.price_per_token_inr} per token ·{" "}
-                                            <span className="tx-sub">{formatTimeAgo(tx.created_at)}</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="tx-right">
-                                        <div className="tx-amount">
-                                            ₹{total.toLocaleString("en-IN")}
-                                        </div>
-
-                                        <span className={`tx-status ${tx.status}`}>
-                                            {tx.status}
-                                        </span>
-
-                                        <a
-                                            href={`https://sepolia.etherscan.io/tx/${tx.transaction_hash}`}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="tx-link"
-                                            title="View on Etherscan"
-                                        >
-                                            View on Etherscan
-                                        </a>
-                                    </div>
-                                </div>
-                            );
-                        })}
+                </section>
+                <section className="card-property">
+                    <div className="card-header">
+                        <h3>Listed Properties</h3>
+                        <span className="card-subtle">
+                            {listedProperties.length} active
+                        </span>
                     </div>
-                )}
 
-                <span
-                  className="view-hint clickable"
-                  onClick={() => navigate("/dashboard/transactions")}
-                >
-                  View all transactions
-                </span>
-            </section>
-        </div>
+                    {listedProperties.length === 0 ? (
+                        <p className="empty-text">No properties listed yet</p>
+                    ) : (
+                        <ul className="property-preview-list">
+                            {listedProperties.slice(0, 1).map((p) => (
+                                <li key={p.id}>
+                                    <div className="property-left">
+                                        <span className="property-title">{p.title}</span>
+                                        <span className="property-location">
+                                            {p.city}, {p.state}
+                                        </span>
+                                    </div>
+
+                                    <span className="property-status listed">
+                                        LISTED
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
+                    <span
+                        className="view-hint clickable"
+                        onClick={() => navigate("/dashboard/properties")}
+                    >
+                        View all properties
+                    </span>
+                </section>
+
+                <section className="card full-width-card card-transactions">
+                    <div className="card-header">
+                        <h3>Recent Transactions</h3>
+                        <span className="card-subtle">Recent actions</span>
+                    </div>
+
+                    {recent.length === 0 ? (
+                        <p className="empty-text">No recent transactions</p>
+                    ) : (
+                        <div className="tx-list">
+                            {recent.slice(0, 3).map((tx) => {
+                                const total =
+                                    Number(tx.token_quantity) * Number(tx.price_per_token_inr);
+
+                                return (
+                                    <div key={tx.transaction_hash} className="tx-row">
+                                        <div className="tx-left">
+                                            <div className="tx-title">
+                                                {tx.token_quantity} × {tx.token_name}
+                                            </div>
+                                            <div className="tx-price">
+                                                ₹{tx.price_per_token_inr} per token ·{" "}
+                                                <span className="tx-sub">{formatTimeAgo(tx.created_at)}</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="tx-right">
+                                            <div className="tx-amount">
+                                                ₹{total.toLocaleString("en-IN")}
+                                            </div>
+
+                                            <span className={`tx-status ${tx.status}`}>
+                                                {tx.status}
+                                            </span>
+
+                                            <a
+                                                href={`https://sepolia.etherscan.io/tx/${tx.transaction_hash}`}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="tx-link"
+                                                title="View on Etherscan"
+                                            >
+                                                View on Etherscan
+                                            </a>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+
+                    <span
+                        className="view-hint clickable"
+                        onClick={() => navigate("/dashboard/transactions")}
+                    >
+                        View all transactions
+                    </span>
+                </section>
+            </div>
         </>
     );
 }

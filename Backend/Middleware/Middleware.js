@@ -12,11 +12,11 @@ export const getAuthUser = async (req) => {
 };
 
 export const FindRole = async (userId) => {
- const { data, error } = await supabase
+  const { data, error } = await supabase
     .from("users")
     .select("role")
     .eq("id", userId)
-    .single(); 
+    .single();
 
   if (error) throw error;
 

@@ -1,12 +1,12 @@
 import express from "express";
-import  {Analytics, AdminAnalytics } from "../../Database/Analytics/Analytics.js";
+import { Analytics, AdminAnalytics } from "../../Database/Analytics/Analytics.js";
 import { FindRole, getAuthUser } from "../../Middleware/Middleware.js";
 
-const router = express.Router();  
+const router = express.Router();
 
 router.get("/public/stats", async (req, res) => {
   try {
-      const stats = await Analytics(); 
+    const stats = await Analytics();
     return res.status(200).json({
       users: stats.total_users,
       properties: stats.total_validated_properties,

@@ -58,7 +58,7 @@ router.get("/userproperties", async (req, res) => {
     console.error("Error fetching properties:", err.message);
     return res.status(400).json({ error: err.message });
   }
-}); 
+});
 
 
 router.get("/warnedproperties", async (req, res) => {
@@ -69,14 +69,14 @@ router.get("/warnedproperties", async (req, res) => {
     if (role !== "Admin") {
       return res.status(403).json({ error: "Forbidden" });
     }
-    const properties = await FindValidatedStaleProperties(2); 
+    const properties = await FindValidatedStaleProperties(2);
     return res.status(200).json(properties);
   } catch (err) {
     console.error("Error fetching properties:", err);
     return res.status(400).json({ error: err.message || "Failed to fetch properties" });
   }
-}); 
- 
+});
+
 
 
 export default router;

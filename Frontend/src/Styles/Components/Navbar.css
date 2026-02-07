@@ -5,8 +5,9 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
-  margin-bottom: 8px ;
-  pointer-events: none; /* important */
+  margin-bottom: 8px;
+  pointer-events: none;
+  /* important */
 }
 
 /* INNER STRIP */

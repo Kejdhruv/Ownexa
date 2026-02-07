@@ -66,9 +66,9 @@ const AuthPage = () => {
 
     if (isSignUp && signUpStep === 2) {
       if (!formData.age ||
-          !formData.investment_amount ||
-          !formData.investment_duration ||
-          !formData.annual_income) {
+        !formData.investment_amount ||
+        !formData.investment_duration ||
+        !formData.annual_income) {
         toast.error("Please fill all investment details");
         return false;
       }

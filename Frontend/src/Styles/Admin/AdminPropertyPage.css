@@ -3,7 +3,8 @@
 ================================ */
 .property-page {
   min-height: 100vh;
-  padding: 32px 48px; /* Wider layout */
+  padding: 32px 48px;
+  /* Wider layout */
 }
 
 /* ================================
@@ -12,7 +13,8 @@
 .property-container {
   max-width: 1200px;
   margin: 0 auto;
-  background: transparent; /* Remove card look */
+  background: transparent;
+  /* Remove card look */
   border-radius: 0;
   padding: 20px 0;
 }
@@ -60,9 +62,11 @@
    CARDS
 ================================ */
 .preview-card {
-  background: transparent; /* Blend with page */
+  background: transparent;
+  /* Blend with page */
   border-radius: 0;
-  padding: 6px 6px ;  /* More breathing space */
+  padding: 6px 6px;
+  /* More breathing space */
   margin-bottom: 16px;
   border: none;
 }
@@ -112,12 +116,15 @@
 ================================ */
 .preview-card input {
   width: 100%;
-  padding: 12px 6px; /* Bigger input area */
-  margin-bottom: 18px; /* More spacing */
+  padding: 12px 6px;
+  /* Bigger input area */
+  margin-bottom: 18px;
+  /* More spacing */
 
   background: transparent;
   border: none;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.35); /* Stronger line */
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.35);
+  /* Stronger line */
 
   color: #f9fafb;
   outline: none;
@@ -132,7 +139,8 @@
 
 .preview-card input:focus {
   border-bottom-color: #60a5fa;
-  border-bottom-width: 2px; /* Emphasis on focus */
+  border-bottom-width: 2px;
+  /* Emphasis on focus */
 }
 
 .preview-card input:disabled {
@@ -251,10 +259,11 @@
    ADMIN FORM LAYOUT
 ================================ */
 .admin-form-row {
-  padding: 12px 24px ;
+  padding: 12px 24px;
   display: grid;
   grid-template-columns: 1.4fr 2fr;
-  gap: 20px; /* More space between fields */
+  gap: 20px;
+  /* More space between fields */
   margin-bottom: 20px;
 }
 
@@ -268,13 +277,15 @@
 /* RIGHT: textarea */
 .admin-review-field textarea {
   width: 100%;
-  min-height: 160px; /* Taller textarea */
+  min-height: 160px;
+  /* Taller textarea */
 
   padding: 12px 6px;
 
   background: transparent;
   border: none;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.35); /* Stronger line */
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.35);
+  /* Stronger line */
 
   color: #f9fafb;
   resize: vertical;
@@ -286,7 +297,8 @@
 
 .admin-review-field textarea:focus {
   border-bottom-color: #60a5fa;
-  border-bottom-width: 2px; /* Emphasis on focus */
+  border-bottom-width: 2px;
+  /* Emphasis on focus */
 }
 
 /* ================================

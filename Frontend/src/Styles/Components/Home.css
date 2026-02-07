@@ -17,7 +17,7 @@
   inset: 0;
   top: 30px;
   bottom: auto;
-  z-index: 0.9 ; 
+  z-index: 0.9;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -26,7 +26,8 @@
   font-weight: 900;
   font-size: clamp(4.5rem, 10vw, 10rem);
   line-height: 0.95;
-  opacity: 0.12; /* keep it background-like */
+  opacity: 0.12;
+  /* keep it background-like */
   pointer-events: none;
   user-select: none;
 }
@@ -56,8 +57,10 @@
 ========================= */
 .Home-panel {
   position: relative;
-  width: 420px;      /* wider */
-  height: 260px;     /* shorter */
+  width: 420px;
+  /* wider */
+  height: 260px;
+  /* shorter */
   padding: 22px 26px;
   border-radius: 26px;
   backdrop-filter: blur(16px);
@@ -89,6 +92,7 @@
 .Home-panel.Home-panelLeft:hover {
   transform: perspective(1200px) rotateY(40deg) rotateZ(0deg) translateZ(30px) translateY(-100px)
 }
+
 .Home-panel.Home-panelRight:hover {
   transform: perspective(1200px) rotateY(-40deg) rotateZ(0deg) translateY(-100px) translateZ(30px)
 }
@@ -117,7 +121,7 @@
   font-size: 0.65rem;
   letter-spacing: 0.18em;
   opacity: 0.7;
-   
+
 }
 
 /* STATS (CARD 2) */
@@ -136,7 +140,7 @@
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   opacity: 0.75;
-  color:aqua ; 
+  color: aqua;
 }
 
 .Home-live {
@@ -152,12 +156,10 @@
   inset: -1px;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(
-    120deg,
-    transparent 40%,
-    rgba(59, 130, 246, 0.12),
-    transparent 60%
-  );
+  background: linear-gradient(120deg,
+      transparent 40%,
+      rgba(59, 130, 246, 0.12),
+      transparent 60%);
   opacity: 0.6;
 }
 
@@ -172,7 +174,7 @@
   justify-content: center;
   gap: 80px;
   overflow: hidden;
-  color: white ;
+  color: white;
 }
 
 /* =========================
@@ -184,7 +186,7 @@
   letter-spacing: 0.25em;
   opacity: 0.8;
   font-family: "Inter", -apple-system, BlinkMacSystemFont,
-               "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* =========================
@@ -224,7 +226,7 @@
     box-shadow 0.4s ease,
     border-color 0.4s ease,
     background 0.4s ease;
-   animation: Flow-react 12s linear infinite ; 
+  animation: Flow-react 12s linear infinite;
 }
 
 .Flow-cardMoney {
@@ -249,7 +251,7 @@
 }
 
 .Flow-cardTop {
-    color: aqua;
+  color: aqua;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -265,7 +267,7 @@
 .Flow-cardNumber {
   margin-top: 8px;
   font-family: "Satoshi", "Inter", -apple-system, BlinkMacSystemFont,
-               "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1.2rem;
   letter-spacing: 0.25em;
   opacity: 0.9;
@@ -279,7 +281,7 @@
 }
 
 .Flow-cardMeta {
-    color: aqua;
+  color: aqua;
   align-self: flex-end;
   font-size: 0.6rem;
   letter-spacing: 0.25em;
@@ -287,7 +289,7 @@
 }
 
 .Flow-cardMoney {
-  animation: Flow-react 10s linear infinite ; 
+  animation: Flow-react 10s linear infinite;
 }
 
 .Flow-cardMoney[data-flow="1"] {
@@ -300,15 +302,13 @@
   left: -45%;
   width: 190%;
   height: 80px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(15, 54, 117, 0.376),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(15, 54, 117, 0.376),
+      transparent);
   filter: blur(55px);
   transform: translateY(-50%);
-  animation: Flow-move 10s cubic-bezier(0.22, 0.36, 0.36, 1) infinite; 
+  animation: Flow-move 10s cubic-bezier(0.22, 0.36, 0.36, 1) infinite;
   pointer-events: none;
 }
 
@@ -347,10 +347,21 @@
 /* =========================
    CARD REACTION TIMING
 ========================= */
-.Flow-card[data-flow="1"] { animation-delay: 0s; }
-.Flow-card[data-flow="2"] { animation-delay: 2.5s; }
-.Flow-card[data-flow="3"] { animation-delay: 5s; }
-.Flow-card[data-flow="4"] { animation-delay: 7.5s; }
+.Flow-card[data-flow="1"] {
+  animation-delay: 0s;
+}
+
+.Flow-card[data-flow="2"] {
+  animation-delay: 2.5s;
+}
+
+.Flow-card[data-flow="3"] {
+  animation-delay: 5s;
+}
+
+.Flow-card[data-flow="4"] {
+  animation-delay: 7.5s;
+}
 
 /* =========================
    CARD GLOW RESPONSE
@@ -360,21 +371,25 @@
     box-shadow: none;
     border-color: rgba(255, 255, 255, 0.14);
   }
+
   15% {
     box-shadow:
       0 18px 40px rgba(0, 0, 0, 0.35),
       0 0 22px rgba(0, 255, 255, 0.35);
-    border-color: rgba(0, 255, 255, 0.9); 
+    border-color: rgba(0, 255, 255, 0.9);
   }
+
   30% {
     box-shadow: none;
     border-color: rgba(255, 255, 255, 0.14);
   }
+
   100% {
     box-shadow: none;
     border-color: rgba(255, 255, 255, 0.14);
   }
 }
+
 .Lifecycle {
   position: relative;
   min-height: 100vh;
@@ -402,7 +417,7 @@
   font-weight: 700;
   line-height: 0.9;
   pointer-events: none;
-  text-align: left;      
+  text-align: left;
 }
 
 .Lifecycle-principle span {
@@ -412,16 +427,18 @@
 }
 
 .span1 {
-  color: rgba(59,130,246,0.7);
+  color: rgba(59, 130, 246, 0.7);
   font-size: 2rem;
   letter-spacing: 0.22em;
 }
-.line1:hover{
+
+.line1:hover {
   opacity: 1;
 }
+
 .span2 {
   font-size: 6rem;
-  letter-spacing: 0.08em;  
+  letter-spacing: 0.08em;
 }
 
 .Lifecycle-curve {
@@ -435,7 +452,7 @@
 }
 
 .Lifecycle-curve path {
-  filter: drop-shadow(0 0 8px rgba(59,130,246,0.25));
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.25));
 }
 
 .Lifecycle-states {
@@ -446,23 +463,24 @@
   height: 80%;
   z-index: 2;
 }
+
 .Lifecycle-state {
   position: absolute;
   padding: 12px 22px;
   border-radius: 999px;
   backdrop-filter: blur(16px);
-  background: rgba(255,255,255,0.035);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 0.7rem;
   letter-spacing: 0.22em;
   opacity: 0.65;
   animation: Lifecycle-pulse 10s linear infinite;
-  pointer-events: auto ;
+  pointer-events: auto;
 }
 
 .Lifecycle-state:hover {
-      opacity: 1;
-     border-color: rgba(59,130,246,0.5); 
+  opacity: 1;
+  border-color: rgba(59, 130, 246, 0.5);
 
 }
 
@@ -494,7 +512,7 @@
 
 
 .Lifecycle-right {
-  margin-left: 100px ;
+  margin-left: 100px;
   max-width: 460px;
   font-family: "Satoshi", "Inter", sans-serif;
   font-size: 1.5rem;
@@ -509,7 +527,7 @@
   opacity: 0.75;
 }
 
-.Lifecycle-right p + p {
+.Lifecycle-right p+p {
   margin-top: 18px;
 }
 
@@ -519,8 +537,8 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   font-size: 1.8rem;
-   display: inline-block;
-  white-space: nowrap; 
+  display: inline-block;
+  white-space: nowrap;
   opacity: 1;
   color: rgba(255, 255, 255, 1);
 }
@@ -531,11 +549,9 @@
   margin-top: 10px;
   width: 300px;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(59,130,246,0.9),
-    rgba(59,130,246,0.2)
-  );
+  background: linear-gradient(90deg,
+      rgba(59, 130, 246, 0.9),
+      rgba(59, 130, 246, 0.2));
 }
 
 @keyframes Lifecycle-flow {
@@ -543,15 +559,19 @@
     transform: translateX(-50%) translateY(-20%);
     opacity: 0;
   }
+
   15% {
     opacity: 1;
   }
+
   50% {
     transform: translateX(-50%) translateY(40%);
   }
+
   85% {
     opacity: 1;
   }
+
   100% {
     transform: translateX(-50%) translateY(100%);
     opacity: 0;
@@ -561,19 +581,19 @@
 @keyframes Lifecycle-pulse {
   0% {
     opacity: 0.5;
-    border-color: rgba(255,255,255,0.12);
+    border-color: rgba(255, 255, 255, 0.12);
     transform: translateY(0);
   }
 
   15% {
     opacity: 1;
-    border-color: rgba(59,130,246,0.5);
+    border-color: rgba(59, 130, 246, 0.5);
     transform: translateY(-2px);
   }
 
   30% {
     opacity: 0.5;
-    border-color: rgba(255,255,255,0.12);
+    border-color: rgba(255, 255, 255, 0.12);
     transform: translateY(0);
   }
 
@@ -655,6 +675,7 @@
 
 
 @media (max-width: 600px) {
+
   /* HERO */
   .Home-bgText {
     font-size: clamp(2.8rem, 12vw, 4rem);
@@ -703,10 +724,21 @@
     transform: translateX(-50%);
   }
 
-  .Lifecycle-state[data-step="1"] { top: 18%; }
-  .Lifecycle-state[data-step="2"] { top: 34%; }
-  .Lifecycle-state[data-step="3"] { top: 50%; }
-  .Lifecycle-state[data-step="4"] { top: 66%; }
+  .Lifecycle-state[data-step="1"] {
+    top: 18%;
+  }
+
+  .Lifecycle-state[data-step="2"] {
+    top: 34%;
+  }
+
+  .Lifecycle-state[data-step="3"] {
+    top: 50%;
+  }
+
+  .Lifecycle-state[data-step="4"] {
+    top: 66%;
+  }
 
   /* Right text */
   .Lifecycle-right {
@@ -750,7 +782,7 @@
 
 .Home-bgText.is-visible {
   transform: translateY(0);
-  opacity: 0.67; 
+  opacity: 0.67;
 }
 
 @media (max-width: 600px) {
@@ -765,6 +797,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   [data-reveal],
   .Home-bgText[data-reveal] {
     transition: none !important;
@@ -779,25 +812,35 @@
    (paste at the END)
 ========================= */
 
-html, body { overflow-x: hidden; }
-* { box-sizing: border-box; }
+html,
+body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 .Home,
 .Flow,
-.Lifecycle { width: 100%; overflow-x: hidden; }
+.Lifecycle {
+  width: 100%;
+  overflow-x: hidden;
+}
 
 /* ---------- HERO / PANELS ---------- */
 @media (max-width: 768px) {
-  .Home-panels{
+  .Home-panels {
     min-height: auto;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 28px;              /* was huge */
+    gap: 28px;
+    /* was huge */
     padding: 110px 16px 70px;
   }
 
-  .Home-panel{
+  .Home-panel {
     width: min(92vw, 420px);
     height: auto;
     padding: 18px 18px;
@@ -806,22 +849,22 @@ html, body { overflow-x: hidden; }
 
   /* remove hard tilts on mobile */
   .Home-panelLeft,
-  .Home-panelRight{
+  .Home-panelRight {
     transform: none !important;
   }
 
   /* disable crazy hover jumps on touch devices */
   .Home-panel.Home-panelLeft:hover,
-  .Home-panel.Home-panelRight:hover{
+  .Home-panel.Home-panelRight:hover {
     transform: none !important;
   }
 
-  .Home-amount{
+  .Home-amount {
     font-size: 1.4rem;
     letter-spacing: 0.10em;
   }
 
-  .Home-bgText{
+  .Home-bgText {
     top: 18px;
     font-size: clamp(2.2rem, 14vw, 4.2rem);
     line-height: 0.92;
@@ -831,49 +874,49 @@ html, body { overflow-x: hidden; }
 
 /* ---------- FLOW SECTION ---------- */
 @media (max-width: 768px) {
-  .Flow{
+  .Flow {
     padding: 70px 16px 90px;
     gap: 44px;
   }
 
-  .Flow-title{
+  .Flow-title {
     font-size: 22px;
     letter-spacing: 0.16em;
     line-height: 1.2;
   }
 
-  .Flow-cards{
+  .Flow-cards {
     flex-direction: column;
     gap: 24px;
     align-items: center;
   }
 
   .Flow-card,
-  .Flow-cardMoney{
+  .Flow-cardMoney {
     width: min(92vw, 360px);
     height: auto;
   }
 
-  .Flow-card{
+  .Flow-card {
     min-height: 110px;
     padding: 16px;
     border-radius: 18px;
   }
 
-  .Flow-cardMoney{
+  .Flow-cardMoney {
     min-height: 140px;
     padding: 16px;
     border-radius: 18px;
   }
 
-  .Flow-glow{
+  .Flow-glow {
     left: -70%;
     width: 240%;
     height: 70px;
     filter: blur(45px);
   }
 
-  .Flow-cardNumber{
+  .Flow-cardNumber {
     font-size: 1rem;
     letter-spacing: 0.18em;
     word-break: break-word;
@@ -882,17 +925,18 @@ html, body { overflow-x: hidden; }
 
 /* ---------- LIFECYCLE SECTION ---------- */
 @media (max-width: 900px) {
-  .Lifecycle{
+  .Lifecycle {
     grid-template-columns: 1fr;
     padding: 80px 16px 90px;
     gap: 42px;
   }
 
-  .Lifecycle-left{
-    min-height: 520px;      /* ensures curve + pills fit */
+  .Lifecycle-left {
+    min-height: 520px;
+    /* ensures curve + pills fit */
   }
 
-  .Lifecycle-principle{
+  .Lifecycle-principle {
     position: relative;
     top: 0;
     left: 0;
@@ -900,38 +944,51 @@ html, body { overflow-x: hidden; }
     text-align: center;
   }
 
-  .span1{
+  .span1 {
     font-size: 1.15rem;
     letter-spacing: 0.16em;
   }
 
-  .span2{
+  .span2 {
     font-size: clamp(2.3rem, 12vw, 3.6rem);
     letter-spacing: 0.06em;
   }
 
   .Lifecycle-curve,
-  .Lifecycle-states{
+  .Lifecycle-states {
     top: 90px;
-    height: 360px;          /* fixed height so it doesn't overflow */
+    height: 360px;
+    /* fixed height so it doesn't overflow */
   }
 
   /* Make pills centered and stacked cleanly */
-  .Lifecycle-state{
+  .Lifecycle-state {
     left: 50% !important;
     transform: translateX(-50%);
     font-size: 0.62rem;
     letter-spacing: 0.18em;
     padding: 10px 16px;
-    opacity: 0.9;           /* readability on mobile */
+    opacity: 0.9;
+    /* readability on mobile */
   }
 
-  .Lifecycle-state[data-step="1"]{ top: 12%; }
-  .Lifecycle-state[data-step="2"]{ top: 32%; }
-  .Lifecycle-state[data-step="3"]{ top: 52%; }
-  .Lifecycle-state[data-step="4"]{ top: 72%; }
+  .Lifecycle-state[data-step="1"] {
+    top: 12%;
+  }
 
-  .Lifecycle-right{
+  .Lifecycle-state[data-step="2"] {
+    top: 32%;
+  }
+
+  .Lifecycle-state[data-step="3"] {
+    top: 52%;
+  }
+
+  .Lifecycle-state[data-step="4"] {
+    top: 72%;
+  }
+
+  .Lifecycle-right {
     margin-left: 0;
     max-width: 100%;
     text-align: center;
@@ -941,13 +998,14 @@ html, body { overflow-x: hidden; }
     letter-spacing: 0.10em;
   }
 
-  .Lifecycle-emphasis{
+  .Lifecycle-emphasis {
     font-size: 1.25rem;
     letter-spacing: 0.12em;
-    white-space: normal;    /* avoid horizontal overflow */
+    white-space: normal;
+    /* avoid horizontal overflow */
   }
 
-  .Lifecycle-emphasis::after{
+  .Lifecycle-emphasis::after {
     width: 180px;
     margin-left: auto;
     margin-right: auto;
@@ -956,19 +1014,34 @@ html, body { overflow-x: hidden; }
 
 /* ---------- EXTRA SMALL PHONES ---------- */
 @media (max-width: 420px) {
-  .Home-panels{ padding-top: 96px; gap: 22px; }
-  .Home-panel{ padding: 16px; border-radius: 20px; }
-  .Home-footer{ font-size: 0.6rem; }
+  .Home-panels {
+    padding-top: 96px;
+    gap: 22px;
+  }
 
-  .Flow{ padding: 60px 14px 80px; }
-  .Flow-title{ font-size: 20px; }
+  .Home-panel {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .Home-footer {
+    font-size: 0.6rem;
+  }
+
+  .Flow {
+    padding: 60px 14px 80px;
+  }
+
+  .Flow-title {
+    font-size: 20px;
+  }
 
   .Lifecycle-curve,
-  .Lifecycle-states{
+  .Lifecycle-states {
     height: 320px;
   }
 
-  .Lifecycle-state{
+  .Lifecycle-state {
     width: 92%;
     text-align: center;
   }
@@ -976,7 +1049,7 @@ html, body { overflow-x: hidden; }
 
 /* ---------- TOUCH DEVICES: disable hover tilt globally ---------- */
 @media (hover: none) and (pointer: coarse) {
-  .Home-panel:hover{
+  .Home-panel:hover {
     transform: none !important;
   }
 }

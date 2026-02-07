@@ -31,7 +31,7 @@ const FindTransactions = async (status, user) => {
 
   if (error) throw error;
   return data;
-}; 
+};
 
 
 

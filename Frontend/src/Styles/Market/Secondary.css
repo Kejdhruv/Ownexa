@@ -201,7 +201,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  min-width: 0; /* 🔥 REQUIRED */
+  min-width: 0;
+  /* 🔥 REQUIRED */
 }
 
 .sm-title {
@@ -212,14 +213,17 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .sm-info {
   flex: 1;
-  min-width: 0; /* 🔥 MOST IMPORTANT LINE */
+  min-width: 0;
+  /* 🔥 MOST IMPORTANT LINE */
   display: flex;
   flex-direction: column;
 }
 
 .sm-badge {
-  flex-shrink: 0;        /* never shrink */
+  flex-shrink: 0;
+  /* never shrink */
   white-space: nowrap;
 }

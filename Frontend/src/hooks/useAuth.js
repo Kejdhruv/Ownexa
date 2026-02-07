@@ -11,7 +11,7 @@ const useAuth = () => {
     const checkAuth = async () => {
       try {
         const API = import.meta.env.VITE_API_BASE;
-        
+
         const res = await fetch(`${API}/auth/me`, {
           method: "GET",
           credentials: "include",

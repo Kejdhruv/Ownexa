@@ -119,100 +119,100 @@ export default function Review() {
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} />
-    <div className="admin-freeze-page">
-      <div className="admin-freeze-header">
-        <h2 className="admin-freeze-title">Verify Properties</h2>
+      <div className="admin-freeze-page">
+        <div className="admin-freeze-header">
+          <h2 className="admin-freeze-title">Verify Properties</h2>
 
-        <SortBar
-          options={[
-            { key: "last_doc_uploaded_at", label: "Date" },
-          ]}
-          data={properties}
-          onChange={setProperties}
-        />
-      </div>
-
-      {properties.length === 0 ? (
-        <p className="admin-empty-text">No properties need action</p>
-      ) : (
-        <div className="admin-freeze-grid">
-          {properties.map((p) => {
-            const d = daysAgo(p.last_doc_uploaded_at);
-
-            return (
-              <div key={p.id} className="admin-freeze-card">
-                {/* TOP INFO */}
-                <div className="admin-freeze-card-top">
-                  <div className="admin-freeze-card-titleRow">
-                    <h3 className="admin-property-name">{p.title}</h3>
-                  </div>
-
-                  <div className="admin-freeze-card-sub">
-                    <span className="admin-muted">Owner:</span> {p.owner_name || "—"}
-                    <span className="admin-dot">•</span>
-                    {p.city}, {p.state}
-                    {p.token_name ? (
-                      <>
-                        <span className="admin-dot">•</span>
-                        <span className="admin-token-pill">{p.token_name}</span>
-                      </>
-                    ) : null}
-                  </div>
-
-                  <div className="admin-freeze-card-meta">
-                    <div className="admin-meta-block">
-                      <span className="admin-meta-label">Last doc uploaded</span>
-                      <span className="admin-meta-value">
-                        {p.last_doc_uploaded_at
-                          ? new Date(p.last_doc_uploaded_at).toLocaleString()
-                          : "No record"}
-                      </span>
-                    </div>
-
-                    <div className="admin-meta-block">
-                      <span className="admin-meta-label">Days since upload</span>
-                      <span className="admin-meta-value">{d === null ? "—" : `${d} days`}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* DIVIDER */}
-                <div className="admin-freeze-divider" />
-
-                {/* ADMIN ACTIONS */}
-                <div className="admin-freeze-card-bottom">
-                  <textarea
-                    className="admin-note"
-                    placeholder="Write warning / admin note…"
-                    value={notes[p.id] || ""}
-                    onChange={(e) => handleNoteChange(p.id, e.target.value)}
-                    disabled={actionLoadingId === p.id}
-                  />
-
-                  <div className="admin-freeze-btnRow">
-                    <button
-                      className="admin-btn admin-warn"
-                      onClick={() => handleWarn(p.id)}
-                      disabled={actionLoadingId === p.id}
-                    >
-                      {actionLoadingId === p.id ? "..." : "Warn"}
-                    </button>
-
-                    <button
-                      className="admin-btn admin-freeze"
-                      onClick={() => handleFreeze(p.id)}
-                      disabled={actionLoadingId === p.id}
-                    >
-                      {actionLoadingId === p.id ? "..." : "Freeze"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          <SortBar
+            options={[
+              { key: "last_doc_uploaded_at", label: "Date" },
+            ]}
+            data={properties}
+            onChange={setProperties}
+          />
         </div>
-      )}
-    </div>
+
+        {properties.length === 0 ? (
+          <p className="admin-empty-text">No properties need action</p>
+        ) : (
+          <div className="admin-freeze-grid">
+            {properties.map((p) => {
+              const d = daysAgo(p.last_doc_uploaded_at);
+
+              return (
+                <div key={p.id} className="admin-freeze-card">
+                  {/* TOP INFO */}
+                  <div className="admin-freeze-card-top">
+                    <div className="admin-freeze-card-titleRow">
+                      <h3 className="admin-property-name">{p.title}</h3>
+                    </div>
+
+                    <div className="admin-freeze-card-sub">
+                      <span className="admin-muted">Owner:</span> {p.owner_name || "—"}
+                      <span className="admin-dot">•</span>
+                      {p.city}, {p.state}
+                      {p.token_name ? (
+                        <>
+                          <span className="admin-dot">•</span>
+                          <span className="admin-token-pill">{p.token_name}</span>
+                        </>
+                      ) : null}
+                    </div>
+
+                    <div className="admin-freeze-card-meta">
+                      <div className="admin-meta-block">
+                        <span className="admin-meta-label">Last doc uploaded</span>
+                        <span className="admin-meta-value">
+                          {p.last_doc_uploaded_at
+                            ? new Date(p.last_doc_uploaded_at).toLocaleString()
+                            : "No record"}
+                        </span>
+                      </div>
+
+                      <div className="admin-meta-block">
+                        <span className="admin-meta-label">Days since upload</span>
+                        <span className="admin-meta-value">{d === null ? "—" : `${d} days`}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* DIVIDER */}
+                  <div className="admin-freeze-divider" />
+
+                  {/* ADMIN ACTIONS */}
+                  <div className="admin-freeze-card-bottom">
+                    <textarea
+                      className="admin-note"
+                      placeholder="Write warning / admin note…"
+                      value={notes[p.id] || ""}
+                      onChange={(e) => handleNoteChange(p.id, e.target.value)}
+                      disabled={actionLoadingId === p.id}
+                    />
+
+                    <div className="admin-freeze-btnRow">
+                      <button
+                        className="admin-btn admin-warn"
+                        onClick={() => handleWarn(p.id)}
+                        disabled={actionLoadingId === p.id}
+                      >
+                        {actionLoadingId === p.id ? "..." : "Warn"}
+                      </button>
+
+                      <button
+                        className="admin-btn admin-freeze"
+                        onClick={() => handleFreeze(p.id)}
+                        disabled={actionLoadingId === p.id}
+                      >
+                        {actionLoadingId === p.id ? "..." : "Freeze"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </>
   );
 }

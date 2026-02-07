@@ -168,127 +168,127 @@ export default function AdminPropertyPage() {
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} />
-    <div className="property-page">
-      <div className="property-container">
-        <div className="property-header">
-          <h2>{property.title}</h2>
-          <span className="status-badge pending">
-            {property.status.toUpperCase()}
-          </span>
-        </div>
-        <div className="property-layout">
-          <div className="property-left">
-            <InfoCard title="Property Details">
-              <p>{property.bhk} BHK • {property.property_type}</p>
-              <p>{property.built_up_area_sqft} sqft</p>
-            </InfoCard>
-
-            <InfoCard title="Address">
-              <p>{property.address_line}</p>
-              <p>{property.city}, {property.state} - {property.pincode}</p>
-            </InfoCard>
-
-            <InfoCard title="Owner Info">
-              <p>{property.owner_name}</p>
-              <p className="muted">
-                {property.owner_accountaddress.slice(0, 6)}...
-                {property.owner_accountaddress.slice(-4)}
-              </p>
-            </InfoCard>
-
-            <InfoCard title="Registry">
-              <p>{property.registry_name}</p>
-              <p>{property.registry_number}</p>
-              <p>{property.registration_date}</p>
-            </InfoCard>
-
-            <InfoCard title="Token (User Expectation)">
-              <p>{property.token_name}</p>
-              <p>Expected: ₹{property.price_per_token_inr}</p>
-            </InfoCard>
+      <div className="property-page">
+        <div className="property-container">
+          <div className="property-header">
+            <h2>{property.title}</h2>
+            <span className="status-badge pending">
+              {property.status.toUpperCase()}
+            </span>
           </div>
-
-          <div className="property-right">
-
-            <InfoCard title="Property Images">
-              <div className="image-grid">
-                {property.property_images.map((img, i) => (
-                  <img key={i} src={img} alt="property" />
-                ))}
-              </div>
-            </InfoCard>
-
-            <InfoCard title="Legal Documents">
-              {property.legal_documents.map((doc, i) => (
-                <a key={i} href={doc} target="_blank" rel="noreferrer">
-                  📄 {doc.split("/").pop()}
-                </a>
-              ))}
-            </InfoCard>
-
-            {property.status === "pending" && (
-              <InfoCard title="Admin – Validate & Mint">
-
-                <div className="admin-form-row">
-
-                  <div className="token-fields-vertical">
-                    <input
-                      placeholder="Token Name"
-                      value={tokenName}
-                      onChange={(e) => setTokenName(e.target.value)}
-                    />
-
-                    <input
-                      placeholder="Token Quantity"
-                      type="number"
-                      value={tokenQuantity}
-                      onChange={(e) => setTokenQuantity(e.target.value)}
-                    />
-
-                    <input
-                      placeholder="Price Per Token (INR)"
-                      type="number"
-                      value={pricePerTokenINR}
-                      onChange={(e) => setPricePerTokenINR(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="admin-review-field">
-                    <textarea
-                      placeholder="Admin review (verification / rejection notes)"
-                      value={adminreview}
-                      onChange={(e) => setadminreview(e.target.value)}
-                      rows={6}
-                    />
-                  </div>
-
-                </div>
-
-                <div className="action-row">
-                  <button
-                    className="mint-btn"
-                    disabled={minting}
-                    onClick={handleValidateAndMint}
-                  >
-                    {minting ? "Minting on Blockchain..." : "Validate & Mint"}
-                  </button>
-
-                  <button
-                    className="reject-btn"
-                    disabled={minting}
-                    onClick={handleRejectProperty}
-                  >
-                    Reject
-                  </button>
-                </div>
-
+          <div className="property-layout">
+            <div className="property-left">
+              <InfoCard title="Property Details">
+                <p>{property.bhk} BHK • {property.property_type}</p>
+                <p>{property.built_up_area_sqft} sqft</p>
               </InfoCard>
-            )}
 
+              <InfoCard title="Address">
+                <p>{property.address_line}</p>
+                <p>{property.city}, {property.state} - {property.pincode}</p>
+              </InfoCard>
+
+              <InfoCard title="Owner Info">
+                <p>{property.owner_name}</p>
+                <p className="muted">
+                  {property.owner_accountaddress.slice(0, 6)}...
+                  {property.owner_accountaddress.slice(-4)}
+                </p>
+              </InfoCard>
+
+              <InfoCard title="Registry">
+                <p>{property.registry_name}</p>
+                <p>{property.registry_number}</p>
+                <p>{property.registration_date}</p>
+              </InfoCard>
+
+              <InfoCard title="Token (User Expectation)">
+                <p>{property.token_name}</p>
+                <p>Expected: ₹{property.price_per_token_inr}</p>
+              </InfoCard>
+            </div>
+
+            <div className="property-right">
+
+              <InfoCard title="Property Images">
+                <div className="image-grid">
+                  {property.property_images.map((img, i) => (
+                    <img key={i} src={img} alt="property" />
+                  ))}
+                </div>
+              </InfoCard>
+
+              <InfoCard title="Legal Documents">
+                {property.legal_documents.map((doc, i) => (
+                  <a key={i} href={doc} target="_blank" rel="noreferrer">
+                    📄 {doc.split("/").pop()}
+                  </a>
+                ))}
+              </InfoCard>
+
+              {property.status === "pending" && (
+                <InfoCard title="Admin – Validate & Mint">
+
+                  <div className="admin-form-row">
+
+                    <div className="token-fields-vertical">
+                      <input
+                        placeholder="Token Name"
+                        value={tokenName}
+                        onChange={(e) => setTokenName(e.target.value)}
+                      />
+
+                      <input
+                        placeholder="Token Quantity"
+                        type="number"
+                        value={tokenQuantity}
+                        onChange={(e) => setTokenQuantity(e.target.value)}
+                      />
+
+                      <input
+                        placeholder="Price Per Token (INR)"
+                        type="number"
+                        value={pricePerTokenINR}
+                        onChange={(e) => setPricePerTokenINR(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="admin-review-field">
+                      <textarea
+                        placeholder="Admin review (verification / rejection notes)"
+                        value={adminreview}
+                        onChange={(e) => setadminreview(e.target.value)}
+                        rows={6}
+                      />
+                    </div>
+
+                  </div>
+
+                  <div className="action-row">
+                    <button
+                      className="mint-btn"
+                      disabled={minting}
+                      onClick={handleValidateAndMint}
+                    >
+                      {minting ? "Minting on Blockchain..." : "Validate & Mint"}
+                    </button>
+
+                    <button
+                      className="reject-btn"
+                      disabled={minting}
+                      onClick={handleRejectProperty}
+                    >
+                      Reject
+                    </button>
+                  </div>
+
+                </InfoCard>
+              )}
+
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

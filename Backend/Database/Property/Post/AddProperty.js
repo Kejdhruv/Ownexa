@@ -5,7 +5,7 @@ import { uploadFiles } from "./UploadFiles.js";
 
 const AddProperty = async (data, user, files) => {
   console.log(user);
-  console.log(data); 
+  console.log(data);
   const propertyImageUrls = await uploadFiles(
     files?.propertyImages,
     "Property-Images"
@@ -15,7 +15,7 @@ const AddProperty = async (data, user, files) => {
     files?.legalDocuments,
     "Legal-Documents"
   );
- 
+
   const { data: property, error } = await supabase
     .from("properties")
     .insert({

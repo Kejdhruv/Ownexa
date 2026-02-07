@@ -338,7 +338,7 @@ html,
 }
 
 /* selected state */
-.gender-group input[type="radio"]:checked + span,
+.gender-group input[type="radio"]:checked+span,
 .gender-group input[type="radio"]:checked {
   /* fallback safety */
 }

@@ -4,8 +4,9 @@
 
 .txn-page {
   max-width: 1200px;
-  margin: 0 auto; 
+  margin: 0 auto;
 }
+
 .txn-title {
   font-size: 28px;
   font-weight: 600;
@@ -35,11 +36,9 @@
 
 .txn-card {
   background:
-    linear-gradient(
-      180deg,
+    linear-gradient(180deg,
       rgba(20, 22, 27, 0.92),
-      rgba(16, 18, 24, 0.92)
-    ),
+      rgba(16, 18, 24, 0.92)),
     rgba(96, 165, 250, 0.04);
 
   backdrop-filter: blur(14px);
@@ -299,7 +298,8 @@
 .modal-actions {
   display: flex;
   justify-content: space-between;
-  gap: 18px; /* MORE SPACE BETWEEN BUTTONS */
+  gap: 18px;
+  /* MORE SPACE BETWEEN BUTTONS */
   margin-top: 24px;
 }
 
@@ -323,11 +323,9 @@
 /* Confirm Button */
 .confirm-btn {
   flex: 1;
-  background: linear-gradient(
-    135deg,
-    #2563eb,
-    #6366f1
-  );
+  background: linear-gradient(135deg,
+      #2563eb,
+      #6366f1);
   color: #ffffff;
   border: none;
   padding: 10px 0;
@@ -358,6 +356,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -368,6 +367,7 @@
     transform: scale(0.92);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -418,11 +418,9 @@
 
 /* Dim previous cards */
 .previous-card {
-  background: linear-gradient(
-    135deg,
-    #fafcff,
-    #f3f7ff
-  );
+  background: linear-gradient(135deg,
+      #fafcff,
+      #f3f7ff);
   border: 1px solid #dbeafe;
   filter: grayscale(8%);
   transition: all 0.25s ease;
@@ -436,11 +434,9 @@
 
 /* SOLD badge style */
 .holding-status.SOLD {
-  background: linear-gradient(
-    135deg,
-    #64748b,
-    #475569
-  );
+  background: linear-gradient(135deg,
+      #64748b,
+      #475569);
   color: #ffffff;
   font-size: 12px;
   padding: 4px 9px;

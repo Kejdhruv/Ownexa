@@ -17,7 +17,7 @@ export default function Home() {
     fetchStats();
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const els = document.querySelectorAll("[data-reveal]");
     const io = new IntersectionObserver(
       (entries) => {

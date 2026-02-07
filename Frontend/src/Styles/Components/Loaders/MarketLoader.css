@@ -1,4 +1,4 @@
-.mml-wrap{
+.mml-wrap {
   min-height: 55vh;
   display: grid;
   place-items: center;
@@ -6,54 +6,91 @@
   padding: 22px;
 }
 
-.mml-row{
+.mml-row {
   display: inline-flex;
   align-items: center;
   gap: 14px;
   padding: 14px 18px;
   border-radius: 18px;
 
-  background: rgba(0,0,0,0.22);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(14px) saturate(120%);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
-  box-shadow: 0 20px 65px rgba(0,0,0,0.45);
+  box-shadow: 0 20px 65px rgba(0, 0, 0, 0.45);
 }
 
-.mml-ico{
+.mml-ico {
   opacity: 0.35;
   transform: translateY(0);
   animation: mml-pop 1.2s ease-in-out infinite;
 }
 
-.mml-arrow{
+.mml-arrow {
   opacity: 0.22;
   animation: mml-arrow 1.0s ease-in-out infinite;
 }
 
-.mml-a{ animation-delay: 0s; }
-.mml-b{ animation-delay: 0.12s; }
-.mml-c{ animation-delay: 0.24s; }
-.mml-d{ animation-delay: 0.36s; }
-.mml-e{ animation-delay: 0.48s; }
-
-@keyframes mml-pop{
-  0%,100%{ opacity: .28; transform: translateY(0) scale(1); }
-  50%{ opacity: .92; transform: translateY(-2px) scale(1.03); }
+.mml-a {
+  animation-delay: 0s;
 }
 
-@keyframes mml-arrow{
-  0%,100%{ opacity: .18; transform: translateX(0); }
-  50%{ opacity: .75; transform: translateX(6px); }
+.mml-b {
+  animation-delay: 0.12s;
 }
 
-.mml-text{
+.mml-c {
+  animation-delay: 0.24s;
+}
+
+.mml-d {
+  animation-delay: 0.36s;
+}
+
+.mml-e {
+  animation-delay: 0.48s;
+}
+
+@keyframes mml-pop {
+
+  0%,
+  100% {
+    opacity: .28;
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    opacity: .92;
+    transform: translateY(-2px) scale(1.03);
+  }
+}
+
+@keyframes mml-arrow {
+
+  0%,
+  100% {
+    opacity: .18;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: .75;
+    transform: translateX(6px);
+  }
+}
+
+.mml-text {
   font-size: 12px;
   letter-spacing: 0.12em;
-  color: rgba(229,231,235,0.82);
+  color: rgba(229, 231, 235, 0.82);
   text-transform: uppercase;
 }
 
-@media (prefers-reduced-motion: reduce){
-  .mml-ico, .mml-arrow{ animation: none !important; opacity: .65; }
+@media (prefers-reduced-motion: reduce) {
+
+  .mml-ico,
+  .mml-arrow {
+    animation: none !important;
+    opacity: .65;
+  }
 }

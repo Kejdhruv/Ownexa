@@ -25,7 +25,7 @@ const FreezePropertyAdmin = async (data) => {
     .update({
       updated_at: new Date().toISOString(),
       admin_review: data.adminreview ?? null,
-      status: "FROZEN",  
+      status: "FROZEN",
       is_listed: false,
     })
     .eq("id", data.propertyId)

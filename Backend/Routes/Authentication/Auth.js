@@ -30,7 +30,7 @@ router.post("/auth/signup", async (req, res) => {
     // ------------------------
     // 1. Create User
     // ------------------------
-    console.log(annual_income); 
+    console.log(annual_income);
     const user = await CreateUser({
       Email,
       Password,
@@ -49,22 +49,22 @@ router.post("/auth/signup", async (req, res) => {
 
     try {
       await fetch("http://127.0.0.1:8000/recommend", {
-  method: "PUT",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    id: String(user.id),
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: String(user.id),
 
-    age: Number(user.age || 0),
+          age: Number(user.age || 0),
 
-    income: Number(user.annual_income || 0),
+          income: Number(user.annual_income || 0),
 
-    investment_amount: Number(user.investment_amount || 0),
+          investment_amount: Number(user.investment_amount || 0),
 
-    investment_duration: Number(user.investment_duration || 0),
-  }),
-});
+          investment_duration: Number(user.investment_duration || 0),
+        }),
+      });
     } catch (mlErr) {
       console.error("ML API Error:", mlErr.message);
       // Don't block signup if ML fails
