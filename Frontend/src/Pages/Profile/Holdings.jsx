@@ -22,6 +22,7 @@ export default function HoldingsPage() {
   const [showRedeemModal, setShowRedeemModal] = useState(false);
   const [redeemLoading, setRedeemLoading] = useState(false);
   const [selectedRedeemHolding, setSelectedRedeemHolding] = useState(null);
+  const [redeemConfirmText, setRedeemConfirmText] = useState("");
 
   useEffect(() => {
     const fetchHoldings = async () => {
@@ -79,10 +80,15 @@ export default function HoldingsPage() {
   const closeRedeemModal = () => {
     setShowRedeemModal(false);
     setSelectedRedeemHolding(null);
+    setRedeemConfirmText("");
   };
 
   const handleRedeemTokens = async () => {
     if (!selectedRedeemHolding) return;
+    if (redeemConfirmText !== "REDEEM") {
+      alert("Please type REDEEM to confirm");
+      return;
+    }
 
     try {
       setRedeemLoading(true);
@@ -423,9 +429,17 @@ export default function HoldingsPage() {
               {selectedRedeemHolding.properties.token_name}
             </p>
 
-            <p style={{ marginBottom: "12px", fontSize: "14px" }}>
-              Are you sure you want to redeem your tokens and claim settlement?
+            <p style={{ marginBottom: "10px", fontSize: "14px", color: "#4b5563", textAlign: "center" }}>
+              This action is irreversible. Type <b>REDEEM</b> below to confirm.
             </p>
+
+            <input
+              type="text"
+              placeholder="Type REDEEM to confirm"
+              value={redeemConfirmText}
+              onChange={(e) => setRedeemConfirmText(e.target.value.toUpperCase())}
+              className="redeem-confirm-input"
+            />
 
             <div className="modal-actions">
               <button onClick={closeRedeemModal}>
@@ -433,7 +447,7 @@ export default function HoldingsPage() {
               </button>
 
               <button
-                disabled={redeemLoading}
+                disabled={redeemLoading || redeemConfirmText !== "REDEEM"}
                 onClick={handleRedeemTokens}
               >
                 {redeemLoading ? "Redeeming..." : "Confirm Redeem"}

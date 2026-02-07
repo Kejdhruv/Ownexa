@@ -19,7 +19,7 @@ export default function PropertiesPage() {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [sellPrice, setSellPrice] = useState("");
   const [txLoading, setTxLoading] = useState(false);
-
+  const [sellConfirmText, setSellConfirmText] = useState("");
 
 
     const getContractAndAccount = async () => {
@@ -44,6 +44,10 @@ export default function PropertiesPage() {
   // SELL PROPERTY HANDLER
   // ===============================
  const handleSellProperty = async (item) => {
+  if (sellConfirmText !== "SELL") {
+    alert("Please type SELL to confirm");
+    return;
+  }
   // item is your property row from supabase
 
   const propertyId = item.id;
@@ -120,6 +124,7 @@ export default function PropertiesPage() {
 
     setShowModal(false);
     setSellPrice("");
+    setSellConfirmText("");
 
   } catch (err) {
     console.error("Sell failed:", err);
@@ -374,6 +379,27 @@ export default function PropertiesPage() {
               ).toLocaleString()}
             </p>
 
+            <p
+              style={{
+                marginBottom: "8px",
+                fontSize: "14px",
+                color: "#4b5563",
+                textAlign: "center",
+              }}
+            >
+              This action is irreversible. Type <b>SELL</b> to confirm.
+            </p>
+
+            <input
+              type="text"
+              placeholder="Type SELL to confirm"
+              value={sellConfirmText}
+              onChange={(e) =>
+                setSellConfirmText(e.target.value.toUpperCase())
+              }
+              className="sell-confirm-input"
+            />
+
             <input
               type="number"
               placeholder="Enter settlement price (INR)"
@@ -388,6 +414,7 @@ export default function PropertiesPage() {
                 onClick={() => {
                   setShowModal(false);
                   setSellPrice("");
+                  setSellConfirmText("");
                 }}
               >
                 Cancel
@@ -395,7 +422,7 @@ export default function PropertiesPage() {
 
               <button
                 className="confirm-btn"
-                disabled={txLoading}
+                disabled={txLoading || sellConfirmText !== "SELL"}
                 onClick={() => handleSellProperty(selectedProperty)}
               >
                 {txLoading ? "Processing..." : "Confirm & Sell"}
