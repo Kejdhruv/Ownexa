@@ -192,7 +192,12 @@ export default function ProfilePage() {
                     </ul>
                 )}
 
-                <span className="view-hint">View all holdings</span>
+                <span
+                  className="view-hint clickable"
+                  onClick={() => navigate("/dashboard/holdings")}
+                >
+                  View all holdings
+                </span>
             </section>
             <section className="card-property">
                 <div className="card-header">
@@ -223,7 +228,12 @@ export default function ProfilePage() {
                     </ul>
                 )}
 
-                <span className="view-hint">View all properties</span>
+                <span
+                  className="view-hint clickable"
+                  onClick={() => navigate("/dashboard/properties")}
+                >
+                  View all properties
+                </span>
             </section>
 
             <section className="card full-width-card card-transactions">
@@ -277,7 +287,12 @@ export default function ProfilePage() {
                     </div>
                 )}
 
-                <span className="view-hint">View all transactions</span>
+                <span
+                  className="view-hint clickable"
+                  onClick={() => navigate("/dashboard/transactions")}
+                >
+                  View all transactions
+                </span>
             </section>
         </div>
         </>
