@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 
 import "../../Styles/Profile/Transactions.css";
@@ -86,7 +88,7 @@ export default function HoldingsPage() {
   const handleRedeemTokens = async () => {
     if (!selectedRedeemHolding) return;
     if (redeemConfirmText !== "REDEEM") {
-      alert("Please type REDEEM to confirm");
+      toast.error("Please type REDEEM to confirm");
       return;
     }
 
@@ -125,14 +127,11 @@ export default function HoldingsPage() {
             : h
         )
       );
-
-      alert("Tokens redeemed successfully");
-
+      toast.success("Tokens redeemed successfully");
       closeRedeemModal();
-
     } catch (err) {
       console.error("Redeem failed:", err);
-      alert(err.message || "Redeem failed");
+      toast.error(err.message || "Redeem failed");
     } finally {
       setRedeemLoading(false);
     }
@@ -144,11 +143,18 @@ export default function HoldingsPage() {
     const qty = Number(listQty);
     const priceInInr = Number(listPrice);
 
-    if (!qty || qty <= 0) return alert("Invalid quantity");
-    if (qty > selectedHolding.token_quantity)
-      return alert("Quantity exceeds available holdings");
-    if (!priceInInr || priceInInr <= 0)
-      return alert("Invalid price");
+    if (!qty || qty <= 0) {
+      toast.error("Invalid quantity");
+      return;
+    }
+    if (qty > selectedHolding.token_quantity) {
+      toast.error("Quantity exceeds available holdings");
+      return;
+    }
+    if (!priceInInr || priceInInr <= 0) {
+      toast.error("Invalid price");
+      return;
+    }
 
     try {
       setListingLoading(true);
@@ -204,7 +210,7 @@ export default function HoldingsPage() {
       closeModal();
     } catch (err) {
       console.error("Listing failed:", err);
-      alert(err.message || "Listing failed");
+      toast.error(err.message || "Listing failed");
     } finally {
       setListingLoading(false);
     }
@@ -215,6 +221,8 @@ export default function HoldingsPage() {
   }
 
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <div className="txn-page">
       <div className="txn-header">
         <h1 className="txn-title">Holdings</h1>
@@ -458,5 +466,6 @@ export default function HoldingsPage() {
         </div>
       )}
     </div>
+    </>
   );
 }

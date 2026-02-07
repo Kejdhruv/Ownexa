@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../Styles/Admin/Review.css";
 import SortBar from "../../Components/Dashboard/Filter";
 const API = import.meta.env.VITE_API_BASE;
@@ -35,7 +37,10 @@ export default function Review() {
 
   const handleWarn = async (propertyId) => {
     const adminreview = (notes[propertyId] || "").trim();
-    if (!adminreview) return alert("Write a message first.");
+    if (!adminreview) {
+      toast.error("Write a message first.");
+      return;
+    }
 
     try {
       setActionLoadingId(propertyId);
@@ -57,7 +62,7 @@ export default function Review() {
       setNotes((prev) => ({ ...prev, [propertyId]: "" }));
     } catch (err) {
       console.error(err);
-      alert(err.message || "Warn failed");
+      toast.error(err.message || "Warn failed");
     } finally {
       setActionLoadingId(null);
     }
@@ -65,7 +70,10 @@ export default function Review() {
 
   const handleFreeze = async (propertyId) => {
     const adminreview = (notes[propertyId] || "").trim();
-    if (!adminreview) return alert("Write a reason first.");
+    if (!adminreview) {
+      toast.error("Write a reason first.");
+      return;
+    }
 
     try {
       setActionLoadingId(propertyId);
@@ -92,7 +100,7 @@ export default function Review() {
       });
     } catch (err) {
       console.error(err);
-      alert(err.message || "Freeze failed");
+      toast.error(err.message || "Freeze failed");
     } finally {
       setActionLoadingId(null);
     }
@@ -109,6 +117,8 @@ export default function Review() {
   }
 
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <div className="admin-freeze-page">
       <div className="admin-freeze-header">
         <h2 className="admin-freeze-title">Verify Properties</h2>
@@ -203,5 +213,6 @@ export default function Review() {
         </div>
       )}
     </div>
+    </>
   );
 }

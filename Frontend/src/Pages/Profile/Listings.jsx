@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 import "../../Styles/Profile/Listing.css";
 
@@ -67,7 +69,7 @@ export default function ListingsPage() {
     const pricePerTokenInr = item.price_per_token_inr;
 
     if (blockchainId === undefined || blockchainId === null) {
-      alert("Missing blockchain listing id in this listing row.");
+      toast.error("Missing blockchain listing id in this listing row.");
       return;
     }
 
@@ -103,7 +105,7 @@ export default function ListingsPage() {
       setActiveListings((prev) => prev.filter((l) => l.id !== listingId));
     } catch (err) {
       console.error("Cancel failed:", err);
-      alert(err.message || "Cancel failed");
+      toast.error(err.message || "Cancel failed");
     } finally {
       setCancelLoadingId(null);
     }
@@ -114,6 +116,8 @@ export default function ListingsPage() {
   }
 
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <div className="listings-page">
       <section className="listings-section">
         <h2 className="listings-title">Active Listings</h2>
@@ -201,5 +205,6 @@ export default function ListingsPage() {
         )}
       </section>
     </div>
+    </>
   );
 }

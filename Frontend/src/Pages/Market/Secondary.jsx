@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "../../Styles/Market/Secondary.css";
 
@@ -28,6 +30,7 @@ export default function SecondaryMarket() {
         setListings(sorted);
       } catch (err) {
         console.error(err.message);
+        toast.error("Failed to fetch secondary listings. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -37,6 +40,8 @@ export default function SecondaryMarket() {
   }, []);
 
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <section className="sm-page">
       {/* SAME LOADER */}
       {loading && (
@@ -106,5 +111,6 @@ export default function SecondaryMarket() {
         </div>
       )}
     </section>
+    </>
   );
 }

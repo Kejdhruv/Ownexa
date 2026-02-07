@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import { ethers } from "ethers";
 
@@ -134,7 +136,7 @@ const [txDir, setTxDir] = useState("ESTATE_TO_ETH");
       setTxOpen(false);
     setTxHash("Transaction Failed");
       console.error(err);
-      alert(err.message || "Primary buy failed");
+      toast.error(err.message || "Primary buy failed");
     } finally {
       setPrimaryBuying(false);
     }
@@ -216,7 +218,7 @@ setTimeout(() => setTxOpen(false), 400);
        setTxOpen(false);
     setTxHash("Transaction Failed");
       console.error(err);
-      alert(err.message || "Secondary buy failed");
+      toast.error(err.message || "Secondary buy failed");
     } finally {
       setSecondaryBuying(false);
     }
@@ -226,6 +228,8 @@ setTimeout(() => setTxOpen(false), 400);
   if (!property) return null;
 
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <div className="property-buy-page">
       <TxLoader
   open={txOpen}
@@ -372,5 +376,6 @@ setTimeout(() => setTxOpen(false), 400);
         </div>
       </div>
     </div>
+    </>
   );
 }

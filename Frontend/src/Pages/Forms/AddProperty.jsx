@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 import "../../Styles/Forms/AddProperty.css";
 
@@ -30,7 +32,7 @@ export default function AddProperty() {
   const connectWallet = async () => {
     try {
       if (!window.ethereum) {
-        alert("MetaMask not found");
+        toast.error("MetaMask not found");
         return;
       }
 
@@ -38,7 +40,7 @@ export default function AddProperty() {
       const accounts = await provider.send("eth_requestAccounts", []);
       setWalletAddress(accounts[0]);
     } catch (err) {
-      alert("Wallet connection failed", err);
+      toast.error("Wallet connection failed" , err );
     }
   };
 
@@ -76,15 +78,17 @@ export default function AddProperty() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
 
-      alert("Property submitted for admin validation");
+      toast.success("Property submitted for admin validation");
     } catch (err) {
-      alert(err.message || "Submission failed");
+      toast.error(err.message || "Submission failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <div className="add-property-page">
       <div className="form-panel">
         <h2>Add Property</h2>
@@ -212,6 +216,7 @@ export default function AddProperty() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

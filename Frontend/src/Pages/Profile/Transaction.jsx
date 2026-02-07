@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../Styles/Profile/Transactions.css";
 import SortBar from "../../Components/Dashboard/Filter";
 import ReactorOrbitLoader from "../../Components/Loaders/ProfileLoader";
@@ -19,6 +21,7 @@ export default function TransactionsPage() {
         setTransactions(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error(err);
+        toast.error("Failed to fetch transactions. Please try again.");
         setTransactions([]);
       } finally {
         setLoading(false);
@@ -33,6 +36,8 @@ export default function TransactionsPage() {
   }
 
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <div className="txn-page">
       <div className="txn-header">
         <h1 className="txn-title">Transactions</h1>
@@ -95,5 +100,6 @@ export default function TransactionsPage() {
         </div>
       )}
     </div>
+    </>
   );
 }

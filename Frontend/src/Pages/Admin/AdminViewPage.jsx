@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "../../Styles/Admin/AdminViewPage.css";
 import SortBar from "../../Components/Dashboard/Filter";
@@ -24,6 +26,7 @@ export default function AdminViewPage() {
         setProperties(sorted);
       } catch (err) {
         console.error(err.message);
+        toast.error("Failed to fetch pending properties. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -37,6 +40,8 @@ export default function AdminViewPage() {
   }
 
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <div className="admin-pending-page">
       <div className="admin-freeze-header"> <h2>Pending Property Requests</h2>
         <SortBar
@@ -83,5 +88,6 @@ export default function AdminViewPage() {
         </div>
       )}
     </div>
+    </>
   );
 }

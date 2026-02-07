@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../Styles/Profile/ProfilePage.css"
 import { useNavigate } from "react-router";
 import DashboardPageLoader from "../../Components/Loaders/DashboardLoader";
@@ -75,6 +77,9 @@ export default function ProfilePage() {
                 setRecent(allActivity.slice(0, 5));
             } catch (err) {
                 console.error("Fetch error:", err);
+
+                toast.error("Failed to fetch profile data. Please try again.");
+
                 setUser(null);
                 setHoldings([]);
                 setTransactions([]);
@@ -119,6 +124,8 @@ export default function ProfilePage() {
     if (!user) return <div className="loading-screen">Unauthorized</div>;
 
     return (
+        <>
+            <ToastContainer position="top-right" autoClose={3000} />
 
         <div className="content-grid">
             <section className="card hero-card">
@@ -273,6 +280,7 @@ export default function ProfilePage() {
                 <span className="view-hint">View all transactions</span>
             </section>
         </div>
+        </>
     );
 }
 

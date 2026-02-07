@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
@@ -73,9 +75,10 @@ export default function AdminPropertyPage() {
         throw new Error(err.error || "Rejection failed");
       }
 
-      navigate("/AdminViewPage");
+      navigate("/");
 
     } catch (err) {
+      toast.error(err.message);
       setError(err.message);
     }
   };
@@ -147,10 +150,11 @@ export default function AdminPropertyPage() {
         const err = await res.json();
         throw new Error(err.error || "Validation failed");
       }
-      alert("Property validated & minted successfully");
+      toast.success("Property validated & minted successfully");
       navigate("/AdminViewPage");
 
     } catch (err) {
+      toast.error(err.message);
       setError(err.message);
     } finally {
       setMinting(false);
@@ -162,6 +166,8 @@ export default function AdminPropertyPage() {
   if (!property) return null;
 
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <div className="property-page">
       <div className="property-container">
         <div className="property-header">
@@ -283,6 +289,7 @@ export default function AdminPropertyPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

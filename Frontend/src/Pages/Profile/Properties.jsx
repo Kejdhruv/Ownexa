@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 
 import PropertyTokenABI from "../../abi/PropertyToken.json";
@@ -45,7 +47,7 @@ export default function PropertiesPage() {
   // ===============================
  const handleSellProperty = async (item) => {
   if (sellConfirmText !== "SELL") {
-    alert("Please type SELL to confirm");
+    toast.error("Please type SELL to confirm");
     return;
   }
   // item is your property row from supabase
@@ -57,17 +59,17 @@ export default function PropertiesPage() {
   const totalTokens = item.initial_token_quantity;
 
   if (!isListed) {
-    alert("This property is not listed");
+    toast.error("This property is not listed");
     return;
   }
 
   if (blockchainId === undefined || blockchainId === null) {
-    alert("Missing blockchain property id.");
+    toast.error("Missing blockchain property id.");
     return;
   }
 
   if (!sellPrice || Number(sellPrice) <= 0) {
-    alert("Enter valid price");
+    toast.error("Enter valid price");
     return;
   }
 
@@ -75,7 +77,7 @@ export default function PropertiesPage() {
   const minPrice = pricePerTokenInr * totalTokens;
 
   if (Number(sellPrice) < minPrice) {
-    alert(`Minimum price is ₹${minPrice.toLocaleString()}`);
+    toast.error(`Minimum price is ₹${minPrice.toLocaleString()}`);
     return;
   }
 
@@ -120,7 +122,7 @@ export default function PropertiesPage() {
       )
     );
 
-    alert("Property sold successfully");
+    toast.success("Property sold successfully");
 
     setShowModal(false);
     setSellPrice("");
@@ -128,7 +130,7 @@ export default function PropertiesPage() {
 
   } catch (err) {
     console.error("Sell failed:", err);
-    alert(err.message || "Sell failed");
+    toast.error(err.message || "Sell failed");
   } finally {
     setTxLoading(null);
   }
@@ -171,6 +173,8 @@ export default function PropertiesPage() {
   // UI
   // ===============================
   return (
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
     <div className="txn-page">
 
       <div className="txn-header">
@@ -435,5 +439,6 @@ export default function PropertiesPage() {
       )}
 
     </div>
+    </>
   );
 }
