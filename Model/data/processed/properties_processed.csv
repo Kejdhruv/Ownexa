@@ -1,0 +1,21 @@
+property_id,city,location,price,rental_yield,price_growth,occupancy_rate,expected_return,risk_score
+101,Bangalore,Whitefield,8500000,3.6,6.8,92,10.4,8
+102,Mumbai,Andheri East,14500000,2.8,5.5,95,8.3,5
+103,Pune,Hinjewadi,7200000,4.1,7.2,88,11.3,12
+104,Hyderabad,Gachibowli,9000000,3.9,6.5,90,10.4,10
+105,Delhi,Dwarka,11000000,3.2,4.9,85,8.100000000000001,15
+106,Bangalore,Electronic City,6800000,4.4,7.8,89,12.2,11
+107,Chennai,OMR,7500000,4.0,6.1,87,10.1,13
+108,Noida,Sector 62,6200000,4.8,8.3,91,13.100000000000001,9
+109,Gurgaon,DLF Phase 3,13000000,3.0,5.9,93,8.9,7
+110,Kolkata,New Town,5800000,5.1,7.5,86,12.6,14
+111,Ahmedabad,SG Highway,5600000,5.3,8.0,88,13.3,12
+112,Jaipur,Malviya Nagar,4800000,5.7,8.5,84,14.2,16
+113,Indore,Vijay Nagar,5200000,5.4,8.1,87,13.5,13
+114,Chandigarh,IT Park,7800000,4.2,6.9,90,11.100000000000001,10
+115,Kochi,Kakkanad,6000000,4.9,7.7,89,12.600000000000001,11
+116,Trivandrum,Technopark,5500000,5.0,7.9,86,12.9,14
+117,Bhopal,MP Nagar,4900000,5.6,8.4,85,14.0,15
+118,Lucknow,Gomti Nagar,5100000,5.5,8.2,88,13.7,12
+119,Surat,Adajan,5700000,5.2,7.8,89,13.0,11
+120,Nagpur,Dharampeth,4600000,5.9,8.7,83,14.6,17
