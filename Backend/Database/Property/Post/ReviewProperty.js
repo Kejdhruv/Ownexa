@@ -17,7 +17,7 @@ const WarnProperty = async (data) => {
   return property;
 };
 
-const FreezeProperty = async (data) => {
+const FreezePropertyAdmin = async (data) => {
   if (!data?.propertyId) throw new Error("Property ID is required");
 
   const { data: property, error } = await supabase
@@ -36,4 +36,4 @@ const FreezeProperty = async (data) => {
   return property;
 };
 
-export { WarnProperty, FreezeProperty };
+export { WarnProperty, FreezePropertyAdmin };

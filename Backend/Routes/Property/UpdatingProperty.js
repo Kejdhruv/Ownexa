@@ -2,7 +2,8 @@ import express from "express";
 import AddProperty from "../../Database/Property/Post/AddProperty.js";
 import { FindRole, getAuthUser, upload } from "../../Middleware/Middleware.js";
 import ValidateProperty from "../../Database/Property/Post/ValidateProperty.js";
-import { FreezeProperty, WarnProperty } from "../../Database/Property/Post/ReviewProperty.js";
+import { FreezePropertyAdmin , WarnProperty } from "../../Database/Property/Post/ReviewProperty.js";
+import FreezeProperty from "../../Database/Property/Post/FreezeProperty.js";
 
 const router = express.Router();
 
@@ -91,7 +92,30 @@ router.put("/property/freeze", async (req, res) => {
       });
     }
     const propertyData = req.body;
-    const property = await FreezeProperty(propertyData);
+    const property = await FreezePropertyAdmin(propertyData);
+    return res.status(200).json({
+      message: "Warning Sent Successfully",
+      property
+    });
+
+  } catch (err) {
+    console.error("Error validating property:", err.message);
+
+    return res.status(400).json({
+      error: err.message
+    });
+  }
+});
+
+
+
+
+
+router.put("/property/sold", async (req, res) => {
+  try {
+    const user = await getAuthUser(req); 
+    const {propertyId} = req.body;
+    const property = await FreezeProperty(propertyId);
     return res.status(200).json({
       message: "Warning Sent Successfully",
       property
