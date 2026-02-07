@@ -137,6 +137,7 @@ export default function ProfilePage() {
                     <Metric label="Properties" value={listedProperties.length} />
                 </div>
 
+
                  {user?.role === "Admin" && (
     <div className="admin-entry">
       <button
@@ -157,8 +158,13 @@ export default function ProfilePage() {
             </section>
 
             <section className="card-holding">
-                <div className="card-header">
+                <div className="card-header holding-header">
                     <h3>Total Investment</h3>
+
+                    {/* Risk Level Indicator */}
+                    <div className={`risk-badge ${getRiskClass(user?.risk_label)}`}>
+                        {getRiskLabel(user?.risk_label)} Risk
+                    </div>
                 </div>
 
                 <div className="investment-amount">
@@ -268,6 +274,20 @@ export default function ProfilePage() {
             </section>
         </div>
     );
+}
+
+function getRiskLabel(level) {
+    if (level === 0) return "Low";
+    if (level === 1) return "Medium";
+    if (level === 2) return "High";
+    return "Unknown";
+}
+
+function getRiskClass(level) {
+    if (level === 0) return "risk-low";
+    if (level === 1) return "risk-medium";
+    if (level === 2) return "risk-high";
+    return "risk-unknown";
 }
 
 // 🔹 METRIC COMPONENT
