@@ -1,14 +1,30 @@
-import joblib
-import pandas as pd
+# import joblib
+# import pandas as pd
 
-risk_model = joblib.load("models/risk_profile_model.pkl")
-return_model = joblib.load("models/return_prediction_model.pkl")
-
-
-test_user = [[25, 900000, 100000, 5]]
-print("Predicted Risk:", risk_model.predict(test_user))
+# risk_model = joblib.load("models/risk_profile_model.pkl")
+# return_model = joblib.load("models/return_prediction_model.pkl")
 
 
-props = pd.read_csv("data/processed/properties_processed.csv")
-sample = props.iloc[0][['price','rental_yield','price_growth','occupancy_rate']]
-print("Predicted Return:", return_model.predict([sample]))
+# test_user = [[25, 900000, 100000, 5]]
+# print("Predicted Risk:", risk_model.predict(test_user))
+
+
+# props = pd.read_csv("data/processed/properties_processed.csv")
+# sample = props.iloc[0][['price','rental_yield','price_growth','occupancy_rate']]
+# print("Predicted Return:", return_model.predict([sample]))
+
+
+
+from src.inference.predict_risk_once import predict_and_store_user_risk
+
+test_user = {
+    "age": 24,
+    "income": 600000,
+    "investment_duration": 3,
+    "investment_amount": 100000
+}
+
+result = predict_and_store_user_risk(test_user)
+
+print("User stored in DB as:")
+print(result)
