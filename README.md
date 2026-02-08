@@ -19,20 +19,20 @@ digital tokens and investors to trade them securely using blockchain.
 
 ```{=html}
 <p align="center">
-```
+
 `<img src="./assets/Screenshot-206.png" width="48%" />`{=html}
 `<img src="./assets/Screenshot-207.png" width="48%" />`{=html}
-```{=html}
+{=html}
 </p>
-```
-```{=html}
+
+{=html}
 <p align="center">
-```
+
 `<img src="./assets/Screenshot-208.png" width="48%" />`{=html}
 `<img src="./assets/Screenshot-209.png" width="48%" />`{=html}
-```{=html}
+{=html}
 </p>
-```
+
 
 ------------------------------------------------------------------------
 
