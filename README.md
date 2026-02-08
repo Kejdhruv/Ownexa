@@ -1,13 +1,15 @@
-# 🚀 Ownexa -- Blockchain-Based Real Estate Investment Platform
+# 🚀 Ownexa --- Blockchain-Based Real Estate Investment Platform
 
 Ownexa is a decentralized real estate investment platform that enables
 users to invest in properties through fractional ownership using
 blockchain technology.
 
+------------------------------------------------------------------------
+
 ## 📌 Project Overview
 
 Ownexa allows property owners to tokenize real estate assets into
-digital tokens and investors to trade them.
+digital tokens and investors to trade them securely using blockchain.
 
 ------------------------------------------------------------------------
 
@@ -18,16 +20,16 @@ digital tokens and investors to trade them.
 ```{=html}
 <p align="center">
 ```
-`<img src="./screenshots/Screenshot (206).png" width="45%"/>`{=html}
-`<img src="./screenshots/Screenshot (207).png" width="45%"/>`{=html}
+`<img src="./assets/Screenshot-206.png" width="48%" />`{=html}
+`<img src="./assets/Screenshot-207.png" width="48%" />`{=html}
 ```{=html}
 </p>
 ```
 ```{=html}
 <p align="center">
 ```
-`<img src="./screenshots/Screenshot (208).png" width="45%"/>`{=html}
-`<img src="./screenshots/Screenshot (209).png" width="45%"/>`{=html}
+`<img src="./assets/Screenshot-208.png" width="48%" />`{=html}
+`<img src="./assets/Screenshot-209.png" width="48%" />`{=html}
 ```{=html}
 </p>
 ```
@@ -39,16 +41,16 @@ digital tokens and investors to trade them.
 ```{=html}
 <p align="center">
 ```
-`<img src="./screenshots/Screenshot (210).png" width="45%"/>`{=html}
-`<img src="./screenshots/Screenshot (211).png" width="45%"/>`{=html}
+`<img src="./assets/Screenshot-210.png" width="48%" />`{=html}
+`<img src="./assets/Screenshot-211.png" width="48%" />`{=html}
 ```{=html}
 </p>
 ```
 ```{=html}
 <p align="center">
 ```
-`<img src="./screenshots/Screenshot (212).png" width="45%"/>`{=html}
-`<img src="./screenshots/Screenshot (213).png" width="45%"/>`{=html}
+`<img src="./assets/Screenshot-212.png" width="48%" />`{=html}
+`<img src="./assets/Screenshot-213.png" width="48%" />`{=html}
 ```{=html}
 </p>
 ```
@@ -60,16 +62,16 @@ digital tokens and investors to trade them.
 ```{=html}
 <p align="center">
 ```
-`<img src="./screenshots/Screenshot (214).png" width="45%"/>`{=html}
-`<img src="./screenshots/Screenshot (215).png" width="45%"/>`{=html}
+`<img src="./assets/Screenshot-214.png" width="48%" />`{=html}
+`<img src="./assets/Screenshot-215.png" width="48%" />`{=html}
 ```{=html}
 </p>
 ```
 ```{=html}
 <p align="center">
 ```
-`<img src="./screenshots/Screenshot (216).png" width="45%"/>`{=html}
-`<img src="./screenshots/Screenshot (217).png" width="45%"/>`{=html}
+`<img src="./assets/Screenshot-216.png" width="48%" />`{=html}
+`<img src="./assets/Screenshot-217.png" width="48%" />`{=html}
 ```{=html}
 </p>
 ```
@@ -81,24 +83,24 @@ digital tokens and investors to trade them.
 ```{=html}
 <p align="center">
 ```
-`<img src="./screenshots/Screenshot (218).png" width="45%"/>`{=html}
-`<img src="./screenshots/Screenshot (219).png" width="45%"/>`{=html}
+`<img src="./assets/Screenshot-218.png" width="48%" />`{=html}
+`<img src="./assets/Screenshot-219.png" width="48%" />`{=html}
 ```{=html}
 </p>
 ```
 ```{=html}
 <p align="center">
 ```
-`<img src="./screenshots/Screenshot (220).png" width="45%"/>`{=html}
-`<img src="./screenshots/Screenshot (221).png" width="45%"/>`{=html}
+`<img src="./assets/Screenshot-220.png" width="48%" />`{=html}
+`<img src="./assets/Screenshot-221.png" width="48%" />`{=html}
 ```{=html}
 </p>
 ```
 ```{=html}
 <p align="center">
 ```
-`<img src="./screenshots/Screenshot (222).png" width="45%"/>`{=html}
-`<img src="./screenshots/Screenshot (223).png" width="45%"/>`{=html}
+`<img src="./assets/Screenshot-222.png" width="48%" />`{=html}
+`<img src="./assets/Screenshot-223.png" width="48%" />`{=html}
 ```{=html}
 </p>
 ```
@@ -107,11 +109,11 @@ digital tokens and investors to trade them.
 
 ## 🎯 Key Features
 
--   Fractional ownership of real estate\
--   Primary & secondary token market\
+-   Fractional real estate ownership\
+-   Primary & secondary token marketplace\
 -   Admin validation system\
 -   MetaMask wallet integration\
--   Settlement & redemption mechanism\
+-   Settlement & redemption\
 -   Future ML-based risk analysis
 
 ------------------------------------------------------------------------
@@ -129,11 +131,11 @@ digital tokens and investors to trade them.
 ## 📂 Folder Structure
 
     Ownexa/
+    ├── assets/
     ├── Blockchain/
     ├── Backend/
     ├── ML_API/
     ├── Frontend/
-    ├── screenshots/
     └── README.md
 
 ------------------------------------------------------------------------
