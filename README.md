@@ -79,7 +79,7 @@ digital tokens and investors to trade them securely using blockchain.
     ├── assets/
     ├── Blockchain/
     ├── Backend/
-    ├── ML_API/
+    ├── Model/
     ├── Frontend/
     └── README.md
 
