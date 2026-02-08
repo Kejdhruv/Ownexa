@@ -17,93 +17,38 @@ digital tokens and investors to trade them securely using blockchain.
 
 ### 🏠 Dashboard & Property Listings
 
-```{=html}
-<p align="center">
+| | |
+|---|---|
+| ![](assets/Screenshot-206.png) | ![](assets/Screenshot-207.png) |
+| ![](assets/Screenshot-208.png) | ![](assets/Screenshot-209.png) |
 
-`<img src="./assets/Screenshot-206.png" width="48%" />`{=html}
-`<img src="./assets/Screenshot-207.png" width="48%" />`{=html}
-{=html}
-</p>
-
-{=html}
-<p align="center">
-
-`<img src="./assets/Screenshot-208.png" width="48%" />`{=html}
-`<img src="./assets/Screenshot-209.png" width="48%" />`{=html}
-{=html}
-</p>
-
-
-------------------------------------------------------------------------
+---
 
 ### 💼 User Profile & Transactions
 
-```{=html}
-<p align="center">
-```
-`<img src="./assets/Screenshot-210.png" width="48%" />`{=html}
-`<img src="./assets/Screenshot-211.png" width="48%" />`{=html}
-```{=html}
-</p>
-```
-```{=html}
-<p align="center">
-```
-`<img src="./assets/Screenshot-212.png" width="48%" />`{=html}
-`<img src="./assets/Screenshot-213.png" width="48%" />`{=html}
-```{=html}
-</p>
-```
+| | |
+|---|---|
+| ![](assets/Screenshot-210.png) | ![](assets/Screenshot-211.png) |
+| ![](assets/Screenshot-212.png) | ![](assets/Screenshot-213.png) |
 
-------------------------------------------------------------------------
+---
 
 ### 🛠 Admin Panel
 
-```{=html}
-<p align="center">
-```
-`<img src="./assets/Screenshot-214.png" width="48%" />`{=html}
-`<img src="./assets/Screenshot-215.png" width="48%" />`{=html}
-```{=html}
-</p>
-```
-```{=html}
-<p align="center">
-```
-`<img src="./assets/Screenshot-216.png" width="48%" />`{=html}
-`<img src="./assets/Screenshot-217.png" width="48%" />`{=html}
-```{=html}
-</p>
-```
+| | |
+|---|---|
+| ![](assets/Screenshot-214.png) | ![](assets/Screenshot-215.png) |
+| ![](assets/Screenshot-216.png) | ![](assets/Screenshot-217.png) |
 
-------------------------------------------------------------------------
+---
 
 ### 🔗 Blockchain & System
 
-```{=html}
-<p align="center">
-```
-`<img src="./assets/Screenshot-218.png" width="48%" />`{=html}
-`<img src="./assets/Screenshot-219.png" width="48%" />`{=html}
-```{=html}
-</p>
-```
-```{=html}
-<p align="center">
-```
-`<img src="./assets/Screenshot-220.png" width="48%" />`{=html}
-`<img src="./assets/Screenshot-221.png" width="48%" />`{=html}
-```{=html}
-</p>
-```
-```{=html}
-<p align="center">
-```
-`<img src="./assets/Screenshot-222.png" width="48%" />`{=html}
-`<img src="./assets/Screenshot-223.png" width="48%" />`{=html}
-```{=html}
-</p>
-```
+| | |
+|---|---|
+| ![](assets/Screenshot-218.png) | ![](assets/Screenshot-219.png) |
+| ![](assets/Screenshot-220.png) | ![](assets/Screenshot-221.png) |
+| ![](assets/Screenshot-222.png) | ![](assets/Screenshot-223.png) |
 
 ------------------------------------------------------------------------
 
