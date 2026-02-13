@@ -102,7 +102,7 @@ router.post("/auth/login", async (req, res) => {
     res.cookie("sb-access-token", session.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "lax", 
       path: "/"
     });
 
