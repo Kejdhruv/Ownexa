@@ -1,196 +1,345 @@
-/* =========================
-   PAGE
-========================= */
+/* =========================================
+   LISTINGS / ORDERS - DARK FINTECH THEME
+========================================= */
 
-.listings-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-bottom: 24px;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
+:root {
+  --lst-bg: #090b0f;
+  --lst-surface: #12151c;
+  --lst-surface-hover: #181c25;
+  --lst-border: #1e2430;
+  --lst-border-glow: rgba(59, 130, 246, 0.3);
+  --lst-text-main: #f8fafc;
+  --lst-text-muted: #94a3b8;
+  --lst-accent: #3b82f6; 
+  --lst-positive: #10b981; 
+  --lst-danger: #ef4444;
+  --lst-danger-muted: rgba(239, 68, 68, 0.15);
+  
+  --lst-font-sans: 'Inter', system-ui, sans-serif;
+  --lst-font-mono: 'JetBrains Mono', monospace;
 }
 
-.listings-loading,
-.listings-empty {
+/* =========================
+   PAGE & HEADER
+========================= */
+
+.lst-page {
+  width: 100%;
+  min-height: 100vh;
+  color: var(--lst-text-main);
+  font-family: var(--lst-font-sans);
+  padding: clamp(24px, 4vw, 40px);
+  box-sizing: border-box;
+}
+
+.lst-header {
+  margin-bottom: 40px;
+}
+
+.lst-title {
+  margin: 0 0 8px 0;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.lst-subtitle {
+  margin: 0;
   font-size: 14px;
-  color: #9ca3af;
+  color: var(--lst-text-muted);
 }
 
 /* =========================
-   SECTION
+   SECTIONS
 ========================= */
 
-.listings-section {
+.lst-section {
   margin-bottom: 48px;
 }
 
-.listings-title {
-  font-size: 22px;
-  font-weight: 600;
-  color: #f9fafb;
-  margin-bottom: 20px;
+.lst-section.mt-12 {
+  margin-top: 60px;
+}
 
+.lst-section-header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.lst-section-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.text-muted { color: var(--lst-text-muted) !important; }
+.text-accent { color: var(--lst-accent) !important; }
+.text-positive { color: var(--lst-positive) !important; }
+.text-xs { font-size: 11px; }
+
+.lst-line {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--lst-border) 0%, transparent 100%);
 }
 
 /* =========================
-   GRID
+   GRID & CARDS
 ========================= */
 
-.listings-grid {
+.lst-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
 }
 
-/* =========================
-   CARD
-========================= */
-
-.listing-card {
-  position: relative;
-
-  background:
-    linear-gradient(180deg,
-      rgba(20, 22, 27, 0.95),
-      rgba(16, 18, 24, 0.95)),
-    rgba(96, 165, 250, 0.04);
-
-  backdrop-filter: blur(14px);
-  border-radius: 18px;
-  padding: 16px 16px;
-  gap: 12px;
-
-  border: 1px solid rgba(96, 165, 250, 0.14);
-
+.lst-card {
+  background: var(--lst-surface);
+  border: 1px solid var(--lst-border);
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease,
-    border-color 0.18s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
 
-.listing-card:hover {
+.lst-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(96, 165, 250, 0.28);
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(96, 165, 250, 0.06);
+  border-color: var(--lst-accent);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--lst-border-glow);
 }
 
-/* =========================
-   SOLD STATE
-========================= */
-
-.listing-card.sold {
-  opacity: 0.78;
+/* Header inside Card */
+.lst-card-head {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
 }
 
-.listing-card.sold:hover {
-  transform: none;
-  box-shadow: none;
-  border-color: rgba(96, 165, 250, 0.14);
+.lst-head-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-/* =========================
-   HEADER
-========================= */
-
-.listing-name {
-  font-size: 15px;
+.lst-name {
+  margin: 0;
+  font-size: 16px;
   font-weight: 600;
-  color: #f9fafb;
+  color: #fff;
   line-height: 1.3;
 }
 
-.listing-location {
+.lst-location {
+  margin: 0;
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--lst-text-muted);
 }
 
-.listing-token {
-  font-size: 11px;
-  color: #93c5fd;
-  letter-spacing: 0.02em;
+/* Badges */
+.lst-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* =========================
-   META
-========================= */
+.lst-status-badge.LIVE {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--lst-positive);
+  border-color: rgba(16, 185, 129, 0.2);
+}
 
-.listing-meta {
+.lst-status-badge.LIVE .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--lst-positive);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--lst-positive);
+  animation: pulse 2s infinite;
+}
 
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.lst-status-badge.EXECUTED {
+  color: var(--lst-text-muted);
+}
+
+/* Card Body & Metrics */
+.lst-card-body {
+  padding: 0 20px 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 6px;
-
+  flex: 1;
 }
 
-.listing-meta div {
+.lst-token-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px dashed var(--lst-border);
+}
+
+.lst-token-name {
+  font-family: var(--lst-font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255,255,255,0.05);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.lst-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.lst-metric-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-
-.listing-meta span {
-  font-size: 11px;
-  color: #9ca3af;
+.lst-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--lst-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
-.listing-meta strong {
+.lst-value {
   font-size: 14px;
   font-weight: 600;
-  color: #f9fafb;
+  color: var(--lst-text-main);
+}
+
+.lst-value.num {
+  font-family: var(--lst-font-mono);
+}
+
+.lst-metric-row.highlight {
+  background: rgba(59, 130, 246, 0.08);
+  padding: 8px 12px;
+  margin: 0 -12px;
+  border-radius: 8px;
+  border-left: 2px solid var(--lst-accent);
+}
+
+/* Card Footer & Actions */
+.lst-card-footer {
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--lst-border);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.lst-btn-cancel {
+  background: transparent;
+  color: var(--lst-danger);
+  border: 1px solid var(--lst-danger-muted);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lst-btn-cancel:hover:not(:disabled) {
+  background: var(--lst-danger);
+  color: #fff;
+  border-color: var(--lst-danger);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+}
+
+.lst-btn-cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* =========================
-   ACTION
+   SOLD STATE OVERRIDES
 ========================= */
 
-.listing-cancel {
-  align-self: flex-end;
-  margin-top: 10px;
-
-  background: rgba(239, 68, 68, 0.42);
-  /* translucent red */
-  border: 1px solid rgba(239, 68, 68, 0.68);
-
-  padding: 6px 14px;
-  border-radius: 999px;
-
-  font-size: 13px;
-  font-weight: 500;
-  color: #f87171;
-
+.lst-card.sold {
   opacity: 0.65;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    opacity 0.15s ease;
+  filter: grayscale(0.4);
 }
 
-.listing-cancel:hover {
-  opacity: 0.9;
+.lst-card.sold:hover {
+  opacity: 1;
+  filter: grayscale(0);
+  transform: none;
+  box-shadow: none;
+  border-color: var(--lst-border);
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.lst-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: var(--lst-surface);
+  border: 1px dashed var(--lst-border);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.lst-empty.border-muted {
+  border-color: rgba(255,255,255,0.05);
+  background: transparent;
+}
+
+.lst-empty-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.lst-empty p {
+  color: var(--lst-text-muted);
+  font-size: 15px;
+  margin: 0;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-
-@media (max-width: 1024px) {
-  .listings-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .listings-grid {
+@media (max-width: 768px) {
+  .lst-grid {
     grid-template-columns: 1fr;
   }
 }

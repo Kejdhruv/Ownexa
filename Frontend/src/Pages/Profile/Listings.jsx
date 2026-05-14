@@ -52,7 +52,6 @@ export default function ListingsPage() {
 
     const contract = new ethers.Contract(
       CONTRACT_ADDRESS,
-      // IMPORTANT: most Hardhat/Foundry ABIs are in .abi
       PropertyTokenABI.abi ?? PropertyTokenABI,
       signer
     );
@@ -61,9 +60,8 @@ export default function ListingsPage() {
   };
 
   const handleCancelListing = async (item) => {
-    // item is your listing row from supabase
     const listingId = item.id;
-    const blockchainId = item.listing_blockchain_id
+    const blockchainId = item.listing_blockchain_id;
     const propertyId = item.properties?.id;
     const tokenQty = item.token_quantity;
     const pricePerTokenInr = item.price_per_token_inr;
@@ -81,7 +79,7 @@ export default function ListingsPage() {
       const tx = await contract.cancelListing(blockchainId);
       const receipt = await tx.wait();
 
-      // 2) Sync backend (DB cancel + holdings restore happens there in your route)
+      // 2) Sync backend
       const res = await fetch(`${API}/cancellisting`, {
         method: "POST",
         credentials: "include",
@@ -101,7 +99,7 @@ export default function ListingsPage() {
         throw new Error(t || "Backend listing sync failed");
       }
 
-      // 3) Update UI: remove from active list immediately
+      // 3) Update UI
       setActiveListings((prev) => prev.filter((l) => l.id !== listingId));
     } catch (err) {
       console.error("Cancel failed:", err);
@@ -112,101 +110,163 @@ export default function ListingsPage() {
   };
 
   if (loading) {
-    return <ReactorOrbitLoader label="Fetching your Listings" />
+    return <ReactorOrbitLoader label="Fetching your Listings" />;
   }
 
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} />
-      <div className="listings-page">
-        <section className="listings-section">
-          <h2 className="listings-title">Active Listings</h2>
+      <div className="lst-page">
+        
+        {/* HEADER */}
+        <header className="lst-header">
+          <div className="lst-header-left">
+            <h1 className="lst-title">Market Orders</h1>
+            <p className="lst-subtitle">Manage your open asks and view execution history.</p>
+          </div>
+        </header>
+
+        {/* ===============================
+            ACTIVE LISTINGS (OPEN ORDERS)
+        =============================== */}
+        <section className="lst-section">
+          <div className="lst-section-header">
+            <h2>Open Orders</h2>
+            <div className="lst-line"></div>
+          </div>
 
           {activeListings.length === 0 ? (
-            <p className="listings-empty">No active listings</p>
+            <div className="lst-empty">
+              <div className="lst-empty-icon">📈</div>
+              <p>No active sell orders on the secondary market.</p>
+            </div>
           ) : (
-            <div className="listings-grid">
+            <div className="lst-grid">
               {activeListings.map((item) => (
-                <div key={item.id} className="listing-card">
-                  <h4 className="listing-name">{item.properties?.title}</h4>
+                <div key={item.id} className="lst-card">
+                  
+                  <div className="lst-card-head">
+                    <div className="lst-head-info">
+                      <h4 className="lst-name">{item.properties?.title}</h4>
+                      <p className="lst-location">
+                        {item.properties?.city}, {item.properties?.state}
+                      </p>
+                    </div>
+                    <span className="lst-status-badge LIVE">
+                      <span className="dot"></span> LIVE
+                    </span>
+                  </div>
 
-                  <p className="listing-location">
-                    {item.properties?.city}, {item.properties?.state}
-                  </p>
-
-                  <p className="listing-token">Token: {item.properties?.token_name}</p>
-
-                  <div className="listing-meta">
-                    <div>
-                      <span>Bought For</span>
-                      <strong>₹{item.holdings?.avg_price_inr}</strong>
+                  <div className="lst-card-body">
+                    <div className="lst-token-row">
+                      <span className="lst-label">Asset Token</span>
+                      <span className="lst-token-name">{item.properties?.token_name}</span>
                     </div>
 
-                    <div>
-                      <span>Listed For</span>
-                      <strong>₹{item.price_per_token_inr}</strong>
-                    </div>
+                    <div className="lst-metrics">
+                      <div className="lst-metric-row">
+                        <span className="lst-label">Avg Entry Price</span>
+                        <span className="lst-value num text-muted">
+                          ₹{item.holdings?.avg_price_inr?.toLocaleString() || "0"}
+                        </span>
+                      </div>
 
-                    <div>
-                      <span>Listed Quantity</span>
-                      <strong>{item.token_quantity}</strong>
+                      <div className="lst-metric-row highlight">
+                        <span className="lst-label">Ask Price (INR)</span>
+                        <span className="lst-value num text-accent">
+                          ₹{item.price_per_token_inr?.toLocaleString() || "0"}
+                        </span>
+                      </div>
+
+                      <div className="lst-metric-row">
+                        <span className="lst-label">Listed Size</span>
+                        <span className="lst-value num">
+                          {item.token_quantity} <span className="text-muted text-xs">Tokens</span>
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  <button
-                    className="listing-cancel"
-                    onClick={() => handleCancelListing(item)}
-                    disabled={cancelLoadingId === item.id}
-                  >
-                    {cancelLoadingId === item.id ? "Cancelling..." : "Cancel"}
-                  </button>
+                  <div className="lst-card-footer">
+                    <button
+                      className="lst-btn-cancel"
+                      onClick={() => handleCancelListing(item)}
+                      disabled={cancelLoadingId === item.id}
+                    >
+                      {cancelLoadingId === item.id ? "Cancelling Order..." : "Cancel Order"}
+                    </button>
+                  </div>
+
                 </div>
               ))}
             </div>
           )}
         </section>
 
-        {/* Divider */}
-        <div className="listings-divider"></div>
-
-        <section className="listings-section">
-          <h2 className="listings-title">Sold Listings</h2>
+        {/* ===============================
+            SOLD LISTINGS (EXECUTED)
+        =============================== */}
+        <section className="lst-section mt-12">
+          <div className="lst-section-header">
+            <h2 className="text-muted">Executed Orders</h2>
+            <div className="lst-line"></div>
+          </div>
 
           {soldListings.length === 0 ? (
-            <p className="listings-empty">No sold listings</p>
+            <div className="lst-empty border-muted">
+              <p>No executed orders found in history.</p>
+            </div>
           ) : (
-            <div className="listings-grid">
+            <div className="lst-grid">
               {soldListings.map((item) => (
-                <div key={item.id} className="listing-card sold">
-                  <h4 className="listing-name">{item.properties?.title}</h4>
+                <div key={item.id} className="lst-card sold">
+                  
+                  <div className="lst-card-head">
+                    <div className="lst-head-info">
+                      <h4 className="lst-name">{item.properties?.title}</h4>
+                      <p className="lst-location">
+                        {item.properties?.city}, {item.properties?.state}
+                      </p>
+                    </div>
+                    <span className="lst-status-badge EXECUTED">EXECUTED</span>
+                  </div>
 
-                  <p className="listing-location">
-                    {item.properties?.city}, {item.properties?.state}
-                  </p>
-
-                  <p className="listing-token">Token: {item.properties?.token_name}</p>
-
-                  <div className="listing-meta">
-                    <div>
-                      <span>Bought For</span>
-                      <strong>₹{item.holdings?.avg_price_inr}</strong>
+                  <div className="lst-card-body">
+                    <div className="lst-token-row">
+                      <span className="lst-label">Asset Token</span>
+                      <span className="lst-token-name">{item.properties?.token_name}</span>
                     </div>
 
-                    <div>
-                      <span>Sold For</span>
-                      <strong>₹{item.price_per_token_inr}</strong>
-                    </div>
+                    <div className="lst-metrics">
+                      <div className="lst-metric-row">
+                        <span className="lst-label">Avg Entry Price</span>
+                        <span className="lst-value num text-muted">
+                          ₹{item.holdings?.avg_price_inr?.toLocaleString() || "0"}
+                        </span>
+                      </div>
 
-                    <div>
-                      <span>Quantity</span>
-                      <strong>{item.token_quantity}</strong>
+                      <div className="lst-metric-row">
+                        <span className="lst-label">Filled Price (INR)</span>
+                        <span className="lst-value num text-positive">
+                          ₹{item.price_per_token_inr?.toLocaleString() || "0"}
+                        </span>
+                      </div>
+
+                      <div className="lst-metric-row">
+                        <span className="lst-label">Filled Size</span>
+                        <span className="lst-value num">
+                          {item.token_quantity} <span className="text-muted text-xs">Tokens</span>
+                        </span>
+                      </div>
                     </div>
                   </div>
+
                 </div>
               ))}
             </div>
           )}
         </section>
+
       </div>
     </>
   );

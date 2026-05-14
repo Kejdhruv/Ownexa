@@ -4,8 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 
 import PropertyTokenABI from "../../abi/PropertyToken.json";
-import "../../Styles/Profile/Transactions.css";
-import "../../Styles/Profile/Holdings.css";
+import "../../Styles/Profile/Properties.css";
+
 import SortBar from "../../Components/Dashboard/Filter";
 import ReactorOrbitLoader from "../../Components/Loaders/ProfileLoader";
 
@@ -173,272 +173,253 @@ export default function PropertiesPage() {
   // UI
   // ===============================
   return (
-    <>
-      <ToastContainer position="top-right" autoClose={3000} />
-      <div className="txn-page">
+   <>
+  <ToastContainer position="top-right" autoClose={3000} />
+  <div className="pp-page">
 
-        <div className="txn-header">
-          <h1 className="txn-title">Properties</h1>
+    {/* HEADER */}
+    <header className="pp-header">
+      <div className="pp-header-left">
+        <h1 className="pp-title">Tokenized Assets</h1>
+        <p className="pp-subtitle">Manage your minted properties and track funding status.</p>
+      </div>
 
-          <SortBar
-            options={[
-              { key: "token_quantity", label: "Quantity" },
-              { key: "created_at", label: "Date" },
-              { key: "price_per_token_inr", label: "Price Per Token" },
-            ]}
-            data={Properties}
-            onChange={setProperties}
-          />
+      <div className="pp-header-right">
+        <SortBar
+          options={[
+            { key: "token_quantity", label: "Quantity" },
+            { key: "created_at", label: "Date" },
+            { key: "price_per_token_inr", label: "Price Per Token" },
+          ]}
+          data={Properties}
+          onChange={setProperties}
+        />
+      </div>
+    </header>
+
+    {/* ===============================
+        ACTIVE / LISTED PROPERTIES
+    =============================== */}
+    <section className="pp-section">
+      <div className="pp-section-header">
+        <h2>Active Markets</h2>
+        <div className="pp-line"></div>
+      </div>
+
+      {Properties.filter((p) => p.is_listed === true).length === 0 ? (
+        <div className="pp-empty">
+          <div className="pp-empty-icon">🏢</div>
+          <p>No active properties currently listed on the market.</p>
         </div>
+      ) : (
+        <div className="pp-grid">
+          {Properties.filter((p) => p.is_listed === true).map((h) => {
+            const totalInvestment = h.initial_token_quantity * h.price_per_token_inr;
+            const image = h.property_images?.[0] || "/placeholder-property.jpg";
+            const tokensSold = h.initial_token_quantity - h.token_quantity;
+            const amountRaised = h.price_per_token_inr * tokensSold;
 
-        {/* ACTIVE / LISTED PROPERTIES */}
-        {Properties.filter((p) => p.is_listed === true).length === 0 ? (
-          <p className="txn-empty">No Current Holdings</p>
-        ) : (
-          <div className="txn-grid">
-            {Properties.filter((p) => p.is_listed === true).map((h) => {
+            return (
+              <div key={h.id} className="pp-card">
+                
+                {/* Visual / Image */}
+                <div className="pp-visual">
+                  <img src={image} alt={h.title} />
+                  <div className="pp-overlay"></div>
+                  <span className={`pp-status-badge ${h.status.toUpperCase()}`}>
+                    <span className="dot"></span>
+                    {h.status}
+                  </span>
+                </div>
 
-              const totalInvestment =
-                h.initial_token_quantity * h.price_per_token_inr;
-
-              const image =
-                h.property_images?.[0] || "/placeholder-property.jpg";
-
-              return (
-                <div key={h.id} className="holding-card">
-
-                  {/* IMAGE */}
-                  <div className="holding-image">
-                    <img src={image} alt={h.title} />
-
-                    <span className={`holding-status ${h.status.toUpperCase()}`}>
-                      {h.status}
+                {/* Card Body */}
+                <div className="pp-body">
+                  <div className="pp-head-info">
+                    <h3 className="pp-name">{h.title}</h3>
+                    <span className="pp-location">
+                      {h.city}, {h.state}
                     </span>
                   </div>
 
-                  {/* BODY */}
-                  <div className="holding-body">
-
-                    <div className="holding-header">
-                      <h3 className="holding-title">{h.title}</h3>
-
-                      <span className="holding-location">
-                        {h.city}, {h.state}
-                      </span>
+                  <div className="pp-metrics">
+                    <div className="pp-metric-row border-bottom">
+                      <span className="pp-label">Asset Token</span>
+                      <span className="pp-token-tag">{h.token_name}</span>
                     </div>
 
-                    {/* META */}
-                    <div className="holding-meta">
-
-                      <div>
-                        <span className="meta-label">Token</span>
-                        <span className="meta-value">
-                          {h.token_name}
+                    <div className="pp-metric-grid">
+                      <div className="pp-metric-box">
+                        <span className="pp-label">Tokens Sold</span>
+                        <span className="pp-value num">{tokensSold}</span>
+                      </div>
+                      <div className="pp-metric-box">
+                        <span className="pp-label">Capital Raised</span>
+                        <span className="pp-value num text-positive">
+                          ₹{amountRaised.toLocaleString()}
                         </span>
                       </div>
-
-                      <div>
-                        <span className="meta-label">Quantity Sold</span>
-                        <span className="meta-value">
-                          {h.initial_token_quantity - h.token_quantity}
-                        </span>
-                      </div>
-
-                      <div>
-                        <span className="meta-label">Amount Raised</span>
-                        <span className="meta-value">
-                          ₹{(
-                            h.price_per_token_inr *
-                            (h.initial_token_quantity - h.token_quantity)
-                          ).toLocaleString()}
-                        </span>
-                      </div>
-
                     </div>
-
-                    {/* FOOTER */}
-                    <div className="holding-footer">
-
-                      <span className="holding-total">
-
-                        <span className="meta-label">
-                          Investment
-                        </span>
-
-                        <span className="meta-value">
-                          ₹{totalInvestment.toLocaleString()}
-                        </span>
-
-                      </span>
-
-                      {/* SELL BUTTON */}
-                      {h.status.toUpperCase() === "VALIDATED" &&
-                        h.is_listed === true && (
-
-                          <button
-                            className="list-btn"
-                            onClick={() => {
-                              setSelectedProperty(h);
-                              setShowModal(true);
-                            }}
-                          >
-                            Sell Property
-                          </button>
-
-                        )}
-
-                    </div>
-
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
 
-        {/* ===============================
-          PREVIOUS PROPERTIES (UNLISTED)
-      =============================== */}
-        {Properties.filter((p) => p.is_listed === false).length > 0 && (
-          <>
-            <h2 className="txn-subtitle">Your Previous Properties</h2>
-
-            <div className="txn-grid previous-properties">
-
-              {Properties.filter((p) => p.is_listed === false).map((h) => {
-
-                const totalInvestment =
-                  h.initial_token_quantity * h.price_per_token_inr;
-
-                const image =
-                  h.property_images?.[0] || "/placeholder-property.jpg";
-
-                return (
-                  <div key={h.id} className="holding-card previous-card">
-
-                    <div className="holding-image">
-                      <img src={image} alt={h.title} />
-
-                      <span className="holding-status SOLD">
-                        SOLD
-                      </span>
-                    </div>
-
-                    <div className="holding-body">
-
-                      <div className="holding-header">
-                        <h3 className="holding-title">{h.title}</h3>
-
-                        <span className="holding-location">
-                          {h.city}, {h.state}
-                        </span>
-                      </div>
-
-                      <div className="holding-meta">
-
-                        <div>
-                          <span className="meta-label">Token</span>
-                          <span className="meta-value">
-                            {h.token_name}
-                          </span>
-                        </div>
-
-                        <div>
-                          <span className="meta-label">Total Investment</span>
-                          <span className="meta-value">
-                            ₹{totalInvestment.toLocaleString()}
-                          </span>
-                        </div>
-
-                      </div>
-
-                    </div>
+                {/* Card Footer */}
+                <div className="pp-footer">
+                  <div className="pp-valuation">
+                    <span className="pp-label">Target Valuation</span>
+                    <span className="pp-value num highlight">
+                      ₹{totalInvestment.toLocaleString()}
+                    </span>
                   </div>
-                );
-              })}
-            </div>
-          </>
-        )}
 
-        {/* ===============================
-          SELL MODAL
-      =============================== */}
-        {showModal && selectedProperty && (
-
-          <div className="sell-modal-overlay">
-
-            <div className="sell-modal">
-
-              <h2>Sell Property</h2>
-
-              <p className="modal-title">
-                {selectedProperty.title}
-              </p>
-
-              <p className="modal-min">
-                Minimum Price: ₹
-                {(
-                  selectedProperty.price_per_token_inr *
-                  selectedProperty.initial_token_quantity
-                ).toLocaleString()}
-              </p>
-
-              <p
-                style={{
-                  marginBottom: "8px",
-                  fontSize: "14px",
-                  color: "#4b5563",
-                  textAlign: "center",
-                }}
-              >
-                This action is irreversible. Type <b>SELL</b> to confirm.
-              </p>
-
-              <input
-                type="text"
-                placeholder="Type SELL to confirm"
-                value={sellConfirmText}
-                onChange={(e) =>
-                  setSellConfirmText(e.target.value.toUpperCase())
-                }
-                className="sell-confirm-input"
-              />
-
-              <input
-                type="number"
-                placeholder="Enter settlement price (INR)"
-                value={sellPrice}
-                onChange={(e) => setSellPrice(e.target.value)}
-              />
-
-              <div className="modal-actions">
-
-                <button
-                  className="cancel-btn"
-                  onClick={() => {
-                    setShowModal(false);
-                    setSellPrice("");
-                    setSellConfirmText("");
-                  }}
-                >
-                  Cancel
-                </button>
-
-                <button
-                  className="confirm-btn"
-                  disabled={txLoading || sellConfirmText !== "SELL"}
-                  onClick={() => handleSellProperty(selectedProperty)}
-                >
-                  {txLoading ? "Processing..." : "Confirm & Sell"}
-                </button>
+                  {h.status.toUpperCase() === "VALIDATED" && h.is_listed === true && (
+                    <button
+                      className="pp-btn-liquidate"
+                      onClick={() => {
+                        setSelectedProperty(h);
+                        setShowModal(true);
+                      }}
+                    >
+                      Liquidate Asset
+                    </button>
+                  )}
+                </div>
 
               </div>
+            );
+          })}
+        </div>
+      )}
+    </section>
 
-            </div>
+    {/* ===============================
+        PREVIOUS PROPERTIES (UNLISTED)
+    =============================== */}
+    {Properties.filter((p) => p.is_listed === false).length > 0 && (
+      <section className="pp-section mt-12">
+        <div className="pp-section-header">
+          <h2 className="text-muted">Settled Assets</h2>
+          <div className="pp-line"></div>
+        </div>
+
+        <div className="pp-grid">
+          {Properties.filter((p) => p.is_listed === false).map((h) => {
+            const totalInvestment = h.initial_token_quantity * h.price_per_token_inr;
+            const image = h.property_images?.[0] || "/placeholder-property.jpg";
+
+            return (
+              <div key={h.id} className="pp-card settled">
+                
+                <div className="pp-visual">
+                  <img src={image} alt={h.title} />
+                  <div className="pp-overlay"></div>
+                  <span className="pp-status-badge SOLD">SOLD</span>
+                </div>
+
+                <div className="pp-body">
+                  <div className="pp-head-info">
+                    <h3 className="pp-name">{h.title}</h3>
+                    <span className="pp-location">
+                      {h.city}, {h.state}
+                    </span>
+                  </div>
+
+                  <div className="pp-metrics">
+                    <div className="pp-metric-row">
+                      <span className="pp-label">Asset Token</span>
+                      <span className="pp-token-tag muted">{h.token_name}</span>
+                    </div>
+                    <div className="pp-metric-row mt-2">
+                      <span className="pp-label">Final Valuation</span>
+                      <span className="pp-value num text-muted">
+                        ₹{totalInvestment.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    {/* ===============================
+        SELL / LIQUIDATE MODAL
+    =============================== */}
+    {showModal && selectedProperty && (
+      <div className="pp-modal-backdrop">
+        <div className="pp-modal-card danger-zone">
+          
+          <div className="pp-modal-header">
+            <h2>Execute Asset Sale</h2>
+            <p className="pp-modal-sub">{selectedProperty.title}</p>
           </div>
-        )}
 
+          <div className="pp-modal-body">
+            
+            <div className="pp-valuation-box">
+              <span className="pp-label">Minimum Required Settlement</span>
+              <span className="pp-value num text-accent">
+                ₹{(selectedProperty.price_per_token_inr * selectedProperty.initial_token_quantity).toLocaleString()}
+              </span>
+            </div>
+
+            <div className="pp-warning-banner">
+              ⚠️ Warning: Liquidating this asset is irreversible. The underlying property will be marked as sold and proceeds distributed.
+            </div>
+
+            <div className="pp-input-group mt-4">
+              <label>Settlement Price (INR)</label>
+              <div className="pp-input-prefix">
+                <span className="prefix">₹</span>
+                <input
+                  type="number"
+                  placeholder="0.00"
+                  value={sellPrice}
+                  onChange={(e) => setSellPrice(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="pp-input-group mt-4">
+              <label>Type <span className="text-danger">SELL</span> to confirm execution</label>
+              <input
+                type="text"
+                placeholder="SELL"
+                value={sellConfirmText}
+                onChange={(e) => setSellConfirmText(e.target.value.toUpperCase())}
+                className="danger-input"
+              />
+            </div>
+
+          </div>
+
+          <div className="pp-modal-actions">
+            <button
+              className="pp-btn-cancel"
+              onClick={() => {
+                setShowModal(false);
+                setSellPrice("");
+                setSellConfirmText("");
+              }}
+            >
+              Abort
+            </button>
+            <button
+              className="pp-btn-danger"
+              disabled={txLoading || sellConfirmText !== "SELL"}
+              onClick={() => handleSellProperty(selectedProperty)}
+            >
+              {txLoading ? "Executing..." : "Confirm & Sell"}
+            </button>
+          </div>
+
+        </div>
       </div>
-    </>
+    )}
+
+  </div>
+</>
   );
 }

@@ -221,251 +221,254 @@ export default function HoldingsPage() {
   }
 
   return (
-    <>
-      <ToastContainer position="top-right" autoClose={3000} />
-      <div className="txn-page">
-        <div className="txn-header">
-          <h1 className="txn-title">Holdings</h1>
+  <>
+  <ToastContainer position="top-right" autoClose={3000} />
+  <div className="port-page">
+    
+    {/* PAGE HEADER */}
+    <header className="port-header">
+      <div className="port-header-left">
+        <h1 className="port-title">Portfolio Holdings</h1>
+        <p className="port-subtitle">Manage your active and past tokenized real estate assets.</p>
+      </div>
+      <div className="port-header-right">
+        {/* Your SortBar remains fully intact */}
+        <SortBar
+          options={[
+            { key: "token_quantity", label: "Quantity" },
+            { key: "updated_at", label: "Date" },
+            { key: "avg_price_inr", label: "Avg Price" },
+          ]}
+          data={holdings}
+          onChange={setHoldings}
+        />
+      </div>
+    </header>
 
-          <SortBar
-            options={[
-              { key: "token_quantity", label: "Quantity" },
-              { key: "updated_at", label: "Date" },
-              { key: "avg_price_inr", label: "Avg Price" },
-            ]}
-            data={holdings}
-            onChange={setHoldings}
-          />
+    {/* ===============================
+        ACTIVE HOLDINGS
+    =============================== */}
+    <section className="port-section">
+      <div className="port-section-header">
+        <h2>Active Positions</h2>
+        <div className="port-line"></div>
+      </div>
+
+      {holdings.filter((h) => h.redeemed == false).length === 0 ? (
+        <div className="port-empty">
+          <div className="port-empty-icon">📊</div>
+          <p>No active token holdings found in your portfolio.</p>
         </div>
+      ) : (
+        <div className="port-grid">
+          {holdings.filter((h) => h.redeemed == false).map((h) => {
+            const totalInvestment = h.token_quantity * h.avg_price_inr;
+            const image = h.properties?.property_images?.[0] || "/placeholder-property.jpg";
 
-        {/* ACTIVE HOLDINGS (NOT REDEEMED) */}
-        {holdings.filter((h) => h.redeemed == false).length === 0 ? (
-          <p className="txn-empty">No Current Holdings</p>
-        ) : (
-          <div className="holdings-grid">
-            {holdings.filter((h) => h.redeemed == false).map((h) => {
-              const totalInvestment =
-                h.token_quantity * h.avg_price_inr;
+            return (
+              <div key={h.id} className="asset-card">
+                <div className="asset-visual">
+                  <img src={image} alt={h.properties.title} />
+                  <div className="asset-overlay"></div>
+                  <span className={`asset-status ${h.properties.status.toUpperCase()}`}>
+                    <span className="status-dot"></span>
+                    {h.properties.status}
+                  </span>
+                </div>
 
-              const image =
-                h.properties?.property_images?.[0] ||
-                "/placeholder-property.jpg";
-
-              return (
-                <div key={h.id} className="holding-card">
-                  <div className="holding-image">
-                    <img src={image} alt={h.properties.title} />
-                    <span
-                      className={`holding-status ${h.properties.status.toUpperCase()}`}
-                    >
-                      {h.properties.status}
-                    </span>
+                <div className="asset-body">
+                  <div className="asset-head">
+                    <h3 className="asset-title">{h.properties.title}</h3>
+                    <span className="asset-location">{h.properties.city}, {h.properties.state}</span>
                   </div>
 
-                  <div className="holding-body">
-                    <div className="holding-header">
-                      <h3 className="holding-title">
-                        {h.properties.title}
-                      </h3>
-                      <span className="holding-location">
-                        {h.properties.city}, {h.properties.state}
-                      </span>
+                  <div className="asset-metrics">
+                    <div className="metric-box">
+                      <span className="m-label">Asset Token</span>
+                      <span className="m-value highlight">{h.properties.token_name}</span>
+                    </div>
+                    <div className="metric-box">
+                      <span className="m-label">Quantity</span>
+                      <span className="m-value num">{h.token_quantity}</span>
+                    </div>
+                    <div className="metric-box">
+                      <span className="m-label">Avg Price</span>
+                      <span className="m-value num">₹{h.avg_price_inr.toLocaleString()}</span>
+                    </div>
+                  </div>
+
+                  <div className="asset-footer">
+                    <div className="asset-total">
+                      <span className="t-label">Total Value</span>
+                      <span className="t-value num">₹{totalInvestment.toLocaleString()}</span>
                     </div>
 
-                    <div className="holding-meta">
-                      <div>
-                        <span className="meta-label">Token</span>
-                        <span className="meta-value">
-                          {h.properties.token_name}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="meta-label">Quantity</span>
-                        <span className="meta-value">
-                          {h.token_quantity}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="meta-label">Avg Price</span>
-                        <span className="meta-value">
-                          ₹{h.avg_price_inr}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="holding-footer">
-                      <span className="holding-total">
-                        ₹{totalInvestment.toLocaleString()}
-                      </span>
-
+                    <div className="asset-actions">
                       {h.holding_status === true && (
-                        <button
-                          className="list-btn"
-                          onClick={() => openModal(h)}
-                        >
+                        <button className="btn-trade" onClick={() => openModal(h)}>
                           List Tokens
                         </button>
                       )}
-
                       {h.holding_status === false && (
-                        <button
-                          className="list-btn redeem-btn"
-                          onClick={() => openRedeemModal(h)}
-                        >
+                        <button className="btn-redeem" onClick={() => openRedeemModal(h)}>
                           Redeem
                         </button>
                       )}
                     </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
-        {/* ===============================
-          PREVIOUS HOLDINGS (REDEEMED)
-      =============================== */}
-        {holdings.filter((h) => h.redeemed === true).length > 0 && (
-          <>
-            <h2 className="txn-subtitle">Your Previous Holdings</h2>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </section>
 
-            <div className="holdings-grid previous-properties">
-              {holdings.filter((h) => h.redeemed === true).map((h) => {
+    {/* ===============================
+        PREVIOUS HOLDINGS (REDEEMED)
+    =============================== */}
+    {holdings.filter((h) => h.redeemed === true).length > 0 && (
+      <section className="port-section mt-12">
+        <div className="port-section-header">
+          <h2 className="text-muted">Closed Positions</h2>
+          <div className="port-line"></div>
+        </div>
 
-                const totalInvestment =
-                  h.token_quantity * h.avg_price_inr;
+        <div className="port-grid">
+          {holdings.filter((h) => h.redeemed === true).map((h) => {
+            const totalInvestment = h.token_quantity * h.avg_price_inr;
+            const image = h.properties?.property_images?.[0] || "/placeholder-property.jpg";
 
-                const image =
-                  h.properties?.property_images?.[0] ||
-                  "/placeholder-property.jpg";
+            return (
+              <div key={h.id} className="asset-card closed-card">
+                <div className="asset-visual">
+                  <img src={image} alt={h.properties.title} />
+                  <div className="asset-overlay"></div>
+                  <span className="asset-status REDEEMED">
+                    <span className="status-dot"></span>
+                    REDEEMED
+                  </span>
+                </div>
 
-                return (
-                  <div key={h.id} className="holding-card previous-card">
+                <div className="asset-body">
+                  <div className="asset-head">
+                    <h3 className="asset-title">{h.properties.title}</h3>
+                    <span className="asset-location">{h.properties.city}, {h.properties.state}</span>
+                  </div>
 
-                    <div className="holding-image">
-                      <img src={image} alt={h.properties.title} />
-                      <span className="holding-status SOLD">REDEEMED</span>
+                  <div className="asset-metrics double">
+                    <div className="metric-box">
+                      <span className="m-label">Asset Token</span>
+                      <span className="m-value">{h.properties.token_name}</span>
                     </div>
-
-                    <div className="holding-body">
-
-                      <div className="holding-header">
-                        <h3 className="holding-title">
-                          {h.properties.title}
-                        </h3>
-
-                        <span className="holding-location">
-                          {h.properties.city}, {h.properties.state}
-                        </span>
-                      </div>
-
-                      <div className="holding-meta">
-
-                        <div>
-                          <span className="meta-label">Token</span>
-                          <span className="meta-value">
-                            {h.properties.token_name}
-                          </span>
-                        </div>
-
-                        <div>
-                          <span className="meta-label">Total Investment</span>
-                          <span className="meta-value">
-                            ₹{totalInvestment.toLocaleString()}
-                          </span>
-                        </div>
-
-                      </div>
-
+                    <div className="metric-box">
+                      <span className="m-label">Total Investment</span>
+                      <span className="m-value num text-muted">₹{totalInvestment.toLocaleString()}</span>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </>
-        )}
-        {showModal && selectedHolding && (
-          <div className="modal-backdrop">
-            <div className="modal-card">
-              <h2>List Tokens</h2>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
 
-              <p className="modal-sub">
-                {selectedHolding.properties.token_name}
-              </p>
+    {/* ===============================
+        LIST TOKENS MODAL
+    =============================== */}
+    {showModal && selectedHolding && (
+      <div className="ft-modal-backdrop">
+        <div className="ft-modal-card">
+          <div className="ft-modal-header">
+            <h2>Execute Listing</h2>
+            <p className="ft-modal-sub">{selectedHolding.properties.token_name} • Secondary Market</p>
+          </div>
 
+          <div className="ft-modal-body">
+            <div className="ft-input-group">
               <label>
-                Quantity
-                <input
-                  type="number"
-                  max={selectedHolding.token_quantity}
-                  value={listQty}
-                  onChange={(e) => setListQty(e.target.value)}
-                />
+                Quantity to List
+                <span className="input-max">Max: {selectedHolding.token_quantity}</span>
               </label>
+              <input
+                type="number"
+                max={selectedHolding.token_quantity}
+                value={listQty}
+                onChange={(e) => setListQty(e.target.value)}
+                placeholder="0"
+              />
+            </div>
 
-              <label>
-                Price per Token (INR)
+            <div className="ft-input-group">
+              <label>Price per Token (INR)</label>
+              <div className="input-with-prefix">
+                <span className="prefix">₹</span>
                 <input
                   type="number"
                   value={listPrice}
                   onChange={(e) => setListPrice(e.target.value)}
+                  placeholder="0.00"
                 />
-              </label>
-
-              <div className="modal-actions">
-                <button onClick={closeModal}>Cancel</button>
-                <button
-                  disabled={listingLoading}
-                  onClick={handleListTokens}
-                >
-                  {listingLoading ? "Listing..." : "Confirm Listing"}
-                </button>
               </div>
             </div>
           </div>
-        )}
-        {/* ===============================
-          REDEEM MODAL
-      =============================== */}
-        {showRedeemModal && selectedRedeemHolding && (
-          <div className="modal-backdrop">
-            <div className="modal-card">
 
-              <h2>Confirm Redeem</h2>
+          <div className="ft-modal-actions">
+            <button className="ft-btn-cancel" onClick={closeModal}>Cancel</button>
+            <button
+              className="ft-btn-confirm"
+              disabled={listingLoading}
+              onClick={handleListTokens}
+            >
+              {listingLoading ? "Processing..." : "Confirm Listing"}
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
 
-              <p className="modal-sub">
-                {selectedRedeemHolding.properties.token_name}
-              </p>
+    {/* ===============================
+        REDEEM MODAL
+    =============================== */}
+    {showRedeemModal && selectedRedeemHolding && (
+      <div className="ft-modal-backdrop">
+        <div className="ft-modal-card danger-modal">
+          <div className="ft-modal-header">
+            <h2>Confirm Redemption</h2>
+            <p className="ft-modal-sub">{selectedRedeemHolding.properties.token_name}</p>
+          </div>
 
-              <p style={{ marginBottom: "10px", fontSize: "14px", color: "#4b5563", textAlign: "center" }}>
-                This action is irreversible. Type <b>REDEEM</b> below to confirm.
-              </p>
-
+          <div className="ft-modal-body text-center">
+            <div className="warning-box">
+              ⚠️ This action is irreversible and will permanently close your position.
+            </div>
+            <div className="ft-input-group mt-4">
+              <label>Type <b>REDEEM</b> to confirm</label>
               <input
                 type="text"
-                placeholder="Type REDEEM to confirm"
+                placeholder="REDEEM"
                 value={redeemConfirmText}
                 onChange={(e) => setRedeemConfirmText(e.target.value.toUpperCase())}
-                className="redeem-confirm-input"
+                className="danger-input"
               />
-
-              <div className="modal-actions">
-                <button onClick={closeRedeemModal}>
-                  Cancel
-                </button>
-
-                <button
-                  disabled={redeemLoading || redeemConfirmText !== "REDEEM"}
-                  onClick={handleRedeemTokens}
-                >
-                  {redeemLoading ? "Redeeming..." : "Confirm Redeem"}
-                </button>
-              </div>
-
             </div>
           </div>
-        )}
+
+          <div className="ft-modal-actions">
+            <button className="ft-btn-cancel" onClick={closeRedeemModal}>Cancel</button>
+            <button
+              className="ft-btn-danger"
+              disabled={redeemLoading || redeemConfirmText !== "REDEEM"}
+              onClick={handleRedeemTokens}
+            >
+              {redeemLoading ? "Executing..." : "Confirm Redeem"}
+            </button>
+          </div>
+        </div>
       </div>
-    </>
+    )}
+  </div>
+</>
   );
 }

@@ -32,73 +32,112 @@ export default function TransactionsPage() {
   }, []);
 
   if (loading) {
-    return <ReactorOrbitLoader label="Fetching your Transactions" />
+    return <ReactorOrbitLoader label="Fetching your Transactions" />;
   }
 
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} />
-      <div className="txn-page">
-        <div className="txn-header">
-          <h1 className="txn-title">Transactions</h1>
+      <div className="transaction-page">
+        
+        {/* HEADER */}
+        <header className="transaction-header">
+          <div className="transaction-header-left">
+            <h1 className="transaction-title">Transaction Ledger</h1>
+            <p className="transaction-subtitle">Review your on-chain settlement history and asset acquisitions.</p>
+          </div>
 
-          <SortBar
-            options={[
-              { key: "token_quantity", label: "Token" },
-              { key: "created_at", label: "Date" },
-              { key: "price_per_token_inr", label: "Avg Price" },
-            ]}
-            data={transactions}
-            onChange={setTransactions}
-          />
-        </div>
+          <div className="transaction-header-right">
+            <SortBar
+              options={[
+                { key: "token_quantity", label: "Quantity" },
+                { key: "created_at", label: "Date" },
+                { key: "price_per_token_inr", label: "Execution Price" },
+              ]}
+              data={transactions}
+              onChange={setTransactions}
+            />
+          </div>
+        </header>
 
-        {transactions.length === 0 ? (
-          <p className="txn-empty">No transactions found</p>
-        ) : (
-          <div className="txn-grid">
-            {transactions.map((tx) => {
-              const total =
-                tx.token_quantity * tx.price_per_token_inr;
+        {/* CONTENT */}
+        <section className="transaction-section">
+          {transactions.length === 0 ? (
+            <div className="transaction-empty">
+              <div className="transaction-empty-icon">🧾</div>
+              <p>No settled transactions found in your history.</p>
+            </div>
+          ) : (
+            <div className="transaction-grid">
+              {transactions.map((tx) => {
+                const total = tx.token_quantity * tx.price_per_token_inr;
 
-              return (
-                <div key={tx.id} className="txn-card">
-                  <div className="txn-card-top">
-                    <div className="txn-left">
-                      <h4 className="txn-token">{tx.token_name}</h4>
-                      <span className="txn-date">
-                        {new Date(tx.created_at).toLocaleDateString()}
+                return (
+                  <div key={tx.id} className="transaction-card">
+                    
+                    {/* Card Header */}
+                    <div className="transaction-card-head">
+                      <div className="transaction-asset-info">
+                        <span className="transaction-label">Asset Token</span>
+                        <h4 className="transaction-token-name">{tx.token_name}</h4>
+                      </div>
+                      <span className={`transaction-status-badge ${tx.status.toUpperCase()}`}>
+                        <span className="transaction-dot"></span>
+                        {tx.status}
                       </span>
                     </div>
 
-                    <span className={`txn-status ${tx.status}`}>
-                      {tx.status}
-                    </span>
-                  </div>
+                    {/* Card Body / Metrics */}
+                    <div className="transaction-card-body">
+                      <div className="transaction-metric-row">
+                        <span className="transaction-label">Execution Date</span>
+                        <span className="transaction-value">
+                          {new Date(tx.created_at).toLocaleDateString(undefined, {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                          })}
+                        </span>
+                      </div>
+                      
+                      <div className="transaction-metric-grid">
+                        <div className="transaction-metric-box">
+                          <span className="transaction-label">Size</span>
+                          <span className="transaction-value transaction-num">{tx.token_quantity}</span>
+                        </div>
+                        <div className="transaction-metric-box transaction-text-right">
+                          <span className="transaction-label">Avg Price</span>
+                          <span className="transaction-value transaction-num">₹{tx.price_per_token_inr.toLocaleString()}</span>
+                        </div>
+                      </div>
+                    </div>
 
-                  <div className="txn-mid">
-                    {tx.token_quantity} tokens × ₹
-                    {tx.price_per_token_inr}
-                  </div>
-                  <div className="txn-bottom">
-                    <span className="txn-total">
-                      ₹{total.toLocaleString()}
-                    </span>
+                    {/* Card Footer */}
+                    <div className="transaction-card-footer">
+                      <div className="transaction-total-box">
+                        <span className="transaction-label">Settled Value</span>
+                        <span className="transaction-total-val transaction-num transaction-text-accent">
+                          ₹{total.toLocaleString()}
+                        </span>
+                      </div>
 
-                    <a
-                      href={`https://sepolia.etherscan.io/tx/${tx.transaction_hash}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="txn-link"
-                    >
-                      View on Etherscan →
-                    </a>
+                      <a
+                        href={`https://sepolia.etherscan.io/tx/${tx.transaction_hash}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="transaction-link-btn"
+                        title="View on Block Explorer"
+                      >
+                        TxHash ↗
+                      </a>
+                    </div>
+                    
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
+                );
+              })}
+            </div>
+          )}
+        </section>
       </div>
     </>
   );

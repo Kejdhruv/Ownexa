@@ -1,32 +1,77 @@
+/* =========================================
+   TRANSACTIONS LEDGER - DARK FINTECH THEME
+   (Fully namespaced to prevent collisions)
+========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
+:root {
+  --transaction-bg: #090b0f;
+  --transaction-surface: #12151c;
+  --transaction-surface-hover: #181c25;
+  --transaction-border: #1e2430;
+  --transaction-border-glow: rgba(59, 130, 246, 0.3);
+  --transaction-text-main: #f8fafc;
+  --transaction-text-muted: #94a3b8;
+  --transaction-accent: #3b82f6; 
+  --transaction-positive: #10b981; 
+  --transaction-warning: #f59e0b;
+  --transaction-danger: #ef4444;
+  
+  --transaction-font-sans: 'Inter', system-ui, sans-serif;
+  --transaction-font-mono: 'JetBrains Mono', monospace;
+}
+
 /* =========================
-   PAGE
+   PAGE & HEADER
 ========================= */
 
-.txn-page {
-  max-width: 1200px;
-  margin: 0 auto;
+.transaction-page {
+  width: 100%;
+  min-height: 100vh;
+  color: var(--transaction-text-main);
+  font-family: var(--transaction-font-sans);
+  padding: clamp(24px, 4vw, 40px);
+  box-sizing: border-box;
 }
 
-.txn-title {
-  font-size: 28px;
-  font-weight: 600;
-  color: #f9fafb;
-  margin-bottom: 24px;
+.transaction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-bottom: 1px solid var(--transaction-border);
+  padding-bottom: 24px;
 }
 
-.txn-loading,
-.txn-empty {
+.transaction-title {
+  margin: 0 0 8px 0;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.transaction-subtitle {
+  margin: 0;
   font-size: 14px;
-  color: #9ca3af;
+  color: var(--transaction-text-muted);
 }
 
 /* =========================
    GRID
 ========================= */
 
-.txn-grid {
+.transaction-section {
+  width: 100%;
+}
+
+.transaction-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Min width of 260px allows 4 items comfortably on large screens */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 20px;
 }
 
@@ -34,433 +79,218 @@
    CARD
 ========================= */
 
-.txn-card {
-  background:
-    linear-gradient(180deg,
-      rgba(20, 22, 27, 0.92),
-      rgba(16, 18, 24, 0.92)),
-    rgba(96, 165, 250, 0.04);
-
-  backdrop-filter: blur(14px);
-  border-radius: 18px;
-  padding: 18px 20px;
-
-  border: 1px solid rgba(96, 165, 250, 0.16);
-
+.transaction-card {
+  background: var(--transaction-surface);
+  border: 1px solid var(--transaction-border);
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
 
-.txn-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(96, 165, 250, 0.3);
-  box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(96, 165, 250, 0.08);
+.transaction-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--transaction-accent);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--transaction-border-glow);
 }
 
-/* =========================
-   TOP
-========================= */
-
-.txn-card-top {
+/* --- Card Header --- */
+.transaction-card-head {
+  padding: 16px 20px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 12px;
 }
 
-.txn-left {
+.transaction-asset-info {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.txn-token {
-  font-size: 15px;
-  font-weight: 600;
-  color: #f9fafb;
+.transaction-token-name {
+  margin: 0;
+  font-family: var(--transaction-font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
 }
 
-.txn-date {
-  font-size: 11px;
-  color: #9ca3af;
-}
-
-/* =========================
-   STATUS
-========================= */
-
-.txn-status {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 999px;
+.transaction-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--transaction-text-main);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
-.txn-status.SUCCESS {
-  background: rgba(34, 197, 94, 0.18);
-  color: #22c55e;
+.transaction-status-badge .transaction-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
 }
 
-.txn-status.validated {
-  background: rgba(34, 197, 94, 0.18);
-  color: #22c55e;
+/* Status Colors */
+.SUCCESS .transaction-dot, .VALIDATED .transaction-dot { background: var(--transaction-positive); box-shadow: 0 0 6px var(--transaction-positive); }
+.SUCCESS, .VALIDATED { color: var(--transaction-positive); background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); }
+
+.PENDING .transaction-dot { background: var(--transaction-warning); box-shadow: 0 0 6px var(--transaction-warning); }
+.PENDING { color: var(--transaction-warning); background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2); }
+
+.FAILED .transaction-dot, .REJECTED .transaction-dot { background: var(--transaction-danger); }
+.FAILED, .REJECTED { color: var(--transaction-danger); background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2); }
+
+/* --- Card Body --- */
+.transaction-card-body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
 }
 
-.txn-status.pending {
-  background: rgba(234, 179, 8, 0.18);
-  color: #eab308;
-}
-
-.txn-status.failed {
-  background: rgba(239, 68, 68, 0.18);
-  color: #ef4444;
-}
-
-/* =========================
-   MID
-========================= */
-
-.txn-mid {
-  font-size: 13px;
-  color: #9ca3af;
-}
-
-/* =========================
-   BOTTOM
-========================= */
-
-.txn-bottom {
+.transaction-metric-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.txn-total {
-  font-size: 16px;
+.transaction-metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+.transaction-metric-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.transaction-text-right {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.transaction-label {
+  font-size: 10px;
   font-weight: 600;
-  color: #f9fafb;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--transaction-text-muted);
 }
 
-.txn-link {
+.transaction-value {
   font-size: 13px;
-  color: #93c5fd;
-  text-decoration: none;
-  opacity: 0.85;
-
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+  font-weight: 600;
+  color: var(--transaction-text-main);
 }
 
-.txn-link:hover {
-  opacity: 1;
-  transform: translateX(2px);
-  text-decoration: underline;
+.transaction-num {
+  font-family: var(--transaction-font-mono);
+}
+
+/* --- Card Footer --- */
+.transaction-card-footer {
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--transaction-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transaction-total-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.transaction-total-val {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.transaction-text-accent {
+  color: var(--transaction-accent);
+}
+
+.transaction-link-btn {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--transaction-text-muted);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-family: var(--transaction-font-mono);
+}
+
+.transaction-link-btn:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--transaction-accent);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.transaction-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  background: var(--transaction-surface);
+  border: 1px dashed var(--transaction-border);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.transaction-empty-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.transaction-empty p {
+  color: var(--transaction-text-muted);
+  font-size: 15px;
+  margin: 0;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media (max-width: 1024px) {
-  .txn-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.txn-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
 @media (max-width: 768px) {
-  .txn-header {
+  .transaction-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
   }
 }
-
-
-/* ===============================
-   SELL PROPERTY MODAL (OWNEXA THEME)
-=============================== */
-/* ===============================
-   SELL PROPERTY MODAL (DARK THEME)
-=============================== */
-
-.sell-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(2, 6, 23, 0.75);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  animation: fadeIn 0.25s ease-in-out;
-}
-
-.sell-modal {
-  width: 100%;
-  max-width: 440px;
-  background: linear-gradient(145deg, #020617, #020617);
-  border-radius: 16px;
-  padding: 26px 26px;
-  box-shadow: 0 25px 60px rgba(37, 99, 235, 0.25);
-  animation: scaleIn 0.3s ease;
-  border: 1px solid rgba(99, 102, 241, 0.25);
-}
-
-/* Header */
-.sell-modal h2 {
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 6px;
-  color: #f8fafc;
-}
-
-/* Property Title */
-.modal-title {
-  text-align: center;
-  font-size: 14px;
-  color: #94a3b8;
-  margin-bottom: 12px;
-}
-
-/* Minimum Price */
-.modal-min {
-  background: rgba(30, 41, 59, 0.6);
-  padding: 10px 14px;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 13px;
-  color: #e2e8f0;
-  margin-bottom: 12px;
-  font-weight: 500;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-}
-
-/* Info Text */
-.sell-modal p {
-  color: #94a3b8;
-}
-
-/* Input Fields */
-.sell-modal input {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1.5px solid rgba(99, 102, 241, 0.4);
-  border-radius: 9px;
-  font-size: 14px;
-  outline: none;
-  transition: all 0.25s ease;
-  background: rgba(2, 6, 23, 0.9);
-  color: #f8fafc;
-}
-
-/* Focus */
-.sell-modal input:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
-}
-
-/* SELL Confirm Input */
-.sell-confirm-input {
-  text-align: center;
-  letter-spacing: 1.3px;
-  font-weight: 600;
-  color: #93c5fd;
-}
-
-/* When Correct */
-.sell-confirm-input:valid {
-  border-color: #22c55e;
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
-}
-
-/* ===============================
-   BUTTONS
-=============================== */
-
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  /* MORE SPACE BETWEEN BUTTONS */
-  margin-top: 24px;
-}
-
-/* Cancel Button */
-.cancel-btn {
-  flex: 1;
-  background: rgba(30, 41, 59, 0.9);
-  color: #e2e8f0;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  padding: 10px 0;
-  border-radius: 9px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.25s;
-}
-
-.cancel-btn:hover {
-  background: rgba(51, 65, 85, 0.9);
-}
-
-/* Confirm Button */
-.confirm-btn {
-  flex: 1;
-  background: linear-gradient(135deg,
-      #2563eb,
-      #6366f1);
-  color: #ffffff;
-  border: none;
-  padding: 10px 0;
-  border-radius: 9px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s;
-  box-shadow: 0 8px 22px rgba(99, 102, 241, 0.35);
-}
-
-.confirm-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(99, 102, 241, 0.5);
-}
-
-.confirm-btn:disabled {
-  background: rgba(99, 102, 241, 0.25);
-  box-shadow: none;
-  cursor: not-allowed;
-}
-
-/* ===============================
-   ANIMATIONS
-=============================== */
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0.92);
-    opacity: 0;
-  }
-
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* ===============================
-   MOBILE RESPONSIVE
-=============================== */
 
 @media (max-width: 480px) {
-
-  .sell-modal {
-    width: 92%;
-    padding: 22px 20px;
-  }
-
-  .modal-actions {
-    flex-direction: column-reverse;
-    gap: 14px;
-  }
-
-  .cancel-btn,
-  .confirm-btn {
-    width: 100%;
-  }
-}
-
-/* ===============================
-   PREVIOUS PROPERTIES SECTION
-=============================== */
-
-.txn-subtitle {
-  margin-top: 45px;
-  margin-bottom: 18px;
-  padding-top: 22px;
-  border-top: 2px solid #e2e8f0;
-
-  font-size: 20px;
-  font-weight: 600;
-  color: #1088c0;
-}
-
-/* Slightly faded look for old properties */
-.previous-properties {
-  opacity: 0.92;
-}
-
-/* Dim previous cards */
-.previous-card {
-  background: linear-gradient(135deg,
-      #fafcff,
-      #f3f7ff);
-  border: 1px solid #dbeafe;
-  filter: grayscale(8%);
-  transition: all 0.25s ease;
-}
-
-.previous-card:hover {
-  opacity: 1;
-  filter: grayscale(0%);
-  transform: translateY(-2px);
-}
-
-/* SOLD badge style */
-.holding-status.SOLD {
-  background: linear-gradient(135deg,
-      #64748b,
-      #475569);
-  color: #ffffff;
-  font-size: 12px;
-  padding: 4px 9px;
-  border-radius: 7px;
-  font-weight: 500;
-}
-
-/* ===============================
-   MOBILE RESPONSIVE
-=============================== */
-
-@media (max-width: 480px) {
-
-  .sell-modal {
-    width: 92%;
-    padding: 22px 18px;
-  }
-
-  .modal-actions {
-    flex-direction: column-reverse;
-  }
-
-  .cancel-btn,
-  .confirm-btn {
-    width: 100%;
+  .transaction-grid {
+    grid-template-columns: 1fr;
   }
 }
