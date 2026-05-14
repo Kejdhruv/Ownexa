@@ -8,6 +8,7 @@ import PropertyTokenABI from "../../abi/PropertyToken.json";
 import "../../Styles/Market/PropertyCard.css";
 import TxLoader from "../../Components/Loaders/TxLoader";
 import MarketLoader from "../../Components/Loaders/MarketLoader";
+import Navbar from "../../Components/Market/Navbar";
 const API = import.meta.env.VITE_API_BASE;
 const CONTRACT_ADDRESS = import.meta.env.VITE_SMART_CONTRACT;
 
@@ -23,6 +24,7 @@ import {
   Layers,
   FileText
 } from "lucide-react";
+import OwnexaFooter from "../../Components/Market/footer";
 
 export default function PropertyCard() {
   const { id } = useParams();
@@ -229,153 +231,175 @@ export default function PropertyCard() {
 
   return (
     <>
-      <ToastContainer position="top-right" autoClose={3000} />
-      <div className="property-buy-page">
-        <TxLoader
-          open={txOpen}
-          direction={txDir}
-          title={txTitle}
-          subtitle={txSub}
-          txHash={txHash}
-          onClose={() => { }} // keep disabled while processing
+      
+  <ToastContainer position="top-right" autoClose={3000} />
+  <div className="ft-page">
+    <TxLoader
+      open={txOpen}
+      direction={txDir}
+      title={txTitle}
+      subtitle={txSub}
+      txHash={txHash}
+      onClose={() => {}}
         />
-        <div className="property-buy-container">
+        
+<div className="header-nav"> <Navbar/></div>
+        <div className="ft-container">
+    
+      {/* PAGE HEADER */}
+      <header className="ft-header">
+        <div className="ft-header-titles">
+          <h1 className="ft-title">{property.title}</h1>
+          <div className="ft-location">
+            <MapPin size={16} />
+            <span>
+              {property.address_line}, {property.city}, {property.state} – {property.pincode}
+            </span>
+          </div>
+        </div>
+        <div className="ft-header-badges">
+          <span className="ft-badge"><Building2 size={14} /> {property.property_type}</span>
+          <span className="ft-badge"><FileText size={14} /> Reg: {property.registry_number}</span>
+        </div>
+      </header>
 
-          {/* LEFT COLUMN */}
-          <div className="property-left">
-
-            {/* PROPERTY DETAIL CARD */}
-            <div className="property-main glass-card">
-              <div className="property-image-grid">
-                {property.property_images?.map((img, idx) => (
-                  <img key={idx} src={img} alt="property" />
-                ))}
-              </div>
-
-              <div className="property-details">
-                <p className="property-title">{property.title}</p>
-
-                <div className="detail-row full">
-                  <MapPin size={16} />
-                  <span>
-                    {property.address_line}, {property.city}, {property.state} – {property.pincode}
-                  </span>
-                </div>
-
-                <div className="details-grid">
-                  <div className="detail-item">
-                    <Home size={16} />
-                    <span>{property.bhk} BHK</span>
-                  </div>
-
-                  <div className="detail-item">
-                    <Building2 size={16} />
-                    <span>{property.property_type}</span>
-                  </div>
-
-                  <div className="detail-item">
-                    <Ruler size={16} />
-                    <span>{property.built_up_area_sqft} sqft</span>
-                  </div>
-
-                  <div className="detail-item">
-                    <Coins size={16} />
-                    <span>{property.token_name}</span>
-                  </div>
-
-                  <div className="detail-item">
-                    <IndianRupee size={16} />
-                    <span>{property.price_per_token_inr}</span>
-                  </div>
-
-                  <div className="detail-item">
-                    <Layers size={16} />
-                    <span>{property.token_quantity} tokens left</span>
-                  </div>
-                </div>
-
-                <div className="detail-row full">
-                  <FileText size={16} />
-                  <span>
-                    {property.registry_name} • {property.registry_number}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* PRIMARY BUY CARD */}
-            <div className="market-card glass-card primary-market">
-              <h3>Primary Market</h3>
-
-              <div className="primary-buy-row">
-                <input
-                  type="number"
-                  placeholder="Qty"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  disabled={primaryBuying}
-                  min="1"
-                />
-
-                <button
-                  className="buy-btn compact"
-                  onClick={handlePrimaryBuy}
-                  disabled={primaryBuying || !quantity || Number(quantity) <= 0}
-                >
-                  {primaryBuying
-                    ? "Fetching Your Tokens"
-                    : ` ₹${quantity
-                      ? (Number(quantity) * property.price_per_token_inr).toLocaleString()
-                      : 0}`}
-                </button>
-              </div>
-            </div>
-
+      <div className="ft-layout">
+        {/* LEFT COLUMN: ASSET OVERVIEW */}
+        <div className="ft-asset-panel">
+          {/* IMAGE GALLERY */}
+          <div className="ft-gallery">
+            {property.property_images?.slice(0, 1).map((img, idx) => (
+              <img key={idx} src={img} alt={`Asset view ${idx + 1}`} className={`ft-img-${idx}`} />
+            ))}
           </div>
 
-          {/* RIGHT COLUMN */}
-          <div className="property-right">
+          {/* ASSET SPECIFICATIONS */}
+          <div className="ft-card">
+            <h2 className="ft-card-title">Asset Specifications</h2>
+            <div className="ft-specs-grid">
+              <div className="ft-spec-box">
+                <label>Configuration</label>
+                <div className="ft-spec-val"><Home size={16} /> {property.bhk} BHK</div>
+              </div>
+              <div className="ft-spec-box">
+                <label>Built-up Area</label>
+                <div className="ft-spec-val"><Ruler size={16} /> {property.built_up_area_sqft} sqft</div>
+              </div>
+              <div className="ft-spec-box">
+                <label>Token Asset</label>
+                <div className="ft-spec-val"><Coins size={16} /> {property.token_name}</div>
+              </div>
+              <div className="ft-spec-box">
+                <label>Issue Price</label>
+                <div className="ft-spec-val"><IndianRupee size={16} /> {property.price_per_token_inr}</div>
+              </div>
+              <div className="ft-spec-box highlight-box">
+                <label>Available Liquidity</label>
+                <div className="ft-spec-val"><Layers size={16} /> {property.token_quantity} Tokens</div>
+              </div>
+              <div className="ft-spec-box">
+                <label>Registry Name</label>
+                <div className="ft-spec-val">{property.registry_name}</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <div className="market-card glass-card secondary-market">
-              <h3>Secondary Market</h3>
+        {/* RIGHT COLUMN: TRADING DESK */}
+        <div className="ft-trading-panel">
+          
+          {/* PRIMARY MARKET (ISSUE) */}
+          <div className="ft-card primary-trade-card">
+            <div className="ft-card-header">
+              <h2 className="ft-card-title">Primary Market</h2>
+              <span className="ft-status-dot live">Live</span>
+            </div>
+            
+            <div className="ft-trade-form">
+              <div className="ft-input-group">
+                <label>Investment Quantity (Tokens)</label>
+                <div className="ft-input-wrapper">
+                  <input
+                    type="number"
+                    placeholder="0"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    disabled={primaryBuying}
+                    min="1"
+                  />
+                  <span className="ft-input-suffix">{property.token_name}</span>
+                </div>
+              </div>
 
-              {listings && listings.length > 0 ? (
-                <div className="secondary-list">
+              <div className="ft-trade-summary">
+                <span>Estimated Value</span>
+                <span className="ft-total-val">
+                  ₹{quantity ? (Number(quantity) * property.price_per_token_inr).toLocaleString() : "0"}
+                </span>
+              </div>
+
+              <button
+                className="ft-btn-primary"
+                onClick={handlePrimaryBuy}
+                disabled={primaryBuying || !quantity || Number(quantity) <= 0}
+              >
+                {primaryBuying ? "Processing Order..." : "Place Primary Order"}
+              </button>
+            </div>
+          </div>
+
+          {/* SECONDARY MARKET (ORDER BOOK) */}
+          <div className="ft-card secondary-trade-card">
+             <div className="ft-card-header">
+              <h2 className="ft-card-title">Order Book</h2>
+              <span className="ft-subtitle">Secondary Market</span>
+            </div>
+
+            {listings && listings.length > 0 ? (
+              <div className="ft-order-book">
+                <div className="ft-order-header">
+                  <span>Price (INR)</span>
+                  <span>Size (Tokens)</span>
+                  <span className="ft-align-right">Action</span>
+                </div>
+                
+                <div className="ft-order-list">
                   {listings.map((listing) => (
-                    <div className="secondary-row" key={listing.id}>
-
-                      <div className="sec-price">
-                        ₹{listing.price_per_token_inr}
-                        <span>/token</span>
+                    <div className="ft-order-row" key={listing.id}>
+                      <div className="ft-order-price">
+                        ₹{listing.price_per_token_inr.toLocaleString()}
                       </div>
-
-                      <div className="sec-qty">
-                        {listing.token_quantity} tokens
+                      <div className="ft-order-size">
+                        {listing.token_quantity}
+                        <span className="ft-order-date">{new Date(listing.created_at).toLocaleDateString()}</span>
                       </div>
-
-                      <div className="sec-date">
-                        {new Date(listing.created_at).toLocaleDateString()}
+                      <div className="ft-order-action">
+                        <button
+                          className="ft-btn-secondary"
+                          disabled={secondaryBuying}
+                          onClick={() => handleSecondaryBuy(listing)}
+                        >
+                          {secondaryBuying ? "Executing" : "Buy"}
+                        </button>
                       </div>
-
-                      <button
-                        className="sec-buy-btn"
-                        disabled={secondaryBuying}
-                        onClick={() => handleSecondaryBuy(listing)}
-                      >
-                        {secondaryBuying ? "Negotiating" : "Buy"}
-                      </button>
-
                     </div>
                   ))}
                 </div>
-              ) : (
-                <div className="empty-secondary">No Secondary Listings Yet</div>
-              )}
-            </div>
-
+              </div>
+            ) : (
+              <div className="ft-empty-state">
+                <div className="ft-empty-icon">📊</div>
+                <p>No active sell orders</p>
+                <span>Secondary market liquidity is currently zero.</span>
+              </div>
+            )}
           </div>
+
         </div>
       </div>
-    </>
+        </div>
+      </div>
+
+</>
   );
 }

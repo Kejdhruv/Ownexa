@@ -3,7 +3,7 @@ import "../../Styles/Components/Navbar.css";
 import { User } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 
-export default function Navbar() {
+const Navbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated, loading } = useAuth();
 
@@ -76,4 +76,6 @@ export default function Navbar() {
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;

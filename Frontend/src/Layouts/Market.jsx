@@ -4,7 +4,6 @@ import { Outlet } from "react-router-dom";
 export default function MarketLayout() {
   return (
     <div className="market-layout">
-      <Navbar />
       <Outlet />
     </div>
   );

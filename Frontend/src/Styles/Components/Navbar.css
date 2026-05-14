@@ -5,8 +5,8 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
-  margin-bottom: 8px;
-  pointer-events: none;
+  pointer-events: none; 
+  background-color: transparent ;
   /* important */
 }
 
@@ -22,30 +22,30 @@
 
   padding: 0 22px;
 
-  background: rgba(15, 17, 22, 0.72);
+  background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(18px);
 
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(7, 26, 63, 0.08);
 
   box-shadow:
-    0 18px 50px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    0 18px 50px rgba(19, 52, 105, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* BAR HOVER (VERY SUBTLE) */
 .market-navbar-inner:hover {
-  background: rgba(15, 17, 22, 0.82);
+  background: rgba(255, 255, 255, 0.88);
 }
 
 /* LOGO */
 .nav-logo {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 850;
   letter-spacing: 0.12em;
-  color: #f9fafb;
+  color: #071a3f;
 }
 
 /* LINKS */
@@ -58,8 +58,8 @@
 .nav-item {
   position: relative;
   font-size: 14px;
-  font-weight: 500;
-  color: #9ca3af;
+  font-weight: 700;
+  color: rgba(7, 26, 63, 0.54);
   text-decoration: none;
 
   padding: 6px 0;
@@ -76,7 +76,7 @@
   width: 0%;
   height: 2px;
 
-  background: #22c55e;
+  background: #2464d5;
   border-radius: 999px;
 
   transform: translateX(-50%);
@@ -85,23 +85,23 @@
 
 /* HOVER EFFECT (THIS IS THE STAR) */
 .nav-item:hover {
-  color: #e5e7eb;
+  color: #071a3f;
 }
 
 .nav-item:hover::after {
   width: 100%;
-  box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+  box-shadow: 0 0 10px rgba(36, 100, 213, 0.28);
 }
 
 /* ACTIVE STATE */
 .nav-item.active {
-  color: #f9fafb;
-  font-weight: 600;
+  color: #071a3f;
+  font-weight: 850;
 }
 
 .nav-item.active::after {
   width: 100%;
-  box-shadow: 0 0 12px rgba(34, 197, 94, 0.75);
+  box-shadow: 0 0 12px rgba(36, 100, 213, 0.32);
 }
 
 /* RIGHT BUTTON */
@@ -110,10 +110,10 @@
   padding: 0 14px;
 
   border-radius: 12px;
-  border: 1px solid rgba(34, 197, 94, 0.35);
+  border: 1px solid rgba(36, 100, 213, 0.18);
 
-  background: rgba(34, 197, 94, 0.08);
-  color: #22c55e;
+  background: rgba(36, 100, 213, 0.08);
+  color: #2464d5;
 
   font-size: 13px;
   font-weight: 600;
@@ -123,8 +123,8 @@
 }
 
 .wallet-btn:hover {
-  background: rgba(34, 197, 94, 0.14);
-  box-shadow: 0 0 14px rgba(34, 197, 94, 0.35);
+  background: rgba(36, 100, 213, 0.14);
+  box-shadow: 0 0 14px rgba(36, 100, 213, 0.2);
 }
 
 /* LOGIN BUTTON */
