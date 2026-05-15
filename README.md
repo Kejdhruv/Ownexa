@@ -37,34 +37,34 @@ Traditional real-estate investing is often capital intensive, slow, and geograph
 
 ## Project Screenshots
 
-### 🏠 Dashboard & Property Listings
+### 🏠 Home & Landing Page
 
 | | |
 |---|---|
-| ![](assets/Screenshot-206.png) | ![](assets/Screenshot-207.png) |
-| ![](assets/Screenshot-208.png) | ![](assets/Screenshot-209.png) |
+| ![](assets/home.png) | ![](assets/home2.png) |
+| ![](assets/home3.png) | ![](assets/login.png) |
 
 ---
 
-### 💼 User Profile & Transactions
+### 💼 User Profile & Dashboard
 
 | | |
 |---|---|
-| ![](assets/Screenshot-210.png) | ![](assets/Screenshot-211.png) |
-| ![](assets/Screenshot-212.png) | ![](assets/Screenshot-213.png) |
+| ![](assets/home.png) | ![](assets/home2.png) |
+| ![](assets/home3.png) | ![](assets/home3.png) |
 
 ---
 
-### 🛠 Admin Panel
+### 🔗 Market and Listings
 
 | | |
 |---|---|
-| ![](assets/Screenshot-214.png) | ![](assets/Screenshot-215.png) |
-| ![](assets/Screenshot-216.png) | ![](assets/Screenshot-217.png) |
+| ![](assets/market1.png) | ![](assets/market2.png) |
+| ![](assets/market3.png) | 
 
 ---
 
-### 🔗 Blockchain & System
+### 🛠  Admin Panel
 
 | | |
 |---|---|
