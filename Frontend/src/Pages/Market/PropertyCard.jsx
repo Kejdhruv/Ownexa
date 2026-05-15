@@ -316,7 +316,7 @@ export default function PropertyCard() {
             </div>
             
             <div className="ft-trade-form">
-              <div className="ft-input-group">
+              <div className="ft-input-group1">
                 <label>Investment Quantity (Tokens)</label>
                 <div className="ft-input-wrapper">
                   <input
