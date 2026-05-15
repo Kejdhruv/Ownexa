@@ -176,7 +176,7 @@ export default function PrimaryMarket() {
  
                   {/* Body */}
                   <div className="asset-info">
-                    <h3 className="asset-title">{property.title}</h3>
+                    <h3 className="asset-title1">{property.title}</h3>
                     <p className="asset-location">
                       <MapPin size={12} />
                       {property.city}, {property.state}

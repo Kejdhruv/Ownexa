@@ -373,13 +373,14 @@
   gap: 0;
 }
 
-.asset-title {
+.asset-title1 {
   margin: 0 0 3px;
   font-family: var(--ff-head);
   font-size: 14px;
   font-weight: 700;
   line-height: 1.25;
   color: var(--ink);
+  color: black;
   letter-spacing: -0.02em;
   white-space: nowrap;
   overflow: hidden;
