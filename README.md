@@ -50,8 +50,8 @@ Traditional real-estate investing is often capital intensive, slow, and geograph
 
 | | |
 |---|---|
-| ![](assets/home.png) | ![](assets/home2.png) |
-| ![](assets/home3.png) | ![](assets/home3.png) |
+| ![](assets/dashboard1.png) | ![](assets/dashboard2.png) |
+| ![](assets/dashboard3.png) | ![](assets/dashboard3.png) |
 
 ---
 
