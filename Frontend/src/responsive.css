@@ -174,18 +174,22 @@ footer,
 }
 
 .auth-page-wrapper {
-  min-height: 100svh;
-  height: auto;
+  height: 100vh;
+  min-height: 100vh;
   width: 100%;
+  overflow: hidden;
 }
 
 .auth-left-pane {
   min-width: 0;
-  padding: clamp(22px, 4vw, 40px);
+  height: 100%;
+  padding: clamp(18px, 3vw, 32px);
+  overflow: hidden;
 }
 
 .auth-form-container {
   width: min(100%, 420px);
+  max-height: 100%;
 }
 
 .auth-right-pane {
@@ -305,16 +309,21 @@ footer,
 }
 
 .hero-left {
-  max-width: min(60%, 560px);
+  max-width: min(52%, 540px);
   padding-left: clamp(24px, 4vw, 48px);
+  position: relative;
+  z-index: 2;
 }
 
 .hero-left h1 {
-  font-size: clamp(34px, 3.6vw, 48px);
+  font-size: clamp(30px, 3.2vw, 52px);
+  line-height: 1.08;
+  max-width: 14ch;
 }
 
 .hero-avatar {
   right: clamp(20px, 4vw, 48px);
+  bottom: -18px;
 }
 
 .hero-avatar img {
@@ -409,7 +418,8 @@ footer,
   .auth-page-wrapper {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    overflow-y: auto;
+    height: 100vh;
+    overflow: hidden;
   }
 
   .auth-right-pane {
@@ -417,7 +427,8 @@ footer,
   }
 
   .auth-left-pane {
-    min-height: 100svh;
+    height: 100vh;
+    min-height: 100vh;
   }
 
   .pm-body,
@@ -560,9 +571,14 @@ footer,
     padding: 28px 24px 0;
   }
 
+  .hero-left h1 {
+    font-size: clamp(28px, 8vw, 42px);
+    max-width: 100%;
+  }
+
   .hero-avatar {
-    right: 16px;
-    bottom: 22px;
+    right: 12px;
+    bottom: 8px;
   }
 
   .metrics-strip {
@@ -694,8 +710,8 @@ footer,
   }
 
   .hero-card {
-    min-height: 520px;
-    padding-bottom: 210px;
+    min-height: 560px;
+    padding-bottom: 240px;
   }
 
   .hero-avatar img {
