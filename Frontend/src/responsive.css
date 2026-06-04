@@ -111,31 +111,33 @@ footer,
 .admin-freeze-grid,
 .admin-card-grid,
 .property-list-grid {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-min, 280px)), 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min, 320px), var(--card-min, 320px)));
+  justify-content: start;
 }
 
 .property-grid {
-  --card-min: 252px;
+  --card-min: 320px;
 }
 
 .sec-grid {
-  --card-min: 280px;
+  --card-min: 320px;
 }
 
 .pp-grid {
-  --card-min: 290px;
+  --card-min: 340px;
 }
 
 .port-grid {
-  --card-min: 300px;
+  --card-min: 340px;
 }
 
 .lst-grid {
-  --card-min: 300px;
+  --card-min: 340px;
 }
 
 .transaction-grid {
-  --card-min: 260px;
+  --card-min: 340px;
 }
 
 .admin-freeze-grid {
