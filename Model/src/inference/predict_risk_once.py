@@ -26,7 +26,8 @@ from Database.supabase_client import supabaseAuth
 # Load Model
 # -----------------------
 
-risk_model = joblib.load("models/risk_profile_model.pkl")
+MODEL_PATH = os.path.join(ROOT_DIR, "models", "risk_profile_model.pkl")
+risk_model = joblib.load(MODEL_PATH)
 
 
 # -----------------------

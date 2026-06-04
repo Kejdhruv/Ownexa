@@ -21,6 +21,45 @@ const authCookieOptions = {
   path: "/"
 };
 
+const buildMlPayload = (user) => ({
+  id: String(user.id),
+  age: Number(user.age || 0),
+  income: Number(user.income || 0),
+  investment_amount: Number(user.investment_amount || 0),
+  investment_duration: Number(user.investment_duration || 0),
+});
+
+const updateUserRiskProfile = async (user) => {
+  const response = await fetch(`${mlApiUrl}/recommend`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(buildMlPayload(user)),
+  });
+
+  const responseText = await response.text();
+  let responseBody = null;
+
+  if (responseText) {
+    try {
+      responseBody = JSON.parse(responseText);
+    } catch {
+      responseBody = responseText;
+    }
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      `ML API returned ${response.status}: ${
+        typeof responseBody === "string" ? responseBody : JSON.stringify(responseBody)
+      }`
+    );
+  }
+
+  return responseBody;
+};
+
 /* User SignUp - Does NOT set cookies or log in */
 router.post("/auth/signup", async (req, res) => {
   try {
@@ -42,7 +81,6 @@ router.post("/auth/signup", async (req, res) => {
     // ------------------------
     // 1. Create User
     // ------------------------
-    console.log(annual_income);
     const user = await CreateUser({
       Email,
       Password,
@@ -59,24 +97,14 @@ router.post("/auth/signup", async (req, res) => {
     // 2. Call ML API
     // ------------------------
 
+    let userWithRiskProfile = user;
+
     try {
-      await fetch(`${mlApiUrl}/recommend`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: String(user.id),
-
-          age: Number(user.age || 0),
-
-          income: Number(user.annual_income || 0),
-
-          investment_amount: Number(user.investment_amount || 0),
-
-          investment_duration: Number(user.investment_duration || 0),
-        }),
-      });
+      const riskResult = await updateUserRiskProfile(user);
+      userWithRiskProfile = {
+        ...user,
+        risk_label: riskResult?.risk_profile ?? riskResult?.risk_label ?? user.risk_label,
+      };
     } catch (mlErr) {
       console.error("ML API Error:", mlErr.message);
       // Don't block signup if ML fails
@@ -88,7 +116,7 @@ router.post("/auth/signup", async (req, res) => {
 
     return res.status(201).json({
       message: "User created successfully. Please log in.",
-      user,
+      user: userWithRiskProfile,
     });
 
   } catch (err) {
