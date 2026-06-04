@@ -5,6 +5,8 @@ import "../Styles/Components/Home.css";
 import OwnexaFooter from "./Market/footer";
 import Navbar from "./Market/Navbar";
 
+const API = import.meta.env.VITE_API_BASE;
+
 export default function Home() {
   const navigate = useNavigate();
   const [stats, setStats] = useState(null);
@@ -12,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch("http://localhost:4000/public/stats");
+        const res = await fetch(`${API}/public/stats`);
         const data = await res.json();
         setStats(data);
       } catch (err) {
