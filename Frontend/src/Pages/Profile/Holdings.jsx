@@ -9,9 +9,9 @@ import SortBar from "../../Components/Dashboard/Filter";
 
 import PropertyTokenABI from "../../abi/PropertyToken.json"
 import ReactorOrbitLoader from "../../Components/Loaders/ProfileLoader";
+import { assertContractAddress } from "../../config/blockchain";
 const ETH_INR = 300000;
 const API = import.meta.env.VITE_API_BASE;
-const CONTRACT_ADDRESS = import.meta.env.VITE_SMART_CONTRACT;
 
 export default function HoldingsPage() {
   const [loading, setLoading] = useState(true);
@@ -56,7 +56,7 @@ export default function HoldingsPage() {
     const signer = await provider.getSigner();
 
     return new ethers.Contract(
-      CONTRACT_ADDRESS,
+      assertContractAddress(),
       PropertyTokenABI,
       signer
     );

@@ -8,9 +8,9 @@ import "../../Styles/Profile/Properties.css";
 
 import SortBar from "../../Components/Dashboard/Filter";
 import ReactorOrbitLoader from "../../Components/Loaders/ProfileLoader";
+import { assertContractAddress } from "../../config/blockchain";
 
 const API = import.meta.env.VITE_API_BASE;
-const CONTRACT_ADDRESS = import.meta.env.VITE_SMART_CONTRACT;
 
 export default function PropertiesPage() {
   const [loading, setLoading] = useState(true);
@@ -32,7 +32,7 @@ export default function PropertiesPage() {
     const account = await signer.getAddress();
 
     const contract = new ethers.Contract(
-      CONTRACT_ADDRESS,
+      assertContractAddress(),
       // IMPORTANT: most Hardhat/Foundry ABIs are in .abi
       PropertyTokenABI.abi ?? PropertyTokenABI,
       signer

@@ -6,9 +6,9 @@ import { ethers } from "ethers";
 
 import PropertyTokenABI from "../../abi/PropertyToken.json";
 import "../../Styles/Admin/AdminPropertyPage.css"
+import { assertContractAddress } from "../../config/blockchain";
 
 const API = import.meta.env.VITE_API_BASE;
-const CONTRACT_ADDRESS = import.meta.env.VITE_SMART_CONTRACT;
 
 export default function AdminPropertyPage() {
   const { id } = useParams();
@@ -101,7 +101,7 @@ export default function AdminPropertyPage() {
       const signer = await provider.getSigner();
 
       const contract = new ethers.Contract(
-        CONTRACT_ADDRESS,
+        assertContractAddress(),
         PropertyTokenABI,
         signer
       );

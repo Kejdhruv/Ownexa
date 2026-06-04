@@ -9,8 +9,8 @@ import "../../Styles/Market/PropertyCard.css";
 import TxLoader from "../../Components/Loaders/TxLoader";
 import MarketLoader from "../../Components/Loaders/MarketLoader";
 import Navbar from "../../Components/Market/Navbar";
+import { assertContractAddress } from "../../config/blockchain";
 const API = import.meta.env.VITE_API_BASE;
-const CONTRACT_ADDRESS = import.meta.env.VITE_SMART_CONTRACT;
 
 const ETH_INR = 300000; // keep configurable
 
@@ -89,7 +89,7 @@ export default function PropertyCard() {
       const totalPriceWei = basePriceWei + commissionWei;
       const value = totalPriceWei;
       const contract = new ethers.Contract(
-        CONTRACT_ADDRESS,
+        assertContractAddress(),
         PropertyTokenABI,
         signer
       );
@@ -170,7 +170,7 @@ export default function PropertyCard() {
       const totalPriceWei = basePriceWei + commissionWei;
 
       const contract = new ethers.Contract(
-        CONTRACT_ADDRESS,
+        assertContractAddress(),
         PropertyTokenABI,
         signer
       );
