@@ -23,6 +23,7 @@ import Review from "./Pages/Admin/Review";
 import AdminAnalytics from "./Pages/Admin/AdminAnalytics";
 import NotFound from "./Components/Extra/NotFound";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import "./responsive.css";
 
 /** Forces scroll to top on refresh + route changes */
 function ScrollManager() {

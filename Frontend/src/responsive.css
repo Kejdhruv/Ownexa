@@ -1,0 +1,743 @@
+/* Final responsive pass.
+   The existing page CSS defines the visual identity; these rules only make it scale safely. */
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body,
+#root {
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+  font: inherit;
+}
+
+main,
+section,
+article,
+aside,
+header,
+footer,
+[class*="page"],
+[class*="Page"],
+[class*="layout"],
+[class*="Layout"],
+[class*="container"],
+[class*="grid"],
+[class*="card"],
+[class*="panel"] {
+  min-width: 0;
+}
+
+.dashboard-content {
+  width: min(100%, calc(100vw - 120px));
+  min-width: 0;
+  padding: clamp(20px, 2.5vw, 32px);
+}
+
+.market-layout,
+.primary-page,
+.sec-page,
+.ft-page,
+.auth-page-wrapper,
+.Home,
+.dashboard-layout,
+.admin-dashboard,
+.add-property-page,
+.pp-page,
+.port-page,
+.lst-page,
+.transaction-page,
+.admin-freeze-page,
+.property-page {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.pm-inner,
+.sec-layout,
+.ft-container,
+.footer-container,
+.Home-insightsHeader,
+.Home-insightsPanel,
+.Home-discoverCard,
+.property-container {
+  width: min(100%, var(--page-max, 1340px));
+}
+
+.pm-inner {
+  --page-max: 1340px;
+  padding-inline: clamp(16px, 2.6vw, 28px);
+}
+
+.sec-layout,
+.ft-container {
+  --page-max: 1300px;
+}
+
+.footer-container {
+  --page-max: 1300px;
+}
+
+.property-container {
+  --page-max: 1200px;
+}
+
+.property-grid,
+.sec-grid,
+.pp-grid,
+.port-grid,
+.lst-grid,
+.transaction-grid,
+.admin-freeze-grid,
+.admin-card-grid,
+.property-list-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-min, 280px)), 1fr));
+}
+
+.property-grid {
+  --card-min: 252px;
+}
+
+.sec-grid {
+  --card-min: 280px;
+}
+
+.pp-grid {
+  --card-min: 290px;
+}
+
+.port-grid {
+  --card-min: 300px;
+}
+
+.lst-grid {
+  --card-min: 300px;
+}
+
+.transaction-grid {
+  --card-min: 260px;
+}
+
+.admin-freeze-grid {
+  --card-min: 300px;
+}
+
+.admin-card-grid {
+  --card-min: 280px;
+}
+
+.market-navbar {
+  padding-inline: clamp(10px, 2vw, 16px);
+}
+
+.market-navbar-inner {
+  width: min(1200px, 100%);
+  gap: clamp(10px, 2vw, 26px);
+}
+
+.nav-logo,
+.nav-right {
+  flex-shrink: 0;
+}
+
+.nav-links {
+  min-width: 0;
+  gap: clamp(12px, 2vw, 26px);
+}
+
+.nav-item,
+.wallet-btn,
+.login-btn {
+  white-space: nowrap;
+}
+
+.auth-page-wrapper {
+  min-height: 100svh;
+  height: auto;
+  width: 100%;
+}
+
+.auth-left-pane {
+  min-width: 0;
+  padding: clamp(22px, 4vw, 40px);
+}
+
+.auth-form-container {
+  width: min(100%, 420px);
+}
+
+.auth-right-pane {
+  min-width: 0;
+}
+
+.auth-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Home-hero {
+  min-height: clamp(680px, calc(132svh - 86px), 1080px);
+}
+
+.Home-bungalow {
+  width: clamp(980px, 112vw, 1460px);
+}
+
+.Home-insights,
+.Home-discover {
+  padding-inline: clamp(16px, 6vw, 152px);
+}
+
+.Home-insightsPanel,
+.Home-discoverCard {
+  margin-inline: auto;
+}
+
+.Home-statsCanvas,
+.Home-insightsList,
+.Home-discoverCard {
+  min-width: 0;
+}
+
+.pm-body,
+.sec-layout,
+.content-grid,
+.add-property-page,
+.property-layout {
+  grid-template-columns: minmax(0, var(--left-col, 1fr)) minmax(0, var(--right-col, 1fr));
+}
+
+.pm-body {
+  --left-col: 220px;
+  --right-col: 1fr;
+}
+
+.sec-layout {
+  --left-col: 260px;
+  --right-col: 1fr;
+}
+
+.content-grid {
+  --left-col: 2fr;
+  --right-col: 1fr;
+}
+
+.add-property-page,
+.property-layout {
+  --left-col: 1fr;
+  --right-col: 1fr;
+}
+
+.pm-main,
+.sec-main-content,
+.ft-asset-panel,
+.ft-trading-panel,
+.property-left,
+.property-right,
+.form-panel,
+.preview-panel {
+  min-width: 0;
+}
+
+.ft-trading-panel,
+.pm-sidebar,
+.sec-sidebar {
+  align-self: start;
+}
+
+.ft-layout {
+  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 1fr);
+}
+
+.ft-gallery {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ft-order-book,
+.ft-order-list,
+.tx-list {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.ft-order-header,
+.ft-order-row {
+  grid-template-columns: minmax(84px, 1fr) minmax(74px, 1fr) minmax(74px, auto);
+}
+
+.form-grid,
+.admin-form-row,
+.token-fields-vertical {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.full,
+.SubmitBtn {
+  grid-column: 1 / -1;
+}
+
+.hero-card {
+  min-height: clamp(420px, 38vw, 480px);
+  max-height: none;
+}
+
+.hero-left {
+  max-width: min(60%, 560px);
+  padding-left: clamp(24px, 4vw, 48px);
+}
+
+.hero-left h1 {
+  font-size: clamp(34px, 3.6vw, 48px);
+}
+
+.hero-avatar {
+  right: clamp(20px, 4vw, 48px);
+}
+
+.hero-avatar img {
+  width: clamp(220px, 24vw, 300px);
+}
+
+.metrics-strip {
+  margin-left: clamp(20px, 4vw, 40px);
+  max-width: min(420px, calc(100% - 40px));
+}
+
+.tx-row,
+.preview-list li,
+.property-preview-list li,
+.ft-header,
+.ft-card-header,
+.pp-footer,
+.asset-footer,
+.lst-card-footer,
+.transaction-card-footer,
+.admin-header,
+.property-header {
+  min-width: 0;
+}
+
+.tx-title,
+.tx-sub,
+.tx-price,
+.property-title,
+.asset-title,
+.pp-name,
+.lst-name,
+.transaction-token-name,
+.ft-title,
+.sec-title,
+.asset-title1 {
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 1440px) {
+  .dashboard-content {
+    padding-inline: clamp(32px, 4vw, 56px);
+  }
+
+  .Home-copy h1,
+  .Home-copy p,
+  .pm-inner,
+  .sec-layout,
+  .ft-container,
+  .footer-container {
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 1180px) {
+  .ft-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ft-trading-panel {
+    position: static;
+  }
+
+  .content-grid,
+  .property-layout,
+  .add-property-page {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width-card {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .dashboard-content {
+    width: 100%;
+    margin-left: 0;
+    padding: 88px clamp(16px, 3.2vw, 28px) 28px;
+  }
+
+  .sidebar {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+  }
+
+  .sidebar button {
+    flex: 0 0 42px;
+  }
+
+  .auth-page-wrapper {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow-y: auto;
+  }
+
+  .auth-right-pane {
+    display: none;
+  }
+
+  .auth-left-pane {
+    min-height: 100svh;
+  }
+
+  .pm-body,
+  .sec-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .pm-sidebar,
+  .sec-sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+    gap: 12px;
+  }
+
+  .admin-dashboard,
+  .admin-freeze-page,
+  .property-page,
+  .pp-page,
+  .port-page,
+  .lst-page,
+  .transaction-page {
+    padding: clamp(18px, 3.5vw, 32px);
+  }
+}
+
+@media (max-width: 768px) {
+  .market-navbar {
+    top: 10px;
+  }
+
+  .market-navbar-inner {
+    height: auto;
+    min-height: 54px;
+    padding: 10px 12px;
+    border-radius: 14px;
+  }
+
+  .nav-logo {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+
+  .wallet-btn,
+  .login-btn {
+    height: 34px;
+    padding-inline: 10px;
+    font-size: 12px;
+  }
+
+  .Home-hero {
+    min-height: clamp(620px, 112svh, 780px);
+  }
+
+  .Home-copy h1 {
+    font-size: clamp(32px, 10vw, 44px);
+  }
+
+  .Home-copy p {
+    font-size: clamp(14px, 4vw, 16px);
+  }
+
+  .Home-bungalow {
+    width: clamp(620px, 156vw, 980px);
+  }
+
+  .Home-insights,
+  .Home-discover {
+    padding-inline: 14px;
+  }
+
+  .market-page-header,
+  .sec-content-header,
+  .ft-header,
+  .admin-header,
+  .property-header,
+  .pp-header,
+  .port-header,
+  .lst-header,
+  .transaction-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .pm-header-stats,
+  .ft-header-badges,
+  .header-actions,
+  .wallet-actions,
+  .action-row,
+  .admin-freeze-btnRow,
+  .asset-actions,
+  .ft-modal-actions,
+  .pp-modal-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .pm-header-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pm-chip {
+    min-width: 0;
+    padding-inline: 10px;
+  }
+
+  .ft-card,
+  .form-panel,
+  .preview-panel,
+  .card,
+  .admin-dashboard .admin-analytics-card,
+  .admin-stat-card,
+  .admin-freeze-card {
+    padding: clamp(16px, 4vw, 22px);
+  }
+
+  .ft-gallery {
+    grid-auto-rows: clamp(88px, 25vw, 120px);
+  }
+
+  .asset-metrics,
+  .pp-metric-grid,
+  .transaction-metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .asset-metrics.double,
+  .transaction-metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card {
+    padding-bottom: 170px;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    max-width: 100%;
+    padding: 28px 24px 0;
+  }
+
+  .hero-avatar {
+    right: 16px;
+    bottom: 22px;
+  }
+
+  .metrics-strip {
+    margin: 28px 20px 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 14px;
+  }
+
+  .tx-row,
+  .property-preview-list li,
+  .preview-list li,
+  .ft-order-row {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .dashboard-content {
+    padding: 82px 12px 22px;
+  }
+
+  .pm-inner,
+  .sec-page,
+  .ft-page {
+    padding-inline: 12px;
+  }
+
+  .property-grid,
+  .sec-grid,
+  .pp-grid,
+  .port-grid,
+  .lst-grid,
+  .transaction-grid,
+  .admin-freeze-grid,
+  .admin-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pm-header-stats,
+  .ft-header-badges,
+  .form-grid,
+  .admin-form-row,
+  .token-fields-vertical,
+  .asset-metrics,
+  .pp-metric-grid,
+  .transaction-metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gender-group-light,
+  .Home-ctaRow,
+  .footer-subscribe,
+  .tx-row,
+  .tx-right,
+  .ft-card-header,
+  .ft-order-header,
+  .ft-order-row,
+  .pp-footer,
+  .asset-footer,
+  .lst-card-footer,
+  .transaction-card-footer,
+  .admin-freeze-card-bottom,
+  .action-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tx-amount,
+  .transaction-text-right,
+  .ft-align-right {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .ft-order-header,
+  .ft-order-row {
+    display: flex;
+  }
+
+  .ft-order-action,
+  .ft-btn-secondary,
+  .ft-btn-primary,
+  .SubmitBtn,
+  .mint-btn,
+  .reject-btn,
+  .btn-trade,
+  .btn-redeem,
+  .pp-btn-liquidate,
+  .lst-btn-cancel,
+  .transaction-link-btn,
+  .admin-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .auth-left-pane {
+    padding: 22px 16px;
+    align-items: flex-start;
+  }
+
+  .auth-brand-header {
+    margin-bottom: 28px;
+  }
+
+  .auth-headings h2 {
+    font-size: clamp(26px, 8vw, 32px);
+  }
+
+  .auth-form-extras {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .Home-softSquare,
+  .Home-coin {
+    opacity: 0.42;
+  }
+
+  .Home-insightsList,
+  .Home-statsCanvas {
+    padding: 18px;
+  }
+
+  .Home-mapPrice {
+    max-width: 42%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .hero-card {
+    min-height: 520px;
+    padding-bottom: 210px;
+  }
+
+  .hero-avatar img {
+    width: min(220px, 62vw);
+  }
+
+  .metrics-strip {
+    grid-template-columns: 1fr;
+    max-width: calc(100% - 32px);
+    margin-inline: 16px;
+  }
+
+  .card-header,
+  .asset-head,
+  .pp-head-info,
+  .lst-head-info,
+  .transaction-asset-info,
+  .sec-title-row {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .market-navbar-inner {
+    padding-inline: 10px;
+  }
+
+  .wallet-btn,
+  .login-btn {
+    padding-inline: 8px;
+  }
+
+  .nav-logo {
+    font-size: 12px;
+  }
+
+  .Home-copy h1,
+  .market-page-header h1,
+  .ft-title,
+  .admin-header h2,
+  .pp-title,
+  .port-title,
+  .lst-title,
+  .transaction-title {
+    overflow-wrap: anywhere;
+  }
+}
