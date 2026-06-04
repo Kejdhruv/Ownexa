@@ -60,10 +60,11 @@ The app is bootstrapped in [`server.js`](/Users/dhruv/Blockchain/Ownexa/Backend/
 
 Important runtime behavior:
 
-- Express listens on port `4000`
-- CORS currently allows `http://localhost:5173`
+- Express listens on `process.env.PORT` and falls back to `4000` locally
+- CORS allows origins from `FRONTEND_ORIGIN`, with `http://localhost:5173` as the local default
 - JSON request bodies are enabled
 - `cookie-parser` is enabled
+- `GET /health` returns a lightweight health check for Render
 - all route modules are mounted at `/`
 
 ## Authentication Model
@@ -86,6 +87,8 @@ Create `Backend/.env` with:
 SUPABASE_URL=your_supabase_project_url
 SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+FRONTEND_ORIGIN=http://localhost:5173
+ML_API_URL=http://127.0.0.1:8000
 NODE_ENV=development
 ```
 
@@ -94,7 +97,53 @@ NODE_ENV=development
 - `SUPABASE_URL`: project URL for auth, database, and storage access
 - `SUPABASE_ANON_KEY`: used by [`Database/SupabaseAuthClient.js`](/Users/dhruv/Blockchain/Ownexa/Backend/Database/SupabaseAuthClient.js)
 - `SUPABASE_SERVICE_ROLE_KEY`: used by [`Database/SupabaseClient.js`](/Users/dhruv/Blockchain/Ownexa/Backend/Database/SupabaseClient.js) for database and storage operations
-- `NODE_ENV`: controls secure cookie behavior in login/logout routes
+- `FRONTEND_ORIGIN`: comma-separated allowed frontend origins for credentialed CORS
+- `ML_API_URL`: base URL of the ML API used during signup
+- `NODE_ENV`: controls production cookie behavior in login/logout routes
+
+## Deploy On Render
+
+The repository includes [`render.yaml`](/Users/dhruv/Blockchain/Ownexa/render.yaml) for a Render Blueprint deployment.
+
+### Blueprint Deployment
+
+1. Push the repository to GitHub.
+2. In Render, create a new Blueprint from the repository.
+3. Render will use:
+   - root directory: `Backend`
+   - build command: `npm ci`
+   - start command: `npm start`
+   - health check path: `/health`
+4. Add the secret environment variables when Render asks for them.
+
+### Manual Render Web Service
+
+If creating the service manually, use:
+
+```text
+Runtime: Node
+Root Directory: Backend
+Build Command: npm ci
+Start Command: npm start
+Health Check Path: /health
+```
+
+Set these Render environment variables:
+
+```env
+NODE_ENV=production
+FRONTEND_ORIGIN=https://your-frontend-domain.com
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+ML_API_URL=https://your-ml-api-domain.com
+```
+
+Render provides `PORT` automatically, so do not set it yourself.
+
+For deployed frontend auth, keep frontend requests credentialed, for example `fetch(url, { credentials: "include" })` or `axios` with `withCredentials: true`. In production the backend sets the auth cookie as `SameSite=None; Secure` so it can work between the deployed frontend domain and the Render API domain.
+
+If the ML API is not deployed yet, signup still succeeds; the backend logs the ML error and continues.
 
 ## Install And Run
 

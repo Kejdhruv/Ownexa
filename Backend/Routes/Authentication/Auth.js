@@ -9,6 +9,18 @@ import { getAuthUser } from "../../Middleware/Middleware.js";
 const router = express.Router();
 router.use(cookieParser());
 
+const mlApiUrl = (process.env.ML_API_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
+const isProduction = process.env.NODE_ENV === "production";
+const cookieSameSite = process.env.COOKIE_SAME_SITE || (isProduction ? "none" : "lax");
+const cookieSecure = isProduction || cookieSameSite === "none";
+
+const authCookieOptions = {
+  httpOnly: true,
+  secure: cookieSecure,
+  sameSite: cookieSameSite,
+  path: "/"
+};
+
 /* User SignUp - Does NOT set cookies or log in */
 router.post("/auth/signup", async (req, res) => {
   try {
@@ -48,7 +60,7 @@ router.post("/auth/signup", async (req, res) => {
     // ------------------------
 
     try {
-      await fetch("http://127.0.0.1:8000/recommend", {
+      await fetch(`${mlApiUrl}/recommend`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -99,12 +111,7 @@ router.post("/auth/login", async (req, res) => {
     const { session } = await LoginUser({ Email, Password });
 
     // Set access token cookie (Supabase manages the session)
-    res.cookie("sb-access-token", session.access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax", 
-      path: "/"
-    });
+    res.cookie("sb-access-token", session.access_token, authCookieOptions);
 
     return res.status(200).json({
       message: "Login successful"
@@ -120,12 +127,7 @@ router.post("/auth/login", async (req, res) => {
 /* User Logout - Stateless, only clears cookie */
 router.get("/auth/logout", async (req, res) => {
   // Clear access token cookie
-  res.clearCookie("sb-access-token", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/"
-  });
+  res.clearCookie("sb-access-token", authCookieOptions);
 
   return res.status(200).json({
     message: "Logout successful"
