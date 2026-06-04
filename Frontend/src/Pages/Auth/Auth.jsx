@@ -6,8 +6,31 @@ import "react-toastify/dist/ReactToastify.css";
 import loginimage from "../../assets/login.png"
 
 const API = import.meta.env.VITE_API_BASE;
-const MALE_AVATARS = JSON.parse(import.meta.env.VITE_MALE_AVATARS || "[]");
-const FEMALE_AVATARS = JSON.parse(import.meta.env.VITE_FEMALE_AVATARS || "[]");
+
+const DEFAULT_MALE_AVATARS = [
+  "https://ydfmsiyztdzevkgjxknl.supabase.co/storage/v1/object/public/Avatars/avatar2.png",
+  "https://ydfmsiyztdzevkgjxknl.supabase.co/storage/v1/object/public/Avatars/avatar1.png",
+  "https://ydfmsiyztdzevkgjxknl.supabase.co/storage/v1/object/public/Avatars/avatar5.png",
+  "https://ydfmsiyztdzevkgjxknl.supabase.co/storage/v1/object/public/Avatars/avatar6.png",
+];
+
+const DEFAULT_FEMALE_AVATARS = [
+  "https://ydfmsiyztdzevkgjxknl.supabase.co/storage/v1/object/public/Avatars/avatar3.png",
+  "https://ydfmsiyztdzevkgjxknl.supabase.co/storage/v1/object/public/Avatars/avatar4.png",
+  "https://ydfmsiyztdzevkgjxknl.supabase.co/storage/v1/object/public/Avatars/avatar7.png",
+];
+
+const parseAvatarList = (value, fallback) => {
+  try {
+    const parsed = JSON.parse(value || "[]");
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+const MALE_AVATARS = parseAvatarList(import.meta.env.VITE_MALE_AVATARS, DEFAULT_MALE_AVATARS);
+const FEMALE_AVATARS = parseAvatarList(import.meta.env.VITE_FEMALE_AVATARS, DEFAULT_FEMALE_AVATARS);
 const AuthPage = () => {
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
