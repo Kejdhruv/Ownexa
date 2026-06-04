@@ -1,5 +1,19 @@
 services:
   - type: web
+    name: ownexa-model
+    runtime: python
+    rootDir: Model
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m uvicorn api.ml_api:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+
+  - type: web
     name: ownexa-backend
     runtime: node
     rootDir: Backend

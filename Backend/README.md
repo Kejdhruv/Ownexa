@@ -109,12 +109,11 @@ The repository includes [`render.yaml`](/Users/dhruv/Blockchain/Ownexa/render.ya
 
 1. Push the repository to GitHub.
 2. In Render, create a new Blueprint from the repository.
-3. Render will use:
-   - root directory: `Backend`
-   - build command: `npm ci`
-   - start command: `npm start`
-   - health check path: `/health`
+3. Render will create both services from the blueprint:
+   - `ownexa-model`: Python FastAPI service from `Model`
+   - `ownexa-backend`: Node/Express service from `Backend`
 4. Add the secret environment variables when Render asks for them.
+5. After `ownexa-model` is live, set `ML_API_URL` on `ownexa-backend` to the model service URL, for example `https://ownexa-model.onrender.com`.
 
 ### Manual Render Web Service
 

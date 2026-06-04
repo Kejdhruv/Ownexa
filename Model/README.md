@@ -460,6 +460,39 @@ Local endpoint:
 http://127.0.0.1:8000/recommend
 ```
 
+Health check:
+
+```text
+http://127.0.0.1:8000/health
+```
+
+## Deploy On Render
+
+The top-level [`render.yaml`](/Users/dhruv/Blockchain/Ownexa/render.yaml) includes a Render web service for this model API.
+
+If creating the service manually, use:
+
+```text
+Runtime: Python
+Root Directory: Model
+Build Command: pip install -r requirements.txt
+Start Command: python -m uvicorn api.ml_api:app --host 0.0.0.0 --port $PORT
+Health Check Path: /health
+```
+
+Set these Render environment variables:
+
+```env
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+```
+
+After deployment, set the backend service's `ML_API_URL` to the model service URL, for example:
+
+```env
+ML_API_URL=https://ownexa-model.onrender.com
+```
+
 ## Training Workflow
 
 Recommended order:
@@ -589,7 +622,6 @@ curl -X PUT http://127.0.0.1:8000/recommend \
 
 These are important to know before extending the model service:
 
-- `requirements.txt` currently lists `pandas`, `numpy`, `scikit-learn`, `joblib`, `fastapi`, and `uvicorn`, but `Database/supabase_client.py` also imports `python-dotenv` and `supabase`, so those dependencies should also be installed or added to `requirements.txt`.
 - The endpoint name `/recommend` suggests recommendation output, but the current API only returns a stored risk label.
 - `ml_api.py` loads processed property data on startup but does not currently use it in the endpoint response.
 - `test_models.py` appears outdated or incorrect for the current `predict_and_store_user_risk` function signature, because the live function expects `(user_id, user_input)` but the script calls it with a single argument.

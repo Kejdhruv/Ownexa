@@ -4,3 +4,5 @@ scikit-learn
 joblib
 fastapi
 uvicorn
+python-dotenv
+supabase

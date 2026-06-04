@@ -439,6 +439,8 @@ VITE_FEMALE_AVATARS=["https://example.com/avatar3.png","https://example.com/avat
 SUPABASE_URL=your_supabase_project_url
 SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+FRONTEND_ORIGIN=http://localhost:5173
+ML_API_URL=http://127.0.0.1:8000
 NODE_ENV=development
 ```
 
@@ -455,6 +457,44 @@ PRIVATE_KEY=your_wallet_private_key
 SUPABASE_URL=your_supabase_project_url
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 ```
+
+## Render Deployment
+
+The repository includes [`render.yaml`](/Users/dhruv/Blockchain/Ownexa/render.yaml) for a Render Blueprint deployment.
+
+The blueprint creates:
+
+- `ownexa-model`: Python FastAPI model service from `Model`
+- `ownexa-backend`: Node/Express API from `Backend`
+
+### Model Service Settings
+
+If you create the model service manually on Render, use:
+
+```text
+Runtime: Python
+Root Directory: Model
+Build Command: pip install -r requirements.txt
+Start Command: python -m uvicorn api.ml_api:app --host 0.0.0.0 --port $PORT
+Health Check Path: /health
+```
+
+Set these model environment variables:
+
+```env
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+```
+
+### Backend Link To Model
+
+After the model service is deployed, set this on the backend Render service:
+
+```env
+ML_API_URL=https://your-model-service.onrender.com
+```
+
+Render provides `PORT` automatically for both services, so do not set `PORT` yourself.
 
 ## Local Development Setup
 
@@ -574,7 +614,7 @@ This matters because:
 ## Notes About Current Configuration
 
 - Backend CORS currently allows `http://localhost:5173`.
-- The signup route calls the ML API using a hardcoded local URL: `http://127.0.0.1:8000/recommend`.
+- The signup route calls the ML API using `ML_API_URL`, with `http://127.0.0.1:8000` as the local default.
 - Multer is configured with in-memory file storage and a 10 MB per-file limit.
 - Authentication is driven by a Supabase access token stored in an `httpOnly` cookie named `sb-access-token`.
 
